@@ -1,27 +1,29 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/common/header/Header';
 import Home from './components/home/Home';
 import Events from './components/events/Events';
 import News from './components/news/News';
 import About from './components/about/About';
+import { useState } from 'react';
+import Dashboard from './components/adminPanel/dashboard';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <div className="App">
-  <Router>
-      <div>
-
-      <Header />{/* top navigation*/}
-      <Routes>
-        {/*each url paths.*/}
-      <Route path='/' element={<Home name={"dilshan"}/>} />
-      <Route path='/events' element={<Events/>} />
-      <Route path='/news' element={<News/>} />
-      <Route path='/about' element={<About/>} />
-      </Routes>
-      </div>
-    </Router>
+      <Router>
+        <div>
+          <Header isLoggedIn={isLoggedIn} isAdmin={isLoggedIn}/>
+          <Routes>
+            <Route path='/' element={<Home name={"dilshan"} />} />
+            <Route path='/events' element={<Events />} />
+            <Route path='/news' element={<News />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/admin' element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
