@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from "./Header.module.scss"; 
 
-const Header = () => {
+const Header = ({isAdmin}) => {
 
 
   return (
@@ -11,6 +11,9 @@ const Header = () => {
       <li><a href='/events'>Events</a></li>
       <li><a href='/news'>News</a></li>
       <li><a href='/about'>About</a></li>
+      {isAdmin ? 
+      <li><a href='/admin'>Admin</a></li>
+    : ''}
      </ul>
     </div>
   );
