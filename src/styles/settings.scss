@@ -1,0 +1,12 @@
+$primary-color: #CF4243;
+$secondary-color: #6c757d;
+$font-size-base: 1rem;
+
+body {
+  font-size: $font-size-base;
+}
+
+.label {
+  color: $primary-color;
+  font-size: $font-size-base;
+}
