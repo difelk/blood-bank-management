@@ -96,7 +96,7 @@
     position: relative;
     // align-items: flex-start;
     // height: 200px;
-    // width: 75%;
+    width: 30%;
     // margin-left: 120px;
     margin-right: 4px;
 }
@@ -114,12 +114,12 @@
 }
 .upperImg img{
     height: 200px;
-    width: 300px;
+    // width: 300px;
     padding: 8px;
 }
 .bottomImg img{
     height: 200px;
-    width: 300px;
+    // width: 300px;
     padding: 8px;
 }
 .bottomImg{
@@ -133,7 +133,7 @@
     position: relative;
     // align-items: flex-start;
     // height: 200px;
-    // width: 58%;
+    width: 33%;
     // margin-right: 120px;
     margin-left: 4px;
 }
@@ -168,10 +168,6 @@
     text-align: justify;
     font-size: 12px;
 }
-// .imgContainer {
-//     position: relative;
-//     display: inline-block;
-//   }
 
 // Our achievements
 .ourAchieveBox{
@@ -250,4 +246,100 @@
 .achieveImages{
     height: 65px;
     width: 65px;
+}
+
+// Latest news
+.recentNewsBox{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    width: 100%;
+    // background-color: #d2d2d2;
+    height: 600px;
+}
+.newsImgBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    // margin-bottom: 40px;
+}
+.leftNewsBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+.leftNewsBox img{
+    height: 250px;
+    width: auto;
+}
+.middleNewsBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+.middleNewsBox img{
+    height: 250px;
+    width: auto;
+}
+.rightNewsBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // margin-left: 32px;
+}
+.rightNewsBox img{
+    height: 250px;
+    width: auto;
+}
+.readMoreBtnBox{
+    margin: 12px;
+}
+.readMoreBtn{
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: #CF4243; 
+    color: white; 
+    font-size: 12px; 
+    cursor: pointer;
+}
+.newsTxtBox{
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 8px;
+}
+.newsTxtBox p{
+    text-align: justify;
+    font-size: 12px;
+}
+
+.dateAndBtnBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.dateTag{
+    color: #A8A8A8;
+}
+
+.linkBox:hover{
+    text-decoration: #CF4243;
+}
+.linkBox a{
+    align-items: center;
+    margin-left: 44px;
+    text-decoration: none;
+    color: #6156DB;
+    font-weight: 500;
+    font-size: 14px;
 }

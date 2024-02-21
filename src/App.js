@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/common/header/Header';
+import Footer from './components/common/footer/Footer';
 import Home from './components/home/Home';
 import Events from './components/events/Events';
 import News from './components/news/News';
@@ -22,6 +23,7 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/admin' element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} />
           </Routes>
+          <Footer></Footer>
         </div>
       </Router>
     </div>

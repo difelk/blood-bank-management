@@ -13,6 +13,10 @@ import hospitalImg from "../images/hospital.png";
 import donorImg from "../images/donor.png";
 import bloodImg from "../images/blood.png";
 import calendarImg from "../images/calendar.png";
+import News from "../news/News";
+import news1 from "../images/newsImg.png";
+import news2 from "../images/newsImg.png";
+import news3 from "../images/newsImg.png";
 
 const Home = ({}) => {
   return (
@@ -125,7 +129,8 @@ const Home = ({}) => {
       {/* Our achievments */}
       <div className={Styles.ourAchieveBox}>
         <h2>
-        <span style={{ color: 'white' }}>OUR</span> <span className={Styles.colorTxt}>ACHIEVEMENTS</span>
+          <span style={{ color: "white" }}>OUR</span>{" "}
+          <span className={Styles.colorTxt}>ACHIEVEMENTS</span>
         </h2>
 
         <div className={Styles.mainContainer}>
@@ -184,6 +189,79 @@ const Home = ({}) => {
               <p>AVERAGE EVENTS PER YEAR</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Latest News */}
+      <div className={Styles.recentNewsBox}>
+        <h2>
+          LATEST <span className={Styles.colorTxt}>NEWS</span>
+        </h2>
+
+        {/* New images div */}
+        <div className={Styles.newsImgBox}>
+          {/* Left image div */}
+          <div className={Styles.leftNewsBox}>
+            <img className={Styles.image} src={news1} alt="news1" />
+            <div className={Styles.newsTxtBox}>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna
+              </p>
+              <div className={Styles.dateAndBtnBox}>
+                <p className={Styles.dateTag}>2024/01/28</p>
+                <div className={Styles.linkBox}>
+                  <a href="/news">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Middle image div */}
+          <div className={Styles.middleNewsBox}>
+            <img className={Styles.image} src={news2} alt="news2" />
+            <div className={Styles.newsTxtBox}>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna
+              </p>
+              <div className={Styles.dateAndBtnBox}>
+                <p className={Styles.dateTag}>2024/01/28</p>
+                <div className={Styles.linkBox}>
+                  <a href="/news">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right image div */}
+          <div className={Styles.rightNewsBox}>
+            <img className={Styles.image} src={news3} alt="news3" />
+            <div className={Styles.newsTxtBox}>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna
+              </p>
+              <div className={Styles.dateAndBtnBox}>
+                <p className={Styles.dateTag}>2024/01/28</p>
+                <div className={Styles.readMoreBtnBox}>
+                  <div className={Styles.linkBox}>
+                    <a href="/news">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* News Read More Button */}
+        <div className={Styles.readMoreBtnBox}>
+          <Link to="/news">
+            <button className={Styles.readMoreBtn}>READ MORE</button>
+          </Link>
+          <Routes>
+            <Route path="/news" element={<News />} />
+          </Routes>
         </div>
       </div>
     </div>

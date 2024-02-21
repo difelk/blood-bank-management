@@ -1,0 +1,152 @@
+@import '../../../styles/settings.scss';
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #032E42;
+    position: relative;
+    // width: 100%;
+    // margin: 4px;
+    // padding: 8px;
+}
+
+// Upper div with logo, page links, login and social media
+.pagesLinkHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    // height: 300px;
+    width: 75%;
+    padding: 16px;
+}
+
+// Left div - logo
+.leftLogoBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20%;
+    p{
+        color: #FD5586;
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+.logoImage{
+    height: 50px;
+    width: 50px;
+    margin-left: 12px;
+}
+
+// RIght div - Links
+.middleLinkBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 42%;
+    // margin-left: 24px;
+}
+.middleLinkBox a{
+    align-items: center;
+    margin-left: 44px;
+    text-decoration: none;
+    color: #FFF;
+    font-weight: 500;
+    font-size: 14px;
+}
+// Right box - with login/register and social media links images
+.rightBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.loginBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+.loginBox p{
+    color: #FFFBFB;
+    font-size: 12px;
+    font-weight: 500;
+}
+.socialMediaBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+
+// Bottom div with contact details and news letter submission
+.bottomBox{
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    width: 75%;
+}
+.contactDetailsBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 20%;
+}
+.contactDetailsBox p{
+    margin: 4px;
+    color: #FFF;
+    font-size: 12px;
+}
+
+.newsLetterBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 42%;
+}
+
+.newsLetterBox p{
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+}
+.searchBox{
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden; 
+  }
+.searchInput{
+    // flex: 1; 
+    padding: 10px; 
+    border: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px; 
+    background-color: rgba(217, 217, 217, 0.5);
+}
+.submitBtn{
+    background-color: #FE5A87; 
+    color: #FFF; 
+    font-weight: 500;
+    border: none;
+    padding: 10px 20px; 
+    border-top-right-radius: 20px;
+    border-top-right-radius: 20px; 
+    cursor: pointer; 
+}
+
+.bottomLineBox{
+    display: flex;
+    flex-shrink: 0;
+    background-color: #032636;
+    height: 50px;
+    width: 100%;
+}
+.image{
+    height: 25px;
+    width: 25px;
+    margin-right: 12px;
+}
