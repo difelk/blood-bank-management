@@ -1,5 +1,123 @@
 @import '../../../styles/settings.scss';
 
+// Full header
 .header{
-    color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// Login header box (Dark Green)
+.loginHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #032E42;
+    // margin-left: 10%;
+    // margin-right: 10%;
+    // height: 75px;
+    width: 75%;
+    padding: 16px;
+    // margin: 0 auto;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+// Left box - with phone and email
+.leftBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.leftBox p{
+    color: #FFFBFB;
+    font-size: 12px;
+    font-weight: 500;
+}
+.phoneBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 24px;
+}
+.emailBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+}
+
+// Right box - with login/register and social media links images
+.rightBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.loginBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+.loginBox p{
+    color: #FFFBFB;
+    font-size: 12px;
+    font-weight: 500;
+}
+.socialMediaBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+
+// Pages links div
+.pagesLinkHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    // height: 75px;
+    width: 75%;
+    padding: 8px;
+    // margin: 0 auto;
+}
+
+// Left div - logo
+.leftLogoBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.leftLogoBox p{
+    color: #FD5586;
+    font-size: 12px;
+    font-weight: 500;
+}
+.logoImage{
+    height: 50px;
+    width: 50px;
+}
+
+// RIght div - Links
+.rightLinkBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+.rightLinkBox a{
+    align-items: center;
+    margin-left: 44px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+}
+.image{
+    height: 25px;
+    width: 25px;
+    margin-right: 8px;
 }
