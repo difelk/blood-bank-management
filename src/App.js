@@ -16,7 +16,7 @@ function App() {
         <div>
           <Header isLoggedIn={isLoggedIn} isAdmin={isLoggedIn}/>
           <Routes>
-            <Route path='/' element={<Home name={"dilshan"} />} />
+            <Route path='/' element={<Home />} />
             <Route path='/events' element={<Events />} />
             <Route path='/news' element={<News />} />
             <Route path='/about' element={<About />} />
