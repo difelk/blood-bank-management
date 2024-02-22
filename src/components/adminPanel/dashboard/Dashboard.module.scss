@@ -93,6 +93,7 @@
     width: 100%;
     height: 100%;
     background-color: #6263D5;
+    background-image: linear-gradient(to top, #282994, #3837a4, #4645b4, #5454c4, #6263d5);
     // border-top-right-radius: 12px;
 }
 
@@ -128,6 +129,7 @@
             width: 80%;
             padding: 8px;
             margin: 12px 0;
+            border: none;
         }
 
         a {
@@ -139,10 +141,7 @@
 
         .activeTab {
             background-color: #ffffff;
-            // width: 100%;
             border-radius: 4px;
-            // border-top-left-radius: 50px;
-            // border-bottom-left-radius: 50px;
             box-shadow: 2px 3px 1px 1px #5958583d;
             position: relative;
 
@@ -181,6 +180,7 @@
         border-radius: 10px;
         margin-bottom: 20px;
         padding: 32px;
+        background-image: linear-gradient(to top, #4748c8, #4e4fcb, #5556cf, #5b5cd2, #6263d5);
 
         .taskSummeryWrapper {
             display: flex;
@@ -218,12 +218,15 @@
         }
     }
 
-    .displayChart {
+    .summeryChart {
         height: 200px;
-        background-color: orange;
+        // background-color: orange;
         border-radius: 10px;
         padding: 12px;
-        margin-bottom: 20px;
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+
     }
 
     .subContent {
@@ -354,4 +357,48 @@
 .schedulesBarWrapper {
     background-color: #eff1ff;
     height: 100%;
+}
+
+
+.summeryChartTitle {
+    margin: 21px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+        text-align: left;
+        font-size: 18px;
+        font-weight: 800;
+        margin: 0;
+        font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+        color: #484848;
+    }
+}
+
+.schCardWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .eventsSummery {
+        background-color: #ffffff;
+        border-radius: 8px;
+        margin: 8px 0;
+        height: 280px;
+        width: 100%;
+        padding: 8px;
+    }
+
+    .stockSummery {
+        background-color: #ffffff;
+        border-radius: 8px;
+        margin: 8px 0;
+        height: 220px;
+        width: 100%;
+    }
 }

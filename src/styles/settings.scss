@@ -139,6 +139,10 @@ $xxl: 2500px;
   }
 }
 
+.noMgn {
+  margin: 0 !important;
+}
+
 .mt_5 {
   margin-top: 1.5rem;
 }
@@ -160,4 +164,8 @@ $xxl: 2500px;
 
 .mt_1 {
   margin-top: 0.8rem;
+}
+
+.ml_1 {
+  margin-left: 0.8rem;
 }

@@ -35,6 +35,21 @@ const Schedules = () => {
           </div>
         </div>
       </div>
+
+      <div className={Styles.schCardWrapper}>
+        <div className={Styles.eventsSummery}>
+          <div
+            className={[
+              Styles.summeryChartTitle,
+              Styles.ml_1,
+              Styles.noMgn,
+            ].join(" ")}
+          >
+            <h4>Event Summery</h4>
+          </div>
+        </div>
+        <div className={Styles.stockSummery}></div>
+      </div>
     </div>
   );
 };
