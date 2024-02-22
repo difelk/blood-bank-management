@@ -1,14 +1,14 @@
 @import '../../../styles/settings.scss';
 
 // Full header
-.header{
+.header {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 // Login header box (Dark Green)
-.loginHeader{
+.loginHeader {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,49 +24,96 @@
     border-bottom-right-radius: 12px;
 }
 
+.adminPagesLinkHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    padding: 4px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin: 0 auto;
+}
+
+.adminUserDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .userCred {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            margin: 0;
+        }
+
+        .username {
+            font-size: 12px;
+            font-weight: 500;
+            color: #717171;
+        }
+
+        .email {
+            font-size: 8px;
+
+        }
+    }
+}
+
 // Left box - with phone and email
-.leftBox{
+.leftBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-.leftBox p{
+
+.leftBox p {
     color: #FFFBFB;
     font-size: 12px;
     font-weight: 500;
 }
-.phoneBox{
+
+.phoneBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-right: 24px;
 }
-.emailBox{
+
+.emailBox {
     display: flex;
     flex-direction: row;
-    align-items: center;  
+    align-items: center;
 }
 
 // Right box - with login/register and social media links images
-.rightBox{
+.rightBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-.loginBox{
+
+.loginBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: 24px;
 }
-.loginBox p{
+
+.loginBox p {
     color: #FFFBFB;
     font-size: 12px;
     font-weight: 500;
 }
-.socialMediaBox{
+
+.socialMediaBox {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -74,7 +121,7 @@
 }
 
 // Pages links div
-.pagesLinkHeader{
+.pagesLinkHeader {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -86,37 +133,41 @@
 }
 
 // Left div - logo
-.leftLogoBox{
+.leftLogoBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-.leftLogoBox p{
+
+.leftLogoBox p {
     color: #FD5586;
     font-size: 12px;
     font-weight: 500;
 }
-.logoImage{
+
+.logoImage {
     height: 50px;
     width: 50px;
 }
 
 // RIght div - Links
-.rightLinkBox{
+.rightLinkBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: 24px;
 }
-.rightLinkBox a{
+
+.rightLinkBox a {
     align-items: center;
     margin-left: 44px;
     text-decoration: none;
     color: #000000;
     font-weight: 500;
 }
-.image{
+
+.image {
     height: 25px;
     width: 25px;
     margin-right: 8px;
