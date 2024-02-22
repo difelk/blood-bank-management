@@ -1,0 +1,26 @@
+.imageBox{
+    margin-top: 80px;
+}
+.detailsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 75%;
+    margin: 40px auto;
+
+    p {
+        text-align: justify;
+        // width: 50%;
+        margin: 8px;
+        padding: 0px;
+    }
+
+    h3 {
+        margin: 8px;
+        padding: 0px;
+    }
+}
+.dateAndTimeTag{
+    color: #fe7412;
+    font-weight: 500;
+}
