@@ -1,41 +1,89 @@
+@import "../../../styles/settings.scss";
+
 .dashboardWrapper {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    background-color: #f8f9fb;
+    background-color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
 }
 
 .sectionSideBar {
-    width: 15%;
+    width: 18%;
     background-color: #ffffff;
 
 
     .logowrapper {
         width: 100%;
-        background-color: gray;
         margin-bottom: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 26px 0;
 
         img {
-            width: 120px;
+            width: 60px;
+
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
 
         }
     }
 }
 
 .sectionContent {
-    width: 58%;
+    width: 70%;
     height: 100%;
-    padding: 24px;
+    padding: 20px 38px;
+    background-color: #eff1ff;
 }
 
 .sectionSchedule {
-    width: 27%;
-    height: 100%;
-    background-color: #ffffff;
+    width: 20%;
+    background-color: #eff1ff;
+    padding: 12px;
+
+    .topProfileSection {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 21px 0;
+
+        .notificationDropdown {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+
+            img {
+                width: 30px;
+                height: 30px;
+            }
+
+        }
+
+        .profileNameDisplay {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            // p {
+            //     margin: 0;
+            //     font-size: 16px;
+            //     font-weight: 600;
+            // }
+
+            .viewPrfilDet {
+                margin: 0 8px;
+            }
+        }
+    }
 }
 
 
@@ -44,8 +92,8 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #387af6;
-    border-top-right-radius: 12px;
+    background-color: #6263D5;
+    // border-top-right-radius: 12px;
 }
 
 
@@ -53,7 +101,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px;
     padding-right: 0;
 
 
@@ -64,6 +111,10 @@
         padding: 0;
         width: 100%;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
         img {
             width: 30px;
@@ -88,10 +139,12 @@
 
         .activeTab {
             background-color: #ffffff;
-            width: 100%;
-            border-top-left-radius: 50px;
-            border-bottom-left-radius: 50px;
-            box-shadow: 1px 2px 3px 2px #3172ec;
+            // width: 100%;
+            border-radius: 4px;
+            // border-top-left-radius: 50px;
+            // border-bottom-left-radius: 50px;
+            box-shadow: 2px 3px 1px 1px #5958583d;
+            position: relative;
 
             a {
                 color: #387af6;
@@ -101,10 +154,69 @@
     }
 }
 
+.dashboardTitle {
+    margin: 21px 0;
+
+    h4 {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 800;
+        margin: 0;
+        font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+        color: #484848;
+    }
+}
+
 .contentWrapper {
 
     display: flex;
     flex-direction: column;
+
+
+    .displayChartTaskSch {
+        height: 200px;
+        background-color: #6263D5;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 20px;
+
+        .taskSummeryWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+
+            .desc {
+                color: #ffffff;
+                text-align: left;
+                max-width: 480px;
+
+                h3 {
+                    font-size: 20px;
+                    font-weight: 800;
+                }
+
+                p {
+                    font-size: 14px;
+                    padding: 4px 0;
+                }
+
+                button {
+                    margin: 8px 0;
+                }
+            }
+
+            .descImg {
+                width: 200px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
 
     .displayChart {
         height: 200px;
@@ -213,32 +325,33 @@
     }
 }
 
-/* Width of the scrollbar */
+
 ::-webkit-scrollbar {
     width: 10px;
-    /* Set the width of the scrollbar */
+
 }
 
-/* Track (the area behind the scrollbar) */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
-    /* Color of the track */
+
 }
 
-/* Handle (the draggable part of the scrollbar) */
+
 ::-webkit-scrollbar-thumb {
     background: #888;
-    /* Color of the thumb */
+
     border-radius: 5px;
-    /* Rounded corners */
+
 }
 
-/* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
-    /* Darker color on hover */
+
 }
 
 .schedulesBarWrapper {
-    background-color: #f6f5fa;
+    background-color: #eff1ff;
+    height: 100%;
 }

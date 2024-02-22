@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
+import siteLogo from "../../images/bloodLogo.png";
 
-const SideBar = () => {
+const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
-
+  useEffect(() => {
+    setCurrentPage("Dashboard");
+  }, []);
   return (
     <div className={Styles.sidebarWrapper}>
       <div className={Styles.logowrapper}>
-        <img src="" alt="" />
+        <img src={siteLogo} alt="logo" />
+        <p>BloodCentral Network</p>
       </div>
       {/* <div>
         <button>Registor</button>

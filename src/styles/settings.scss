@@ -1,12 +1,163 @@
-$primary-color: #CF4243;
-$secondary-color: #6c757d;
-$font-size-base: 1rem;
+/** color variables */
+/** add the colors to the variables.module.scss file also, to extend the colors to the TS **/
+$primary-color: #2aaae1;
+$secondary-color: #1b4079;
+$special-color: #ff8812;
+$text-dark-color: #4d4d4d;
+$text-light-color: #8d8d8d;
+$light-color: #f2f2f2;
+$light-primary-color: #F2F7FA;
+$border-color: #e2e2e2;
+$border-secondary-color: #1b40791f;
+$success-color: #10CC18;
+$danger-color: #fe5f55;
+$warning-color: #f2bd0b;
+$disabled-color: #d3d3d3;
+$premium-color: #B32038;
+$white: #ffffff;
+$black: #000000;
 
-body {
-  font-size: $font-size-base;
+/* Extra small devices (phones, 600px and down) */
+$xs: 320px;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+$sm: 600px;
+/* Medium devices (landscape tablets, 768px and up) */
+$md: 768px;
+/* Large devices (laptops/desktops, 992px and up) */
+$lg: 992px;
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+$xl: 1200px;
+/* 2K, 4K devices (large laptops and desktops, 2500px and up) */
+$xxl: 2500px;
+
+@mixin respondTo($brack-point) {
+  @media only screen and (min-width: $brack-point) {
+    @content;
+  }
 }
 
-.label {
-  color: $primary-color;
-  font-size: $font-size-base;
+@mixin respondUpTo($break-point) {
+  @media only screen and (max-width: $break-point) {
+    @content;
+  }
+}
+
+/**  color mixins */
+@mixin filled($color) {
+  border: 3px solid $color;
+  background-color: $color;
+  color: $white;
+
+  &:hover {
+    border-color: darken($color, 10);
+    background-color: darken($color, 10);
+    color: $white;
+  }
+
+  // &:focus,
+  // &:active
+  // {
+  //   border-color: darken($color, 20);
+  //   background-color: darken($color, 20);
+  //   color: $white;
+  //   box-shadow: 0 0 1px 3px rgba($primary-color, 0.6);
+  // }
+  //  &:focus,
+  // &:active {
+  //   box-shadow: none !important;
+  // }
+
+  &:disabled {
+    background-color: $disabled-color;
+    pointer-events: none;
+    border-color: $disabled-color;
+  }
+}
+
+@mixin signInBtn($color) {
+
+  border: 3px solid $color;
+  background-color: $color;
+  color: $white;
+
+
+  &:hover {
+    border-color: darken($color, 20);
+    background-color: darken($color, 20);
+    color: $white;
+    box-shadow: 0 0 1px 3px rgba($primary-color, 0.6);
+  }
+}
+
+@mixin outlined($color) {
+  border: 3px solid $color;
+  background-color: transparent;
+  color: $color;
+
+  &:hover {
+    border-color: darken($color, 10);
+    background-color: darken($color, 10);
+    color: $white;
+  }
+
+  &:focus,
+  &:active {
+    border-color: darken($color, 20);
+    background-color: darken($color, 20);
+    color: $white;
+    box-shadow: 0 0 1px 1px rgba($primary-color, 0.2);
+  }
+
+
+  &:disabled {
+    background-color: transparent;
+    pointer-events: none;
+    border-color: $disabled-color;
+  }
+}
+
+@mixin outlinedLoading($color) {
+  background-color: transparent !important;
+  border: 3px solid lighten($color, 10) !important;
+  pointer-events: none !important;
+
+  &:focus,
+  &:active {
+    box-shadow: none !important;
+  }
+
+}
+
+@mixin loading($color) {
+  background-color: lighten($color, 10) !important;
+  border: 3px solid lighten($color, 10) !important;
+  pointer-events: none !important;
+
+  &:focus,
+  &:active {
+    box-shadow: none !important;
+  }
+}
+
+.mt_5 {
+  margin-top: 1.5rem;
+}
+
+
+.mt_4 {
+  margin-top: 1.3rem;
+}
+
+
+.mt_3 {
+  margin-top: 1.2rem;
+}
+
+
+.mt_2 {
+  margin-top: 1rem;
+}
+
+.mt_1 {
+  margin-top: 0.8rem;
 }
