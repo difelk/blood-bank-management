@@ -6,7 +6,9 @@ const CustomButton = ({
   buttonText,
   iconsLeft,
   iconsRight,
+  active,
   isDisabled,
+  onClick,
 }) => {
   // const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
 
@@ -20,21 +22,46 @@ const CustomButton = ({
         return Styles.primaryBtn;
       case "secondary":
         return Styles.secondaryBtn;
+      case "secondaryRound":
+        return Styles.secondaryBtnsemiRound;
+      case "white":
+        return Styles.whiteBtn;
+      case "ghost":
+        return Styles.ghostBtn;
       default:
         return Styles.primaryBtn;
     }
   };
-  const handleButtonClick = () => {};
 
   return (
     <button
-      className={[Styles.customBtnWrapper, getBtnStyle()].join(" ")}
-      onClick={handleButtonClick}
+      className={[
+        active
+          ? [Styles.customBtnWrapper, getBtnStyle(), Styles.active].join(" ")
+          : Styles.customBtnWrapper,
+        getBtnStyle(),
+        Styles.deActive,
+      ].join(" ")}
+      onClick={(event) => onClick(event)}
       disabled={isDisabled}
     >
-      <div className={Styles.btnIconLeft}></div>
-      <div>{buttonText ?? "click"}</div>
-      <div className={Styles.btnIconRight}></div>
+      {iconsLeft ? <div className={Styles.btnIconLeft}>{iconsLeft}</div> : ""}
+      <div
+        className={
+          active
+            ? [Styles.activeBtnTxt, Styles.btnText].join(" ")
+            : [Styles.btnText, Styles.deActiveBtnTxt].join(" ")
+        }
+      >
+        {buttonText ?? "click"}
+      </div>
+      {iconsRight ? (
+        <div className={Styles.btnIconRight}>
+          <img src={iconsRight} alt="btn icon" />
+        </div>
+      ) : (
+        ""
+      )}
     </button>
   );
 };

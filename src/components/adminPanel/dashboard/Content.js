@@ -3,6 +3,7 @@ import Styles from "./Dashboard.module.scss";
 import bloodDropdIcon from "../../../assets/img/bloodIcon.png";
 import workingTasks from "../../../assets/img/work-order.png";
 import CustomButton from "../../common/components/customButton";
+import { BUTTONTYPES } from "../../../share/enums";
 
 const Content = ({ selectedPage }) => {
   return (
@@ -28,6 +29,8 @@ const Content = ({ selectedPage }) => {
                 iconsLeft={null}
                 iconsRight={null}
                 isDisabled={false}
+                active={true}
+                onClick={(e) => console.log(e)}
               />
             </div>
           </div>
@@ -36,92 +39,20 @@ const Content = ({ selectedPage }) => {
           </div>
         </div>
       </div>
-      <div className={Styles.displayChart}></div>
-      <div className={Styles.displayChart}></div>
-      {/* <div className={Styles.subContent}>
-        <div className={Styles.sectionLeft}></div>
-        <div className={Styles.sectionRight}>
-          <div>
-            <div className={Styles.itemHeader}>
-              <h6>Stock Summery</h6>
-            </div>
-            <div className={Styles.summeryWrapper}>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-              <div className={Styles.summeryItem}>
-                <div className={Styles.itemIcon}>
-                  <img src={bloodDropdIcon} alt="" />
-                </div>
-                <div className={Styles.itemDesc}>
-                  <p className={Styles.fontsm}>Blood type A</p>
-                  <p>1500L</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className={Styles.summeryChart}>
+        <div className={Styles.summeryChartTitle}>
+          <h4>Hospital Summery</h4>
+          <CustomButton
+            buttonType={"secondaryRound"}
+            buttonText={"View All"}
+            iconsLeft={null}
+            iconsRight={null}
+            isDisabled={false}
+            active={true}
+            onClick={(e) => console.log(e)}
+          />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

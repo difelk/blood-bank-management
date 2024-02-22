@@ -13,11 +13,35 @@
 }
 
 .customBtnWrapper {
-    padding: 8px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 12px;
     border: none;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
+    box-shadow: 1px 1px 3px 0px #4f4f4f;
+    transition: all 300ms ease-in;
+}
+
+.customBtnWrapper:hover {
+    box-shadow: 1px 1px 5px 0px #4f4f4f;
+}
+
+.btnIconLeft,
+.btnIconRight {
+    width: 18px !important;
+    height: 18px !important;
+    display: flex;
+    align-items: center;
+
+
+    img {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+    }
 }
 
 .primaryBtn {
@@ -28,9 +52,73 @@
 }
 
 .primaryBtn:hover {
-    background-color: #f22f6d;
+    background-color: #f6477e;
 }
 
+
+.secondaryBtnsemiRound {
+    background-color: #4c4bbb;
+    color: #ffffff;
+    font-weight: 500;
+    transition: all 300ms ease-in;
+    border-radius: 50px;
+    min-width: 90px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.whiteBtn {
+    width: 80%;
+    padding: 16px;
+    margin: 12px 0;
+    border: none;
+    background-color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 300ms ease-in;
+    cursor: pointer;
+
+    .activeBtnTxt {
+        color: #5c5dce !important;
+    }
+}
+
+
+.whiteBtn:hover {
+    background-color: #f6f4f4;
+}
+
+
+.ghostBtn {
+    width: 80%;
+    padding: 16px;
+    margin: 12px 0;
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 300ms ease-in;
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 300ms ease-in;
+    background-color: #f4f4f40b;
+
+
+
+}
+
+.deActiveBtnTxt {
+    color: #a6a6ed !important;
+    font-size: 12px;
+    width: 115px;
+    text-align: left;
+}
+
+
+.ghostBtn:hover {
+    box-shadow: none;
+    background-color: #4949a8;
+}
 
 .customDropdownDrop {
 

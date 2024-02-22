@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import siteLogo from "../../images/bloodLogo.png";
+import CustomButton from "../../common/components/customButton";
+import dashboardIcon from "../../../assets/img/dashboard.png";
+import { BUTTONTYPES, TAB } from "../../../share/enums";
+import DashboardIcon from "../../../assets/icons/svgs/DashboardIcon";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
   useEffect(() => {
     setCurrentPage("Dashboard");
   }, []);
+
+  const getSelectedNavigationOption = (value) => {
+    setActiveTab(value);
+  };
+
   return (
     <div className={Styles.sidebarWrapper}>
       <div className={Styles.logowrapper}>
@@ -18,30 +27,121 @@ const SideBar = ({ setCurrentPage }) => {
       </div> */}
       <div className={Styles.navlinksWrapper}>
         <ul>
-          <li className={activeTab === "Dashboard" ? Styles.activeTab : ""}>
-            <img src="" alt="" />
-            <a href="#">Dashboard</a>
-          </li>
-          <li>
-            <img src="" alt="" />
-            <a href="#">Stock Management</a>
-          </li>
-          <li>
-            <img src="" alt="" />
-            <a href="#">Event Management</a>
-          </li>
-          <li>
-            <img src="" alt="" />
-            <a href="#">User Management</a>
-          </li>
-          <li>
-            <img src="" alt="" />
-            <a href="#">Settings</a>
-          </li>
-          <li>
-            <img src="" alt="" />
-            <a href="#">Logout</a>
-          </li>
+          <CustomButton
+            buttonType={
+              activeTab === TAB.DASHBOARD
+                ? BUTTONTYPES.WHITE
+                : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.DASHBOARD}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={activeTab === TAB.DASHBOARD ? "#5c5dce" : "#a6a6ed"}
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.DASHBOARD ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.DASHBOARD)}
+          />
+
+          <CustomButton
+            buttonType={
+              activeTab === TAB.STOCK_MANAGEMENT
+                ? BUTTONTYPES.WHITE
+                : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.STOCK_MANAGEMENT}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={
+                  activeTab === TAB.STOCK_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
+                }
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.STOCK_MANAGEMENT ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.STOCK_MANAGEMENT)}
+          />
+
+          <CustomButton
+            buttonType={
+              activeTab === TAB.EVENT_MANAGEMENT
+                ? BUTTONTYPES.WHITE
+                : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.EVENT_MANAGEMENT}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={
+                  activeTab === TAB.EVENT_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
+                }
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.EVENT_MANAGEMENT ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.EVENT_MANAGEMENT)}
+          />
+
+          <CustomButton
+            buttonType={
+              activeTab === TAB.USER_MANAGEMENT
+                ? BUTTONTYPES.WHITE
+                : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.USER_MANAGEMENT}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={
+                  activeTab === TAB.USER_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
+                }
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.USER_MANAGEMENT ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.USER_MANAGEMENT)}
+          />
+
+          <CustomButton
+            buttonType={
+              activeTab === TAB.SETTINGS ? BUTTONTYPES.WHITE : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.SETTINGS}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={activeTab === TAB.SETTINGS ? "#5c5dce" : "#a6a6ed"}
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.SETTINGS ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.SETTINGS)}
+          />
+
+          <CustomButton
+            buttonType={
+              activeTab === TAB.LOGOUT ? BUTTONTYPES.WHITE : BUTTONTYPES.GHOST
+            }
+            buttonText={TAB.LOGOUT}
+            iconsLeft={
+              <DashboardIcon
+                size={25}
+                color={activeTab === TAB.LOGOUT ? "#5c5dce" : "#a6a6ed"}
+              />
+            }
+            iconsRight={""}
+            isDisabled={false}
+            active={activeTab === TAB.LOGOUT ? true : false}
+            onClick={() => getSelectedNavigationOption(TAB.LOGOUT)}
+          />
         </ul>
       </div>
     </div>
