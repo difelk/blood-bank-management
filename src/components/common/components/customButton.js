@@ -30,6 +30,8 @@ const CustomButton = ({
         return Styles.ghostBtn;
       case "ICON":
         return Styles.iconBtn;
+      case "CLOSE":
+        return Styles.closeBtn;
       case "SQicon":
         return Styles.SQiconBtn;
       default:

@@ -6,9 +6,11 @@ import dashboardIcon from "../../../assets/img/dashboard.png";
 import { BUTTONTYPES, TAB } from "../../../share/enums";
 import DashboardIcon from "../../../assets/icons/svgs/DashboardIcon";
 import HomeIcon from "../../../assets/icons/svgs/HomeIcon";
+import CustomModal from "../../common/components/modal/CustomModal";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     setCurrentPage("Dashboard");
   }, []);
@@ -157,7 +159,7 @@ const SideBar = ({ setCurrentPage }) => {
               onClick={() => getSelectedNavigationOption(TAB.USER_MANAGEMENT)}
             />
 
-            <CustomButton
+            {/* <CustomButton
               buttonType={
                 activeTab === TAB.SETTINGS
                   ? BUTTONTYPES.WHITE
@@ -174,7 +176,7 @@ const SideBar = ({ setCurrentPage }) => {
               isDisabled={false}
               active={activeTab === TAB.SETTINGS ? true : false}
               onClick={() => getSelectedNavigationOption(TAB.SETTINGS)}
-            />
+            /> */}
 
             <CustomButton
               buttonType={
@@ -190,7 +192,10 @@ const SideBar = ({ setCurrentPage }) => {
               iconsRight={""}
               isDisabled={false}
               active={activeTab === TAB.LOGOUT ? true : false}
-              onClick={() => getSelectedNavigationOption(TAB.LOGOUT)}
+              onClick={() => {
+                getSelectedNavigationOption(TAB.LOGOUT);
+                setIsModalOpen(true);
+              }}
             />
           </ul>
         </div>
@@ -206,6 +211,11 @@ const SideBar = ({ setCurrentPage }) => {
           onClick={() => getSelectedNavigationOption(TAB.HOME)}
         />
       </div>
+      {isModalOpen ? (
+        <CustomModal open={setIsModalOpen} title={"Logout"} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
