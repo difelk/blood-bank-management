@@ -59,7 +59,7 @@ const HospitalSummeryTable = ({ tableHeaders, datasets, actions }) => {
           <p>Location</p>
         </div>
         <div className={styles.tableHeaderItem} style={{ width: "40%" }}>
-          <p>Stock</p>
+          <p>Stock(%)</p>
         </div>
         <div className={styles.tableHeaderItem} style={{ width: "14%" }}>
           <p>Actions</p>
