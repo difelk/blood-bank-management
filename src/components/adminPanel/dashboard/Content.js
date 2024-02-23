@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import bloodDropdIcon from "../../../assets/img/bloodIcon.png";
 import workingTasks from "../../../assets/img/work-order.png";
@@ -6,6 +6,7 @@ import CustomButton from "../../common/components/customButton";
 import { BUTTONTYPES } from "../../../share/enums";
 import CustomTable from "../../common/components/table/CustomTable";
 import HospitalSummeryTable from "../../common/components/table/HospitalSummeryTable";
+import CustomModal from "../../common/components/modal/CustomModal";
 
 const TABLEHEADER = ["Hospital Name", "City", "Stock"];
 const TABLEBODY = [
@@ -82,6 +83,8 @@ const TABLEBODY = [
 ];
 
 const Content = ({ selectedPage }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={Styles.contentWrapper}>
       <div className={Styles.dashboardTitle}>
@@ -106,7 +109,7 @@ const Content = ({ selectedPage }) => {
                 iconsRight={null}
                 isDisabled={false}
                 active={true}
-                onClick={(e) => console.log(e)}
+                onClick={() => setIsModalOpen(true)}
               />
             </div>
           </div>
@@ -141,6 +144,11 @@ const Content = ({ selectedPage }) => {
           />
         </div>
       </div>
+      {isModalOpen ? (
+        <CustomModal open={setIsModalOpen} title={"Pending Requestes"} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

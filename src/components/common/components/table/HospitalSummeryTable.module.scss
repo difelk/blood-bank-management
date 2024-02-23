@@ -92,3 +92,26 @@
 .codeIdeal {
     background-color: #5253CE !important;
 }
+
+.hospitalData {
+    display: flex;
+    flex-direction: column;
+
+    .hospitalBasicData {
+        padding: 8px;
+        border-bottom: 2px solid rgb(195, 195, 195);
+    }
+
+    .dflexRow {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            font-size: 12px;
+            margin: 4px 0;
+            max-width: 180px;
+        }
+    }
+}

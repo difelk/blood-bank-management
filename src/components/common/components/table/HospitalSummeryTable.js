@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./HospitalSummeryTable.module.scss";
 import CustomButton from "../customButton";
 import ViewMoreIcon from "../../../../assets/icons/svgs/ViewMore";
+import CustomModal from "../modal/CustomModal";
 
 const HospitalSummeryTable = ({ tableHeaders, datasets, actions }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedHospital, setSelectedHospital] = useState({});
   const getStatusColor = (value) => {
     if (value <= 20) {
       return styles.codeRed;
@@ -95,12 +98,47 @@ const HospitalSummeryTable = ({ tableHeaders, datasets, actions }) => {
               <CustomButton
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
-                onClick={() => console.log("clicked")}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setSelectedHospital(item);
+                }}
               />
             </div>
           </div>
         ))}
       </div>
+      {isModalOpen ? (
+        <CustomModal open={setIsModalOpen} title={"Hospital Details"}>
+          <div className={styles.hospitalData}>
+            <div className={styles.hospitalBasicData}>
+              <div className={styles.dflexRow}>
+                <p>Name:</p>
+                <p>{selectedHospital.hospitalName}</p>
+              </div>
+              <div className={styles.dflexRow}>
+                <p>address:</p>
+                <p>{selectedHospital.city}</p>
+              </div>
+              <div className={styles.dflexRow}>
+                <p>contact No:</p>
+                <p>(+94) 7845874</p>
+              </div>
+            </div>
+            <div className={styles.hospitalBasicData}>
+              {Object.keys(selectedHospital.stock).map(
+                (bloodGroup, subIndex) => (
+                  <div className={styles.dflexRow}>
+                    <p>Blood Group {getBloodType(bloodGroup)}</p>
+                    <p>{selectedHospital.stock[bloodGroup]}</p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </CustomModal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
