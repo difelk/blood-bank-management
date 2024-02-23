@@ -68,6 +68,11 @@
 
         }
 
+        .notificationDropdown1 {
+            display: flex;
+            align-items: center;
+        }
+
         .profileNameDisplay {
             display: flex;
             flex-direction: row;
@@ -401,6 +406,18 @@
     }
 }
 
+.column {
+    flex-direction: column !important;
+}
+
+.txtAlnLft {
+    h4 {
+        width: 100%;
+        text-align: left;
+    }
+
+}
+
 .schCardWrapper {
     display: flex;
     flex-direction: column;
@@ -409,19 +426,130 @@
     width: 100%;
 
     .eventsSummery {
-        background-color: #ffffff;
+        background-color: #4a4bc917;
         border-radius: 8px;
         margin: 8px 0;
-        height: 280px;
+        height: 250px;
         width: 100%;
         padding: 8px;
     }
 
     .stockSummery {
-        background-color: #ffffff;
+        background-color: #1622e026;
         border-radius: 8px;
-        margin: 8px 0;
-        height: 220px;
+        margin: 40px 0;
+        padding: 10px;
+        // height: 220px;
         width: 100%;
+
+        h5 {
+            margin: 0;
+        }
+    }
+}
+
+
+.eventCardWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    border-bottom: 1px solid rgb(213, 213, 213);
+    margin: 8px 0;
+    background-color: #836BCB;
+    padding: 4px;
+    border-radius: 8px;
+    box-shadow: -1px 2px 3px 0px #b9b9b9;
+
+    .eventCard {
+        padding: 8px 0;
+        width: 100%;
+    }
+
+    h5,
+    p {
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .subDetails {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 8px;
+
+        p {
+            font-size: 10px;
+            color: #ffffff;
+        }
+    }
+}
+
+
+.stockWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .stockItem {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+
+        .stockItemGraph {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            margin: 0 4px;
+
+            .graphBck {
+                min-width: 200px;
+                padding: 4px;
+                margin: 0 4px;
+                background-color: #5784D9;
+                border-radius: 8px;
+            }
+
+            .width90,
+            .width80,
+            .width70,
+            .width60,
+            .width50 {
+                position: absolute;
+                padding: 4px;
+                background-color: #2659D5;
+
+            }
+
+            .width90 {
+                width: 197px;
+            }
+
+            .width80 {
+                width: 180px;
+                left: 4px;
+            }
+
+            .width70 {
+                width: 180px;
+            }
+
+            .width60 {
+                width: 160px;
+            }
+
+            .width50 {
+                width: 150px;
+            }
+        }
+
+
+
+        .stockItemName,
+        .stockItemPerc {
+            font-size: 12px;
+        }
+
     }
 }

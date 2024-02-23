@@ -4,6 +4,7 @@ import CustomeDropdown from "../../common/components/customDropdown";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 import MailIcon from "../../../assets/icons/svgs/MailIcon";
 import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
+import NoteIcon from "../../../assets/icons/svgs/NoteIcon";
 
 const Schedules = () => {
   const getUserProfileDrodown = (value) => {
@@ -19,7 +20,13 @@ const Schedules = () => {
           <CustomeDropdown
             getDropdownValue={getUserProfileDrodown}
             dataset={profileData}
-            icon={<NotificationIcon size={25} color={"#4F50CB"} />}
+            icon={<NotificationIcon size={20} color={"#4F50CB"} />}
+            defultTxt={""}
+          />
+          <CustomeDropdown
+            getDropdownValue={getUserProfileDrodown}
+            dataset={profileData}
+            icon={<NoteIcon size={20} color={"#4F50CB"} />}
             defultTxt={""}
           />
         </div>
@@ -48,8 +55,112 @@ const Schedules = () => {
           >
             <h4>Event Summery</h4>
           </div>
+          <div className={Styles.eventCardWrapper}>
+            <div className={Styles.eventCard}>
+              <h5>Event Name</h5>
+              <div className={Styles.subDetails}>
+                <p> colombo 07</p>
+                <p>12-Dec-2024 08:30AM</p>
+              </div>
+            </div>
+          </div>
+          <div className={Styles.eventCardWrapper}>
+            <div className={Styles.eventCard}>
+              <h5>Event Name</h5>
+              <div className={Styles.subDetails}>
+                <p>colombo 07</p>
+                <p>12-Dec-2024 08:30AM</p>
+              </div>
+            </div>
+          </div>
+          <div className={Styles.eventCardWrapper}>
+            <div className={Styles.eventCard}>
+              <h5>Event Name</h5>
+              <div className={Styles.subDetails}>
+                <p>colombo 07</p>
+                <p>12-Dec-2024 08:30AM</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className={Styles.stockSummery}></div>
+        <div className={Styles.stockSummery}>
+          <div
+            className={[
+              Styles.summeryChartTitle,
+              Styles.column,
+              Styles.txtAlnLft,
+            ].join(" ")}
+          >
+            <h4>Stock Summery</h4>
+            <div className={Styles.stockWrapper}>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>A+</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width90}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>97%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>A-</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width80}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>82%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>B+</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width90}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>97%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>A+</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width90}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>97%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>A-</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width80}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>82%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>B+</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width90}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>97%</div>
+              </div>
+
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>A-</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width80}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>82%</div>
+              </div>
+              <div className={Styles.stockItem}>
+                <div className={Styles.stockItemName}>B+</div>
+                <div className={Styles.stockItemGraph}>
+                  <div className={Styles.graphBck}></div>
+                  <div className={Styles.width90}></div>
+                </div>
+                <div className={Styles.stockItemPerc}>97%</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
