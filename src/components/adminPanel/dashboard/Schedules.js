@@ -3,6 +3,7 @@ import Styles from "./Dashboard.module.scss";
 import CustomeDropdown from "../../common/components/customDropdown";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 import MailIcon from "../../../assets/icons/svgs/MailIcon";
+import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
 
 const Schedules = () => {
   const getUserProfileDrodown = (value) => {
@@ -18,7 +19,7 @@ const Schedules = () => {
           <CustomeDropdown
             getDropdownValue={getUserProfileDrodown}
             dataset={profileData}
-            icon={<MailIcon size={40} />}
+            icon={<NotificationIcon size={25} color={"#4F50CB"} />}
             defultTxt={""}
           />
         </div>

@@ -3,6 +3,8 @@ export const TAB = {
   STOCK_MANAGEMENT: "Stock Management",
   EVENT_MANAGEMENT: "Event Management",
   USER_MANAGEMENT: "User Management",
+  HOSPITAL_MANAGEMENT: "Hospital Management",
+  DONOR_MANAGEMENT: "Donor Management",
   SETTINGS: "Settings",
   LOGOUT: "Logout",
   HOME: "Home",
