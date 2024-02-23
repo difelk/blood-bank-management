@@ -71,6 +71,52 @@ const SideBar = ({ setCurrentPage }) => {
 
             <CustomButton
               buttonType={
+                activeTab === TAB.HOSPITAL_MANAGEMENT
+                  ? BUTTONTYPES.WHITE
+                  : BUTTONTYPES.GHOST
+              }
+              buttonText={TAB.HOSPITAL_MANAGEMENT}
+              iconsLeft={
+                <DashboardIcon
+                  size={25}
+                  color={
+                    activeTab === TAB.HOSPITAL_MANAGEMENT
+                      ? "#5c5dce"
+                      : "#a6a6ed"
+                  }
+                />
+              }
+              iconsRight={""}
+              isDisabled={false}
+              active={activeTab === TAB.HOSPITAL_MANAGEMENT ? true : false}
+              onClick={() =>
+                getSelectedNavigationOption(TAB.HOSPITAL_MANAGEMENT)
+              }
+            />
+
+            <CustomButton
+              buttonType={
+                activeTab === TAB.DONOR_MANAGEMENT
+                  ? BUTTONTYPES.WHITE
+                  : BUTTONTYPES.GHOST
+              }
+              buttonText={TAB.DONOR_MANAGEMENT}
+              iconsLeft={
+                <DashboardIcon
+                  size={25}
+                  color={
+                    activeTab === TAB.DONOR_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
+                  }
+                />
+              }
+              iconsRight={""}
+              isDisabled={false}
+              active={activeTab === TAB.DONOR_MANAGEMENT ? true : false}
+              onClick={() => getSelectedNavigationOption(TAB.DONOR_MANAGEMENT)}
+            />
+
+            <CustomButton
+              buttonType={
                 activeTab === TAB.EVENT_MANAGEMENT
                   ? BUTTONTYPES.WHITE
                   : BUTTONTYPES.GHOST
