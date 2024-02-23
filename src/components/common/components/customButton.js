@@ -28,6 +28,10 @@ const CustomButton = ({
         return Styles.whiteBtn;
       case "ghost":
         return Styles.ghostBtn;
+      case "ICON":
+        return Styles.iconBtn;
+      case "SQicon":
+        return Styles.SQiconBtn;
       default:
         return Styles.primaryBtn;
     }
@@ -46,15 +50,19 @@ const CustomButton = ({
       disabled={isDisabled}
     >
       {iconsLeft ? <div className={Styles.btnIconLeft}>{iconsLeft}</div> : ""}
-      <div
-        className={
-          active
-            ? [Styles.activeBtnTxt, Styles.btnText].join(" ")
-            : [Styles.btnText, Styles.deActiveBtnTxt].join(" ")
-        }
-      >
-        {buttonText ?? "click"}
-      </div>
+      {buttonText ? (
+        <div
+          className={
+            active
+              ? [Styles.activeBtnTxt, Styles.btnText].join(" ")
+              : [Styles.btnText, Styles.deActiveBtnTxt].join(" ")
+          }
+        >
+          {buttonText ?? ""}
+        </div>
+      ) : (
+        ""
+      )}
       {iconsRight ? (
         <div className={Styles.btnIconRight}>
           <img src={iconsRight} alt="btn icon" />

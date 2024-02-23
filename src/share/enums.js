@@ -5,10 +5,12 @@ export const TAB = {
   USER_MANAGEMENT: "User Management",
   SETTINGS: "Settings",
   LOGOUT: "Logout",
+  HOME: "Home",
 };
 
 export const BUTTONTYPES = {
   GHOST: "ghost",
   WHITE: "white",
   PRIMARY: "primary",
+  SQUAREICON: "SQicon",
 };

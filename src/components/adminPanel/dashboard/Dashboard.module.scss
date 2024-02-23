@@ -13,7 +13,8 @@
 
 .sectionSideBar {
     width: 18%;
-    background-color: #ffffff;
+    // background-color: #ffffff;
+    background-image: linear-gradient(to top, #282994, #3837a4, #4645b4, #5454c4, #6263d5);
 
 
     .logowrapper {
@@ -40,7 +41,6 @@
 
 .sectionContent {
     width: 70%;
-    height: 100%;
     padding: 20px 38px;
     background-color: #eff1ff;
 }
@@ -86,14 +86,18 @@
     }
 }
 
+.sidebarContainer {
+    position: relative;
+    // background-image: linear-gradient(to top, #282994, #3837a4, #4645b4, #5454c4, #6263d5);
+}
 
 .sidebarWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #6263D5;
-    background-image: linear-gradient(to top, #282994, #3837a4, #4645b4, #5454c4, #6263d5);
+
+
     // border-top-right-radius: 12px;
 }
 
@@ -153,6 +157,16 @@
     }
 }
 
+
+.homeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    border-top: 3px dotted #4544a7;
+    padding: 20px;
+}
+
 .dashboardTitle {
     margin: 21px 0;
 
@@ -175,7 +189,7 @@
 
 
     .displayChartTaskSch {
-        height: 200px;
+        // height: 175px;
         background-color: #6263D5;
         border-radius: 10px;
         margin-bottom: 20px;
@@ -196,6 +210,8 @@
                 h3 {
                     font-size: 20px;
                     font-weight: 800;
+                    margin: 0;
+                    padding: 4px 0;
                 }
 
                 p {
@@ -219,14 +235,21 @@
     }
 
     .summeryChart {
-        height: 200px;
+        max-height: 300px;
+        overflow: hidden;
         // background-color: orange;
         border-radius: 10px;
         padding: 12px;
-        margin: 20px 0;
+        // margin: 20px 0;
         display: flex;
         flex-direction: column;
 
+        .summeryTabelWrapper {
+            // width: 100%;
+            // height: 100%;
+            height: 100%;
+            overflow: auto;
+        }
     }
 
     .subContent {
