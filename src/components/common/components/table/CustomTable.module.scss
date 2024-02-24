@@ -4,6 +4,11 @@ table {
 }
 
 .tableHeader {
+    background: #dbddfd;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+
     th {
         padding: 12px 0;
         position: sticky;
@@ -33,4 +38,10 @@ tr {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+}
+
+.tableData:first-child {
+    margin-top: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }

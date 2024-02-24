@@ -7,7 +7,7 @@ import DashboardIcon from "../../../assets/icons/svgs/DashboardIcon";
 import HomeIcon from "../../../assets/icons/svgs/HomeIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import StockIcon from "../../../assets/icons/svgs/StockIcon";
-import HospitalIcon from "../../../assets/icons/HospitalIcon";
+import HospitalIcon from "../../../assets/icons/svgs/HospitalIcon";
 import DonorIcon from "../../../assets/icons/svgs/DonorIcon";
 import EventIcon from "../../../assets/icons/svgs/EventIcon";
 import UserIcon from "../../../assets/icons/svgs/UserIcon";

@@ -66,7 +66,6 @@ const Schedules = () => {
             />
           </div>
           <div className={Styles.profileNameDisplay}>
-            {/* <p className={Styles.userName}>Mr. JOHN DOE</p> */}
             <div className={Styles.viewPrfilDet}>
               <CustomeDropdown
                 getDropdownValue={() => getUserProfileDrodown("PROFILE")}
@@ -74,7 +73,6 @@ const Schedules = () => {
                 icon={<ArrowDownIcon size={12} color={"#fd4f86"} />}
                 defultTxt={"Mr. JOHN DOE"}
               />
-              {/* <p  className={Styles.user}>johndo@domain.com</p> */}
             </div>
           </div>
         </div>
