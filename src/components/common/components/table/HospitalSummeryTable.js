@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./HospitalSummeryTable.module.scss";
 import CustomButton from "../customButton";
 import ViewMoreIcon from "../../../../assets/icons/svgs/ViewMore";
@@ -7,6 +7,18 @@ import CustomModal from "../modal/CustomModal";
 const HospitalSummeryTable = ({ tableHeaders, datasets, actions }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState({});
+
+  const ScrollToTopButton = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    ScrollToTopButton();
+  }, [isModalOpen]);
+
   const getStatusColor = (value) => {
     if (value <= 20) {
       return styles.codeRed;

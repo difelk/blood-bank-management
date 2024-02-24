@@ -1,37 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useField, useFormikContext } from "formik";
 import styles from "./CustomInput.module.scss";
 
-const CustomInput = ({ placeHolder, disabled, name, id, getValue, type }) => {
+const CustomInput = (props) => {
+  const { setFieldValue } = useFormikContext();
+  const [field, meta] = useField(props.name);
   const [inputFocus, setInputFocus] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => {
+    setFieldValue(props.name, e.target.value);
+    // field.onChange(e);
+  };
 
   useEffect(() => {
     if (inputValue) {
       setInputFocus(true);
     }
-  }, []); // Run only once when the component mounts
+  }, []);
 
-  console.log("inputValue - ", inputValue);
+  console.log("field - ", field);
+
   return (
     <div
       className={
-        inputFocus || inputValue
+        inputFocus || inputValue || field.value
           ? [styles.inputWrapper, styles.inputWrapperOnFocus].join(" ")
           : styles.inputWrapper
       }
     >
-      <label>{placeHolder}</label>
+      <label>{props.placeHolder}</label>
       <input
-        id={id ?? "input"}
-        name={name ?? "input"}
-        type={type ?? "text"}
+        id={props.id ?? "input"}
+        name={props.name ?? "input"}
+        type={props.type ?? "text"}
+        {...field}
+        onChange={(e) => {
+          handleInputChange(e);
+          setInputValue(e.target.value);
+        }}
         onFocus={() => setInputFocus(true)}
         onBlur={() => setInputFocus(false)}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          getValue(e.target.value);
-        }}
-        onInput={(e) => setInputValue(e.target.value)}
+        value={field.value ?? ""}
+        disabled={props.disabled}
+        className={meta.touched && meta.error ? styles.error : ""}
       />
     </div>
   );

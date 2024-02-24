@@ -1,5 +1,40 @@
+.submitBtnWrapper {
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+
+}
+
 .inputWrapper {
-    input {
-        width: 50%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .groupInputs {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+
+        span {
+            margin-top: 2px;
+            font-size: 12px;
+            color: #f84242db;
+        }
     }
+
+    .input50 {
+        width: 48%;
+    }
+
+    input {
+        width: 100%;
+
+    }
+
 }

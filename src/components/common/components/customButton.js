@@ -22,6 +22,8 @@ const CustomButton = ({
         return Styles.primaryBtn;
       case "secondary":
         return Styles.secondaryBtn;
+      case "submit":
+        return Styles.submitBtn;
       case "secondaryRound":
         return Styles.secondaryBtnsemiRound;
       case "white":
@@ -50,6 +52,7 @@ const CustomButton = ({
       ].join(" ")}
       onClick={(event) => onClick(event)}
       disabled={isDisabled}
+      type={buttonType === "submit" ? "submit" : "button"}
     >
       {iconsLeft ? <div className={Styles.btnIconLeft}>{iconsLeft}</div> : ""}
       {buttonText ? (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import bloodDropdIcon from "../../../assets/img/bloodIcon.png";
 import workingTasks from "../../../assets/img/work-order.png";
@@ -84,6 +84,17 @@ const TABLEBODY = [
 
 const Content = ({ selectedPage }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const ScrollToTopButton = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    ScrollToTopButton();
+  }, [isModalOpen]);
 
   return (
     <div className={Styles.contentWrapper}>

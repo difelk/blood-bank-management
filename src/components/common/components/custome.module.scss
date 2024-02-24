@@ -57,6 +57,18 @@
 }
 
 
+.submitBtn {
+    background-color: #3353F5;
+    min-width: 120px;
+    border-radius: 50px;
+    color: #ffffff;
+    font-weight: 500;
+    transition: all 300ms ease-in;
+    box-shadow: none !important;
+
+}
+
+
 .secondaryBtnsemiRound {
     background-color: #4c4bbb;
     color: #ffffff;
@@ -68,6 +80,7 @@
     font-weight: 600;
     box-shadow: none !important;
 }
+
 
 .whiteBtn {
     width: 80%;

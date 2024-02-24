@@ -3,11 +3,14 @@ import styles from "./CustomModal.module.scss";
 import CustomButton from "../customButton";
 import CloseIcon from "../../../../assets/icons/svgs/Close";
 
-const CustomModal = ({ children, title, open }) => {
+const CustomModal = ({ children, title, open, width, height }) => {
   return (
     <>
       <div className={styles.grayWrapper} />
-      <div className={styles.modalWrapper}>
+      <div
+        className={styles.modalWrapper}
+        style={{ width: width, height: height }}
+      >
         <div className={styles.modalTitle}>
           <h3>{title ?? "modal"}</h3>
           <CustomButton
