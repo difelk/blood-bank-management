@@ -6,6 +6,7 @@ import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
 import NoteIcon from "../../../assets/icons/svgs/NoteIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
+import ProfileInformation from "../../profileInformation/ProfileInformation.js";
 
 const Schedules = () => {
   const [selectedDropdown, setSelectedDropdown] = useState("");
@@ -26,10 +27,9 @@ const Schedules = () => {
   return (
     <>
       {selectedDropdown ? (
-        <CustomModal
-          open={setSelectedDropdown}
-          title={selectedDropdown.value}
-        />
+        <CustomModal open={setSelectedDropdown} title={selectedDropdown.value}>
+          <ProfileInformation />
+        </CustomModal>
       ) : (
         ""
       )}
