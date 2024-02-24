@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import siteLogo from "../../images/bloodLogo.png";
 import CustomButton from "../../common/components/customButton";
-import dashboardIcon from "../../../assets/img/dashboard.png";
 import { BUTTONTYPES, TAB } from "../../../share/enums";
 import DashboardIcon from "../../../assets/icons/svgs/DashboardIcon";
 import HomeIcon from "../../../assets/icons/svgs/HomeIcon";
@@ -208,6 +207,7 @@ const SideBar = ({ setCurrentPage }) => {
                 active={activeTab === TAB.LOGOUT ? true : false}
                 onClick={() => {
                   getSelectedNavigationOption(TAB.LOGOUT);
+
                   setIsModalOpen(true);
                 }}
               />
