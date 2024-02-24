@@ -1,5 +1,3 @@
-// CustomDropdown.jsx
-
 import React, { useEffect, useState } from "react";
 import styles from "./CustomDropdown.module.scss";
 import ArrowIcon from "../../../../assets/icons/svgs/ArrowIcon";
