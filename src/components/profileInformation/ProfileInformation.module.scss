@@ -16,6 +16,7 @@
     justify-content: space-between;
     width: 100%;
     margin: 8px 0;
+    margin-bottom: 32px;
 
     .groupInputs {
         display: flex;
@@ -37,6 +38,14 @@
     input {
         width: 100%;
 
+    }
+
+    .input30{
+        width: 31%;
+    }
+
+    .input100{
+        width: 100%;
     }
 
 }
