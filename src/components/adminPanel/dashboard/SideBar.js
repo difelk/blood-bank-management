@@ -18,6 +18,17 @@ const SideBar = ({ setCurrentPage }) => {
     setActiveTab(value);
   };
 
+  const ScrollToTopButton = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    ScrollToTopButton();
+  }, [isModalOpen]);
+
   return (
     <>
       {isModalOpen ? (

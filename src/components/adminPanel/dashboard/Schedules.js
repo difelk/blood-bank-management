@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import CustomeDropdown from "../../common/components/customDropdown";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
@@ -6,7 +6,7 @@ import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
 import NoteIcon from "../../../assets/icons/svgs/NoteIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
-import ProfileInformation from "../../profileInformation/ProfileInformation.js";
+import ProfileInformation from "../../profileInformation/ProfileInformation";
 
 const Schedules = () => {
   const [selectedDropdown, setSelectedDropdown] = useState("");
@@ -24,10 +24,26 @@ const Schedules = () => {
   ];
   const noteDropdown = [{ key: "addNote", value: "Create Note" }];
 
+  const ScrollToTopButton = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    ScrollToTopButton();
+  }, [selectedDropdown]);
+
   return (
     <>
       {selectedDropdown ? (
-        <CustomModal open={setSelectedDropdown} title={selectedDropdown.value}>
+        <CustomModal
+          open={setSelectedDropdown}
+          title={selectedDropdown.value}
+          width={500}
+          height={500}
+        >
           <ProfileInformation />
         </CustomModal>
       ) : (

@@ -1,18 +1,101 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../common/components/form/CustomInput";
 import styles from "./ProfileInformation.module.scss";
+import { Formik, Form, ErrorMessage } from "formik";
+import CustomButton from "../common/components/customButton";
+
 const ProfileInformation = () => {
+  const initialValues = {
+    first_name: "",
+  };
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.first_name) {
+      errors.first_name = "First Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.first_name)) {
+      errors.first_name = "First Name must contain only letters and spaces";
+    }
+
+    if (!values.last_name) {
+      errors.last_name = "Last Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.last_name)) {
+      errors.last_name = "Last Name must contain only letters and spaces";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = (values) => {
+    console.log("values from submition - ", values);
+    setTimeout(() => {
+      // props.setSubmitting(false);
+    }, 400);
+  };
+
   return (
     <div>
-      personal information
-      <div className={styles.inputWrapper}>
-        <CustomInput
-          placeHolder={"First Name"}
-          disabled={false}
-          getValue={(value) => console.log("from the calling input - ", value)}
-        />
-      </div>
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={handleSubmit}
+        validateOnBlur
+      >
+        {({ isSubmitting, values, errors, touched, setFieldValue }) => (
+          <Form>
+            {console.log("touched - ", touched)}
+            {console.log("errors - ", errors)}
+            <div className={styles.inputWrapper}>
+              <div className={[styles.groupInputs, styles.input50].join(" ")}>
+                <CustomInput
+                  placeHolder={"First Name"}
+                  id={"first_name"}
+                  name={"first_name"}
+                  disabled={false}
+                  getValue={(value) => {
+                    setFieldValue("first_name", value);
+                  }}
+                  default={initialValues.first_name ?? ""}
+                  error={errors.first_name}
+                  type={"text"}
+                  touched={touched}
+                />
+                <span>{errors.first_name}</span>
+                {/* <ErrorMessage name="first_name" component="div" /> */}
+              </div>
+              <div className={[styles.groupInputs, styles.input50].join(" ")}>
+                <CustomInput
+                  placeHolder={"Last Name"}
+                  id={"last_name"}
+                  name={"last_name"}
+                  disabled={false}
+                  getValue={(value) => {
+                    setFieldValue("last_name", value);
+                  }}
+                  default={initialValues.last_name ?? ""}
+                  error={errors.last_name}
+                  type={"text"}
+                  touched={touched}
+                />
+                <span>{errors.last_name}</span>
+                {/* <ErrorMessage name="last_name" component="div" /> */}
+              </div>
+            </div>
+            <div className={styles.submitBtnWrapper}>
+              <CustomButton
+                buttonText={"Save"}
+                buttonType={"submit"}
+                isDisabled={false}
+                active={true}
+                onClick={() => handleSubmit(values)}
+              />
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
+
 export default ProfileInformation;
