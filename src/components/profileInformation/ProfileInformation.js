@@ -40,8 +40,6 @@ const ProfileInformation = () => {
   const validateNormalUser = (values) => {
     const errors = {};
 
-    console.log("values - ", values);
-
     if (!values.first_name) {
       errors.first_name = "First Name is required";
     } else if (!/^[A-Za-z\s]+$/.test(values.first_name)) {
