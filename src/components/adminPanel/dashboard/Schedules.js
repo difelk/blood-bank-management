@@ -31,6 +31,7 @@ const Schedules = () => {
     });
   };
 
+  console.log("selectedDropdown - ", selectedDropdown);
   useEffect(() => {
     ScrollToTopButton();
   }, [selectedDropdown]);
@@ -44,7 +45,7 @@ const Schedules = () => {
           width={500}
           height={500}
         >
-          <ProfileInformation />
+          {selectedDropdown === "PROFILE" ? <ProfileInformation /> : ""}
         </CustomModal>
       ) : (
         ""
@@ -53,13 +54,13 @@ const Schedules = () => {
         <div className={Styles.topProfileSection}>
           <div className={Styles.notificationDropdown1}>
             <CustomeDropdown
-              getDropdownValue={getUserProfileDrodown}
+              getDropdownValue={() => getUserProfileDrodown("NOTIFICATIONS")}
               dataset={notifications}
               icon={<NotificationIcon size={20} color={"#4F50CB"} />}
               defultTxt={""}
             />
             <CustomeDropdown
-              getDropdownValue={getUserProfileDrodown}
+              getDropdownValue={() => getUserProfileDrodown("NOTE")}
               dataset={noteDropdown}
               icon={<NoteIcon size={20} color={"#4F50CB"} />}
               defultTxt={""}
@@ -69,7 +70,7 @@ const Schedules = () => {
             {/* <p className={Styles.userName}>Mr. JOHN DOE</p> */}
             <div className={Styles.viewPrfilDet}>
               <CustomeDropdown
-                getDropdownValue={getUserProfileDrodown}
+                getDropdownValue={() => getUserProfileDrodown("PROFILE")}
                 dataset={profileData}
                 icon={<ArrowDownIcon size={12} color={"#fd4f86"} />}
                 defultTxt={"Mr. JOHN DOE"}
