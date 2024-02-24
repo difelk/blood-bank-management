@@ -63,7 +63,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.DASHBOARD ? true : false}
-                onClick={() => getSelectedNavigationOption(TAB.DASHBOARD)}
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.DASHBOARD);
+                  setCurrentPage(TAB.DASHBOARD);
+                }}
               />
 
               <CustomButton
@@ -84,9 +87,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.STOCK_MANAGEMENT ? true : false}
-                onClick={() =>
-                  getSelectedNavigationOption(TAB.STOCK_MANAGEMENT)
-                }
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.STOCK_MANAGEMENT);
+                  setCurrentPage(TAB.STOCK_MANAGEMENT);
+                }}
               />
 
               <CustomButton
@@ -109,9 +113,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.HOSPITAL_MANAGEMENT ? true : false}
-                onClick={() =>
-                  getSelectedNavigationOption(TAB.HOSPITAL_MANAGEMENT)
-                }
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.HOSPITAL_MANAGEMENT);
+                  setCurrentPage(TAB.HOSPITAL_MANAGEMENT);
+                }}
               />
 
               <CustomButton
@@ -132,9 +137,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.DONOR_MANAGEMENT ? true : false}
-                onClick={() =>
-                  getSelectedNavigationOption(TAB.DONOR_MANAGEMENT)
-                }
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.DONOR_MANAGEMENT);
+                  setCurrentPage(TAB.DONOR_MANAGEMENT);
+                }}
               />
 
               <CustomButton
@@ -155,9 +161,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.EVENT_MANAGEMENT ? true : false}
-                onClick={() =>
-                  getSelectedNavigationOption(TAB.EVENT_MANAGEMENT)
-                }
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.EVENT_MANAGEMENT);
+                  setCurrentPage(TAB.EVENT_MANAGEMENT);
+                }}
               />
 
               <CustomButton
@@ -178,7 +185,10 @@ const SideBar = ({ setCurrentPage }) => {
                 iconsRight={""}
                 isDisabled={false}
                 active={activeTab === TAB.USER_MANAGEMENT ? true : false}
-                onClick={() => getSelectedNavigationOption(TAB.USER_MANAGEMENT)}
+                onClick={() => {
+                  getSelectedNavigationOption(TAB.USER_MANAGEMENT);
+                  setCurrentPage(TAB.USER_MANAGEMENT);
+                }}
               />
 
               {/* <CustomButton

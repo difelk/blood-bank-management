@@ -1,7 +1,7 @@
 import React from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 
-const UserManagement = ({ selectedPage }) => {
+const HospitalManagement = ({ selectedPage }) => {
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -11,4 +11,4 @@ const UserManagement = ({ selectedPage }) => {
   );
 };
 
-export default UserManagement;
+export default HospitalManagement;
