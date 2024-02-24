@@ -8,6 +8,42 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState({});
 
+  const getStatusColor = (value) => {
+    if (value <= 20) {
+      return styles.codeRed;
+    } else if (value > 20 && value <= 40) {
+      return styles.codeOrange;
+    } else if (value > 40 && value <= 60) return styles.codeBlue;
+    else if (value > 60 && value < 80) {
+      return styles.codeLightBlue;
+    } else {
+      return styles.codeIdeal;
+    }
+  };
+
+  const getBloodType = (value) => {
+    switch (value) {
+      case "APLUS":
+        return "A+";
+      case "AMINUS":
+        return "A-";
+      case "BPLUS":
+        return "B+";
+      case "BMINUS":
+        return "B-";
+      case "OPLUS":
+        return "0+";
+      case "OMINUS":
+        return "0-";
+      case "ABPLUS":
+        return "AB+";
+      case "ABMINUS":
+        return "AB-";
+      default:
+        return value;
+    }
+  };
+
   const ScrollToTopButton = () => {
     window.scrollTo({
       top: 0,
@@ -34,35 +70,44 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       <div className={styles.tableBody}>
-        {dataset.map((item, index) => (
+        {dataset.map((item) => (
           <div className={styles.tableData}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
             >
-              <p>{item.stockId}</p>
+              <p>{item.date}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.date}</p>
+              <p>{item.category}</p>
             </div>
-            <div
+            {/* <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
               <p>{item.category}</p>
+            </div> */}
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[2].width }}
+            >
+              {Object.keys(item.stock).map((bloodGroup, subIndex) => (
+                <p
+                  className={[
+                    styles.groupdataItem,
+                    getStatusColor(item.stock[bloodGroup]),
+                  ].join(" ")}
+                >
+                  {getBloodType(bloodGroup)} {item.stock[bloodGroup]}
+                </p>
+              ))}
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
-            >
-              <p>{item.location}</p>
-            </div>
-            <div
-              className={styles.tableDataItem}
-              style={{ width: tableHeader[4].width }}
             >
               <CustomButton
                 buttonType={"ICON"}
