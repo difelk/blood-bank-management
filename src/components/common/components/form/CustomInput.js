@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CustomInput.module.scss";
 
-const CustomInput = ({ placeHolder, disabled, name, id, getValue }) => {
+const CustomInput = ({ placeHolder, disabled, name, id, getValue, type }) => {
   const [inputFocus, setInputFocus] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -24,6 +24,7 @@ const CustomInput = ({ placeHolder, disabled, name, id, getValue }) => {
       <input
         id={id ?? "input"}
         name={name ?? "input"}
+        type={type ?? "text"}
         onFocus={() => setInputFocus(true)}
         onBlur={() => setInputFocus(false)}
         onChange={(e) => {
