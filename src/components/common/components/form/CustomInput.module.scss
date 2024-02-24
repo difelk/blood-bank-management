@@ -1,0 +1,46 @@
+.inputWrapper {
+    display: flex;
+    position: relative;
+
+    label {
+        position: absolute;
+        top: 20px;
+        left: 12px;
+        font-size: 12px;
+        color: #d4cfcf;
+        transition: all 500ms ease-in-out;
+
+    }
+
+    input {
+        border: 2px solid #cfcfcf45;
+        border-radius: 4px;
+        padding: 20px 16px 16px 12px;
+        font-size: 14px;
+        transition: all 500ms ease-in-out;
+    }
+
+}
+
+.inputWrapperOnFocus {
+    label {
+        top: 2px;
+        color: #cfcfcf45;
+    }
+
+    input:focus {
+        outline: none !important;
+        border-color: #68686845;
+    }
+}
+
+.disabled {
+    input {
+        color: #7f7f7f;
+    }
+
+    label {
+        top: 2px;
+        color: #7f7f7f;
+    }
+}
