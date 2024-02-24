@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
-import CustomeDropdown from "../../common/components/customDropdown";
+import CustomeDropdown from "../../common/components/NavCustomeDropdown.js";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 // import MailIcon from "../../../assets/icons/svgs/MailIcon";
 import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
@@ -31,7 +31,6 @@ const Schedules = () => {
     });
   };
 
-  console.log("selectedDropdown - ", selectedDropdown);
   useEffect(() => {
     ScrollToTopButton();
   }, [selectedDropdown]);
@@ -41,7 +40,7 @@ const Schedules = () => {
       {selectedDropdown ? (
         <CustomModal
           open={setSelectedDropdown}
-          title={selectedDropdown.value}
+          title={selectedDropdown}
           width={500}
           height={500}
         >

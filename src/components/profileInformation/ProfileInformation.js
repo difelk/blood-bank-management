@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import CustomInput from "../common/components/form/CustomInput";
 import styles from "./ProfileInformation.module.scss";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import CustomButton from "../common/components/customButton";
+import CustomDropdown from "../common/components/form/CustomDropdown";
+
+const sampleDropdownData = [
+  { key: 1, value: "somthing 1" },
+  { key: 2, value: "apple" },
+];
 
 const ProfileInformation = () => {
   const initialValues = {
     first_name: "",
+    last_name: "",
+    gender: "",
   };
 
   const validate = (values) => {
@@ -28,10 +36,7 @@ const ProfileInformation = () => {
   };
 
   const handleSubmit = (values) => {
-    console.log("values from submition - ", values);
-    setTimeout(() => {
-      // props.setSubmitting(false);
-    }, 400);
+    setTimeout(() => {}, 400);
   };
 
   return (
@@ -44,8 +49,6 @@ const ProfileInformation = () => {
       >
         {({ isSubmitting, values, errors, touched, setFieldValue }) => (
           <Form>
-            {console.log("touched - ", touched)}
-            {console.log("errors - ", errors)}
             <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
                 <CustomInput
@@ -62,7 +65,6 @@ const ProfileInformation = () => {
                   touched={touched}
                 />
                 <span>{errors.first_name}</span>
-                {/* <ErrorMessage name="first_name" component="div" /> */}
               </div>
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
                 <CustomInput
@@ -79,7 +81,21 @@ const ProfileInformation = () => {
                   touched={touched}
                 />
                 <span>{errors.last_name}</span>
-                {/* <ErrorMessage name="last_name" component="div" /> */}
+              </div>
+            </div>
+            <div className={styles.inputWrapper}>
+              <div className={[styles.groupInputs, styles.input50].join(" ")}>
+                <CustomDropdown
+                  dataset={sampleDropdownData}
+                  placeHolder={"Select Gender"}
+                  id={"gender"}
+                  name={"gender"}
+                  disabled={false}
+                  getValue={(value) => {
+                    console.log("drop - ", value);
+                    setFieldValue("gender", value);
+                  }}
+                />
               </div>
             </div>
             <div className={styles.submitBtnWrapper}>

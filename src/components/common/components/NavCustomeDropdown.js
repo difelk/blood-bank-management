@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Styles from "./custome.module.scss";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
-const CustomeDropdown = ({ getDropdownValue, dataset, icon, defultTxt }) => {
+const NavCustomeDropdown = ({ getDropdownValue, dataset, icon, defultTxt }) => {
   const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -52,4 +52,4 @@ const CustomeDropdown = ({ getDropdownValue, dataset, icon, defultTxt }) => {
     </div>
   );
 };
-export default CustomeDropdown;
+export default NavCustomeDropdown;
