@@ -19,8 +19,6 @@ const CustomInput = (props) => {
     }
   }, []);
 
-  console.log("field - ", field);
-
   return (
     <div
       className={
