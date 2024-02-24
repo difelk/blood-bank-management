@@ -6,6 +6,12 @@ import { BUTTONTYPES, TAB } from "../../../share/enums";
 import DashboardIcon from "../../../assets/icons/svgs/DashboardIcon";
 import HomeIcon from "../../../assets/icons/svgs/HomeIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
+import StockIcon from "../../../assets/icons/svgs/StockIcon";
+import HospitalIcon from "../../../assets/icons/HospitalIcon";
+import DonorIcon from "../../../assets/icons/svgs/DonorIcon";
+import EventIcon from "../../../assets/icons/svgs/EventIcon";
+import UserIcon from "../../../assets/icons/svgs/UserIcon";
+import LogoutIcon from "../../../assets/icons/svgs/LogoutIcon";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -77,7 +83,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.STOCK_MANAGEMENT}
                 iconsLeft={
-                  <DashboardIcon
+                  <StockIcon
                     size={25}
                     color={
                       activeTab === TAB.STOCK_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
@@ -101,7 +107,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.HOSPITAL_MANAGEMENT}
                 iconsLeft={
-                  <DashboardIcon
+                  <HospitalIcon
                     size={25}
                     color={
                       activeTab === TAB.HOSPITAL_MANAGEMENT
@@ -127,7 +133,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.DONOR_MANAGEMENT}
                 iconsLeft={
-                  <DashboardIcon
+                  <DonorIcon
                     size={25}
                     color={
                       activeTab === TAB.DONOR_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
@@ -151,7 +157,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.EVENT_MANAGEMENT}
                 iconsLeft={
-                  <DashboardIcon
+                  <EventIcon
                     size={25}
                     color={
                       activeTab === TAB.EVENT_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
@@ -175,7 +181,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.USER_MANAGEMENT}
                 iconsLeft={
-                  <DashboardIcon
+                  <UserIcon
                     size={25}
                     color={
                       activeTab === TAB.USER_MANAGEMENT ? "#5c5dce" : "#a6a6ed"
@@ -218,7 +224,7 @@ const SideBar = ({ setCurrentPage }) => {
                 }
                 buttonText={TAB.LOGOUT}
                 iconsLeft={
-                  <DashboardIcon
+                  <LogoutIcon
                     size={25}
                     color={activeTab === TAB.LOGOUT ? "#5c5dce" : "#a6a6ed"}
                   />
