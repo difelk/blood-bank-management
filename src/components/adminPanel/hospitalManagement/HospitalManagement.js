@@ -7,6 +7,9 @@ import { BUTTONTYPES } from "../../../share/enums";
 import StockSummaryTable from "../../common/components/table/stockTables/StockSummaryTable";
 import TabController from "../../common/components/tab/TabController";
 import StockDetails from "../../common/components/table/stockTables/StockDetails";
+import HospitalStockDetails from "../../common/components/table/hospitalTables/HospitalStockDetails";
+import HospitalSummeryTable from "../../common/components/table/HospitalSummeryTable";
+import HospitalStockSummaryTable from "../../common/components/table/hospitalTables/HospitalStockSummaryTable";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -129,7 +132,7 @@ const HospitalManagement = ({ selectedPage }) => {
     switch (selectedTab.key) {
       case 1:
         return (
-          <StockSummaryTable
+          <HospitalStockSummaryTable
             dataset={summaryTableDataSet}
             tableHeader={summaryTableHeader}
             actionType={"VIEW"}
@@ -137,7 +140,7 @@ const HospitalManagement = ({ selectedPage }) => {
         );
       case 2:
         return (
-          <StockDetails
+          <HospitalStockDetails
             dataset={summaryDetailsTableDataSet}
             tableHeader={summaryDetailsTableHeader}
             actionType={"VIEW_EDIT"}
@@ -145,7 +148,7 @@ const HospitalManagement = ({ selectedPage }) => {
         );
       default:
         return (
-          <StockSummaryTable
+          <HospitalStockSummaryTable
             dataset={summaryTableDataSet}
             tableHeader={summaryTableHeader}
             actionType={"VIEW"}
