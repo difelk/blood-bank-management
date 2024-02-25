@@ -133,3 +133,18 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.controllerBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        margin: 0 8px;
+    }
+}
+
+
+.basicDataFormWrapper {
+    padding: 20px 0 40px 0;
+}

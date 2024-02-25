@@ -117,9 +117,18 @@
     box-shadow: none;
     transition: all 300ms ease-in;
     background-color: #f4f4f40b;
+}
 
+.editModeBtn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    box-shadow: none !important;
+    background-color: #176CD1;
+}
 
-
+.whieText {
+    color: #ffffff !important;
 }
 
 .iconBtn {

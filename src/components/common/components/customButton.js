@@ -9,6 +9,7 @@ const CustomButton = ({
   active,
   isDisabled,
   onClick,
+  optionalTextColor,
 }) => {
   // const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
 
@@ -34,10 +35,21 @@ const CustomButton = ({
         return Styles.iconBtn;
       case "CLOSE":
         return Styles.closeBtn;
+      case "EDIT_MODE":
+        return Styles.editModeBtn;
       case "SQicon":
         return Styles.SQiconBtn;
       default:
         return Styles.primaryBtn;
+    }
+  };
+
+  const getTextColorClass = () => {
+    switch (optionalTextColor) {
+      case "WHITE":
+        return Styles.whieText;
+      default:
+        return Styles.textNoraml;
     }
   };
 
@@ -59,8 +71,14 @@ const CustomButton = ({
         <div
           className={
             active
-              ? [Styles.activeBtnTxt, Styles.btnText].join(" ")
-              : [Styles.btnText, Styles.deActiveBtnTxt].join(" ")
+              ? [Styles.activeBtnTxt, Styles.btnText, getTextColorClass()].join(
+                  " "
+                )
+              : [
+                  Styles.btnText,
+                  Styles.deActiveBtnTxt,
+                  getTextColorClass(),
+                ].join(" ")
           }
         >
           {buttonText ?? ""}

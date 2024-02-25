@@ -4,10 +4,15 @@ import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import ClassicTable from "../classicTable/ClassicTable";
+import EditIcon from "../../../../../assets/icons/svgs/EditIcon";
+import StockBasicDataForm from "./StockBasicDataForm";
+import DonorForm from "../donorTables/DonorForm";
+import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 
 const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
+  const [editModeType, setEditModeType] = useState("");
 
   const tableHeaderForDonor = [
     { name: "Donor NIC", width: "25%" },
@@ -73,8 +78,6 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
     ScrollToTopButton();
   }, [isModalOpen]);
 
-  console.log("tableHeader - ", tableHeader);
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -121,12 +124,19 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
             >
+              <p>{item.qty}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[4].width }}
+            >
               <CustomButton
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
                   setIsModalOpen(true);
                   setSelectedItem(item);
+                  setEditModeType("");
                 }}
               />
             </div>
@@ -136,30 +146,57 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
       {isModalOpen ? (
         <CustomModal open={setIsModalOpen} title={"Stock Details"} width={600}>
           <div className={styles.hospitalData}>
-            <div className={styles.hospitalBasicData}>
-              <div className={styles.dflexRow}>
-                <p>Stock ID:</p>
-                <p>{selectedItem.stockId ?? "10254784"}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Date:</p>
-                <p>{selectedItem.date}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Category:</p>
-                <p>{selectedItem.category ?? "Regular"}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>location:</p>
-                <p>{selectedItem.location ?? "unkown"}</p>
-              </div>
-            </div>
-            <div className={styles.centerText}>Donor Details</div>
-            <ClassicTable
-              tableHeader={tableHeaderForDonor}
-              dataset={datasetforDonor}
-            />
-            {/* <div className={styles.hospitalBasicData}>
+            {!editModeType ? (
+              <>
+                <div className={styles.controllerBtns}>
+                  <CustomButton
+                    buttonText={"Edit Basic Data"}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
+                    onClick={() => setEditModeType("BASIC")}
+                  />
+
+                  <CustomButton
+                    buttonText={"Edit Donor Data"}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
+                    onClick={() => setEditModeType("DONOR")}
+                  />
+                </div>
+                <div className={styles.hospitalBasicData}>
+                  <div className={styles.dflexRow}>
+                    <p>Stock ID:</p>
+                    <p>{selectedItem.stockId ?? "10254784"}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>Date:</p>
+                    <p>{selectedItem.date}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>Category:</p>
+                    <p>{selectedItem.category ?? "Regular"}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>location:</p>
+                    <p>{selectedItem.location ?? "Hospital 01"}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>qty:</p>
+                    <p>{selectedItem.location ?? "80%"}</p>
+                  </div>
+                </div>
+                <div className={styles.centerText}>Donor Details</div>
+                <ClassicTable
+                  tableHeader={tableHeaderForDonor}
+                  dataset={datasetforDonor}
+                />
+                {/* <div className={styles.hospitalBasicData}>
               {Object.keys(selectedHospital.stock).map(
                 (bloodGroup, subIndex) => (
                   <div className={styles.dflexRow}>
@@ -169,6 +206,32 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                 )
               )}
             </div> */}
+              </>
+            ) : (
+              <div className={styles.subForm}>
+                <div className={styles.subFormBtns}>
+                  <CustomButton
+                    buttonText={""}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<BackArrowIcon size={15} color={"#ffffff"} />}
+                    onClick={() => setEditModeType("")}
+                  />
+                </div>
+
+                {editModeType === "BASIC" ? (
+                  <>
+                    <StockBasicDataForm />
+                  </>
+                ) : (
+                  <>
+                    <DonorForm />
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </CustomModal>
       ) : (
