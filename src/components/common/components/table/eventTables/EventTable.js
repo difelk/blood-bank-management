@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styles from "./DonorTable.module.scss";
+import styles from "./EventTable.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 
-const DonorTable = ({ tableHeader, dataset, actionType }) => {
+const EventTable = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDonor, setSelectedDonor] = useState({});
+  const [selectedEvent, setSelectedEvent] = useState({});
 
   const ScrollToTopButton = () => {
     window.scrollTo({
@@ -40,19 +40,19 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
             >
-              <p>{item.nic}</p>
+              <p>{item.eventName}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.name}</p>
+              <p>{item.date}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.bloodGroup}</p>
+              <p>{item.location}</p>
             </div>
             <div
               className={styles.tableDataItem}
@@ -64,7 +64,7 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
                 onClick={() => {
                   console.log("h");
                   setIsModalOpen(true);
-                  setSelectedDonor(item);
+                  setSelectedEvent(item);
                 }}
               />
             </div>
@@ -72,27 +72,27 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Donor Details"}>
+        <CustomModal open={setIsModalOpen} title={"User Details"}>
           <div className={styles.hospitalData}>
             <div className={styles.hospitalBasicData}>
               <div className={styles.dflexRow}>
                 <p>NIC:</p>
-                <p>{selectedDonor.nic}</p>
+                <p>{selectedEvent.nic}</p>
               </div>
               <div className={styles.dflexRow}>
                 <p>Name:</p>
-                <p>{selectedDonor.name}</p>
+                <p>{selectedEvent.name}</p>
               </div>
               <div className={styles.dflexRow}>
               <p>Blood Group:</p>
-                <p>{selectedDonor.bloodGroup}</p>
+                <p>{selectedEvent.bloodGroup}</p>
               </div>
             </div>
             {/* <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedDonor.stock).map((bloodGroup, subIndex) => (
+              {Object.keys(selectedEvent.stock).map((bloodGroup, subIndex) => (
                 <div className={styles.dflexRow}>
                   <p>Blood Group</p>
-                  <p>{selectedDonor.stock[bloodGroup]}</p>
+                  <p>{selectedEvent.stock[bloodGroup]}</p>
                 </div>
               ))}
             </div> */}
@@ -104,4 +104,4 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
     </div>
   );
 };
-export default DonorTable;
+export default EventTable;
