@@ -9,18 +9,44 @@ import TabController from "../../common/components/tab/TabController";
 import DonorTable from "../../common/components/table/donorTables/DonorTable";
 
 const donorTableHeader = [
-  { name: "NIC", width: "25%" },
-  { name: "Name", width: "25%" },
-  { name: "Blood Group", width: "25%" },
-  { name: "Actions", width: "25%" },
+  { name: "NIC", width: "20%" },
+  { name: "First Name", width: "20%" },
+  { name: "Last Name", width: "20%" },
+  { name: "Blood Group", width: "20%" },
+  { name: "Actions", width: "20%" },
 ];
 
 const donorTableDataSet = [
-  { nic: "975083691V", name: "Ilmee", bloodGroup: "O+" },
-  { nic: "975083691V", name: "Ilmee", bloodGroup: "A+" },
-  { nic: "975083691V", name: "Ilmee", bloodGroup: "AB+" },
-  { nic: "975083691V", name: "Ilmee", bloodGroup: "B-" },
-  { nic: "975083691V", name: "Ilmee", bloodGroup: "O-" },
+  {
+    nic: "123456789V",
+    firstName: "John",
+    lastName: "Doe",
+    bloodType: "A+",
+  },
+  {
+    nic: "987654321V",
+    firstName: "Jane",
+    lastName: "Smith",
+    bloodType: "B-",
+  },
+  {
+    nic: "456789123V",
+    firstName: "Alice",
+    lastName: "Johnson",
+    bloodType: "AB+",
+  },
+  {
+    nic: "654321987V",
+    firstName: "Bob",
+    lastName: "Brown",
+    bloodType: "O-",
+  },
+  {
+    nic: "789123456V",
+    firstName: "Sarah",
+    lastName: "Lee",
+    bloodType: "A-",
+  },
 ];
 
 const tabs = [
@@ -30,6 +56,7 @@ const tabs = [
 
 const DonorManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {

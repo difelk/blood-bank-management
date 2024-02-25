@@ -19,12 +19,13 @@ const bloodTypes = [
 ];
 
 const DonorForm = ({ donor }) => {
+  console.log("donor - ", donor);
   const initialValues = {
     nic: donor.nic ?? "",
-    first_name: donor.donorName ?? "",
+    first_name: donor.firstName ?? "",
     last_name: donor.lastName ?? "",
     contact_no: donor.contactNo ?? "",
-    bloodType: { key: "A+", value: "A +" } ?? "",
+    bloodType: donor.bloodType ?? "",
     no: donor.streetNo ?? "",
     street: donor.streetName ?? "",
     city: donor.city ?? "",
@@ -184,7 +185,7 @@ const DonorForm = ({ donor }) => {
                   id={"bloodType"}
                   name={"bloodType"}
                   disabled={false}
-                  defaultValue={initialValues.bloodType.value}
+                  defaultValue={initialValues.bloodType}
                   getValue={(value) => {
                     setFieldValue("bloodType", value);
                   }}

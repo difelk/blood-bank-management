@@ -10,9 +10,11 @@ const CustomButton = ({
   isDisabled,
   onClick,
   optionalTextColor,
+  optionalBackgroundColor,
 }) => {
   // const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
 
+  console.log("optionalBackgroundColor  = ", optionalBackgroundColor);
   // const handleChange = (event) => {
   //   setSelectedValue(event.target.value);
   //   return getDropdownValue(selectedValue);
@@ -65,6 +67,7 @@ const CustomButton = ({
       onClick={(event) => onClick(event)}
       disabled={isDisabled}
       type={buttonType === "submit" ? "submit" : "button"}
+      style={{ backgroundColor: optionalBackgroundColor ?? "" }}
     >
       {iconsLeft ? <div className={Styles.btnIconLeft}>{iconsLeft}</div> : ""}
       {buttonText ? (
