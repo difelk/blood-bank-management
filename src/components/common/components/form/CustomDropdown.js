@@ -3,12 +3,14 @@ import styles from "./CustomDropdown.module.scss";
 import ArrowIcon from "../../../../assets/icons/svgs/ArrowIcon";
 import { useFormikContext } from "formik";
 
-const CustomDropdown = ({ placeHolder, dataset, name }) => {
+const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
   const { setFieldValue } = useFormikContext();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [filteredDataSet, setFilteredDataSet] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownItem, setSelectedDropdownItem] = useState("");
+
+  console.log("defaultValue - ", defaultValue);
 
   const filterData = () => {
     if (!searchValue) {
@@ -25,6 +27,10 @@ const CustomDropdown = ({ placeHolder, dataset, name }) => {
   useEffect(() => {
     filterData(dataset);
   }, [dataset, searchValue]);
+
+  useEffect(() => {
+    setSearchValue(defaultValue ?? "");
+  }, []);
 
   const handleItemClick = (item) => {
     setSelectedDropdownItem(item);
@@ -51,6 +57,7 @@ const CustomDropdown = ({ placeHolder, dataset, name }) => {
           onBlur={() => setIsDropdownVisible(false)}
           onChange={(e) => setSearchValue(e.target.value)}
           value={searchValue}
+          defaultValue={defaultValue ?? ""}
         />
         <label className={styles.dropdownArrow}>
           <ArrowIcon size={12} color={"#909090"} />

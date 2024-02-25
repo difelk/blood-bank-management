@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./hospitalStockDetails.module.scss";
+import styles from "./HospitalStockDetails.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
