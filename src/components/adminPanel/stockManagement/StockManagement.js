@@ -8,6 +8,7 @@ import StockSummaryTable from "../../common/components/table/stockTables/StockSu
 import TabController from "../../common/components/tab/TabController";
 import StockDetails from "../../common/components/table/stockTables/StockDetails";
 import CareIcon from "../../../assets/icons/svgs/CareIcon";
+import CustomModal from "../../common/components/modal/CustomModal";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -130,6 +131,7 @@ const tabs = [
 
 const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -171,7 +173,9 @@ const StockManagement = ({ selectedPage }) => {
             <CustomButton
               // buttonType={BUTTONTYPES.SQUAREICON}
               iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-              onClick={() => console.log("click")}
+              onClick={() => {
+                setIsAddStockModalOpen(true);
+              }}
             />
           </div>
           <div className={styles.btnWrapper}>
@@ -190,6 +194,14 @@ const StockManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+
+      {isAddStockModalOpen ? (
+        <CustomModal open={setIsAddStockModalOpen} title={`Add New Stock`}>
+          <div className={styles.hospitalData}></div>
+        </CustomModal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

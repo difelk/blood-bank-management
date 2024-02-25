@@ -3,12 +3,8 @@ import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./HospitalManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
 import AddIcon from "../../../assets/icons/svgs/AddIcon";
-import { BUTTONTYPES } from "../../../share/enums";
-import StockSummaryTable from "../../common/components/table/stockTables/StockSummaryTable";
 import TabController from "../../common/components/tab/TabController";
-import StockDetails from "../../common/components/table/stockTables/StockDetails";
 import HospitalStockDetails from "../../common/components/table/hospitalTables/HospitalStockDetails";
-import HospitalSummeryTable from "../../common/components/table/HospitalSummeryTable";
 import HospitalStockSummaryTable from "../../common/components/table/hospitalTables/HospitalStockSummaryTable";
 
 const summaryTableHeader = [
