@@ -84,8 +84,12 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
                 <p>{selectedUser.name}</p>
               </div>
               <div className={styles.dflexRow}>
-              <p>Blood Group:</p>
+              <p>Contact No:</p>
                 <p>{selectedUser.contactNo}</p>
+              </div>
+              <div className={styles.dflexRow}>
+              <p>Priviledge:</p>
+                <p>Admin</p>
               </div>
             </div>
             {/* <div className={styles.hospitalBasicData}>
