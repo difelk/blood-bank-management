@@ -6,7 +6,7 @@ import CustomModal from "../../modal/CustomModal";
 
 const StockSummaryTable = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedHospital, setSelectedHospital] = useState({});
+  const [selectedItem, setSelectedItem] = useState({});
 
   const ScrollToTopButton = () => {
     window.scrollTo({
@@ -18,8 +18,6 @@ const StockSummaryTable = ({ tableHeader, dataset, actionType }) => {
   useEffect(() => {
     ScrollToTopButton();
   }, [isModalOpen]);
-
-  console.log("tableHeader - ", tableHeader);
 
   return (
     <div className={styles.tableWrapper}>
@@ -62,40 +60,46 @@ const StockSummaryTable = ({ tableHeader, dataset, actionType }) => {
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h"); //   setIsModalOpen(true);
-                  //   setSelectedHospital(item);
+                  setIsModalOpen(true);
+                  setSelectedItem(item);
                 }}
               />
             </div>
           </div>
         ))}
       </div>
+      {console.log("selectedItem - ", selectedItem)}
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Hospital Details"}>
+        <CustomModal
+          open={setIsModalOpen}
+          title={`Blood Group ${selectedItem.bloodGroup}`}
+        >
           <div className={styles.hospitalData}>
             <div className={styles.hospitalBasicData}>
               <div className={styles.dflexRow}>
-                <p>Name:</p>
-                <p>{selectedHospital.hospitalName}</p>
+                <p>Blood Group:</p>
+                <p>{selectedItem.bloodGroup}</p>
               </div>
-              <div className={styles.dflexRow}>
-                <p>address:</p>
-                <p>{selectedHospital.city}</p>
-              </div>
+              {/* <div className={styles.dflexRow}>
+                <p>address:</p> */}
+              {/* <p>{selectedHospital.bloodGroup}</p> */}
+              {/* </div>
               <div className={styles.dflexRow}>
                 <p>contact No:</p>
                 <p>(+94) 7845874</p>
-              </div>
+              </div> */}
             </div>
             <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedHospital.stock).map(
+              need to get stocks from Blood Group {selectedItem.bloodGroup} and
+              map in here!
+              {/* {Object.keys(selectedHospital.stock).map(
                 (bloodGroup, subIndex) => (
                   <div className={styles.dflexRow}>
                     <p>Blood Group</p>
                     <p>{selectedHospital.stock[bloodGroup]}</p>
                   </div>
                 )
-              )}
+              )} */}
             </div>
           </div>
         </CustomModal>

@@ -3,10 +3,28 @@ import styles from "./StockDetails.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import ClassicTable from "../classicTable/ClassicTable";
 
 const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedHospital, setSelectedHospital] = useState({});
+  const [selectedItem, setSelectedItem] = useState({});
+
+  const tableHeaderForDonor = [
+    { name: "Donor NIC", width: "25%" },
+    { name: "Donor Name", width: "25%" },
+    { name: "Blood Type", width: "25%" },
+    { name: "Quantity", width: "25%" },
+    // { name: "Action", width: "25%" },
+  ];
+  const datasetforDonor = [
+    { nic: 12345798, donorName: "John Doe", bloodType: "O+", qty: "50%" },
+    { nic: 98754321, donorName: "John Does mom", bloodType: "O+", qty: "30%" },
+  ];
+
+  /** <td>123456789</td>
+            <td>John Dsssssssssoe</td>
+            <td>O+</td>
+            <td>50%</td> */
 
   const getStatusColor = (value) => {
     if (value <= 20) {
@@ -84,12 +102,6 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
             >
               <p>{item.category}</p>
             </div>
-            {/* <div
-              className={styles.tableDataItem}
-              style={{ width: tableHeader[2].width }}
-            >
-              <p>{item.category}</p>
-            </div> */}
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
@@ -113,8 +125,8 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h"); //   setIsModalOpen(true);
-                  //   setSelectedHospital(item);
+                  setIsModalOpen(true);
+                  setSelectedItem(item);
                 }}
               />
             </div>
@@ -122,27 +134,32 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Hospital Details"}>
+        <CustomModal open={setIsModalOpen} title={"Stock Details"} width={600}>
           <div className={styles.hospitalData}>
             <div className={styles.hospitalBasicData}>
               <div className={styles.dflexRow}>
                 <p>Stock ID:</p>
-                <p>{selectedHospital.hospitalName}</p>
+                <p>{selectedItem.stockId ?? "10254784"}</p>
               </div>
               <div className={styles.dflexRow}>
                 <p>Date:</p>
-                <p>{selectedHospital.city}</p>
+                <p>{selectedItem.date}</p>
               </div>
               <div className={styles.dflexRow}>
                 <p>Category:</p>
-                <p>(+94) 7845874</p>
+                <p>{selectedItem.category ?? "Regular"}</p>
               </div>
               <div className={styles.dflexRow}>
                 <p>location:</p>
-                <p>(+94) 7845874</p>
+                <p>{selectedItem.location ?? "unkown"}</p>
               </div>
             </div>
-            <div className={styles.hospitalBasicData}>
+            <div className={styles.centerText}>Donor Details</div>
+            <ClassicTable
+              tableHeader={tableHeaderForDonor}
+              dataset={datasetforDonor}
+            />
+            {/* <div className={styles.hospitalBasicData}>
               {Object.keys(selectedHospital.stock).map(
                 (bloodGroup, subIndex) => (
                   <div className={styles.dflexRow}>
@@ -151,7 +168,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                   </div>
                 )
               )}
-            </div>
+            </div> */}
           </div>
         </CustomModal>
       ) : (

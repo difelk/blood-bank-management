@@ -2,6 +2,15 @@
     display: flex;
     flex-direction: column;
 
+    .controllPanel {
+        display: flex;
+        align-items: center;
+
+        .btnWrapper:first-child {
+            margin-right: 20px;
+        }
+
+    }
 
     .summeryTable {
         margin: 12px 0;
