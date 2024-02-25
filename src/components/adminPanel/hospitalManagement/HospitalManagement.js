@@ -118,8 +118,8 @@ const summaryDetailsTableDataSet = [
 ];
 
 const tabs = [
-  { key: 1, value: "Stock Summary" },
-  { key: 2, value: "Stock Details" },
+  { key: 1, value: "Hospital Stock Summary" },
+  { key: 2, value: "Hospital Stock Details" },
 ];
 
 const HospitalManagement = ({ selectedPage }) => {
