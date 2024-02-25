@@ -16,15 +16,35 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [selectedDonor, setSelectedDonor] = useState({});
 
   const tableHeaderForDonor = [
-    { name: "Donor NIC", width: "25%" },
-    { name: "Donor Name", width: "25%" },
-    { name: "Blood Type", width: "25%" },
-    { name: "Quantity", width: "25%" },
+    { name: "Donor NIC", width: "20%" },
+    { name: "First Name", width: "20%" },
+    { name: "Last Name", width: "20%" },
+    { name: "Blood Type", width: "20%" },
+    { name: "Quantity", width: "20%" },
     // { name: "Action", width: "25%" },
   ];
   const datasetforDonor = [
-    { nic: 12345798, donorName: "John Doe", bloodType: "O+", qty: "50%" },
-    { nic: 98754321, donorName: "John Does mom", bloodType: "O+", qty: "30%" },
+    {
+      nic: 12345798,
+      firstName: "John",
+      lastName: "Doe",
+      bloodType: "O+",
+      qty: "50%",
+    },
+    {
+      nic: 98754321,
+      firstName: "Ilmee",
+      lastName: "desilva",
+      bloodType: "A-",
+      qty: "30%",
+    },
+    {
+      nic: 98754321,
+      firstName: "ranil",
+      lastName: "wickramasinghe",
+      bloodType: "A+",
+      qty: "45%",
+    },
   ];
 
   /** <td>123456789</td>

@@ -3,6 +3,7 @@ import styles from "./DonorTable.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import DonorForm from "./DonorForm";
 
 const DonorTable = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,17 +47,23 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.name}</p>
+              <p>{item.firstName}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.bloodGroup}</p>
+              <p>{item.lastName}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
+            >
+              <p>{item.bloodType}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[4].width }}
             >
               <CustomButton
                 buttonType={"ICON"}
@@ -74,28 +81,7 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
       {isModalOpen ? (
         <CustomModal open={setIsModalOpen} title={"Donor Details"}>
           <div className={styles.hospitalData}>
-            <div className={styles.hospitalBasicData}>
-              <div className={styles.dflexRow}>
-                <p>NIC:</p>
-                <p>{selectedDonor.nic}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Name:</p>
-                <p>{selectedDonor.name}</p>
-              </div>
-              <div className={styles.dflexRow}>
-              <p>Blood Group:</p>
-                <p>{selectedDonor.bloodGroup}</p>
-              </div>
-            </div>
-            {/* <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedDonor.stock).map((bloodGroup, subIndex) => (
-                <div className={styles.dflexRow}>
-                  <p>Blood Group</p>
-                  <p>{selectedDonor.stock[bloodGroup]}</p>
-                </div>
-              ))}
-            </div> */}
+            <DonorForm donor={selectedDonor} />
           </div>
         </CustomModal>
       ) : (

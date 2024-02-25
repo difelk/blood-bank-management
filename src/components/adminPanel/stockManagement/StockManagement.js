@@ -9,6 +9,7 @@ import TabController from "../../common/components/tab/TabController";
 import StockDetails from "../../common/components/table/stockTables/StockDetails";
 import CareIcon from "../../../assets/icons/svgs/CareIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
+import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -131,7 +132,7 @@ const tabs = [
 
 const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
+  const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -169,7 +170,7 @@ const StockManagement = ({ selectedPage }) => {
       </div>
       <div className={styles.stockMngWrapper}>
         <div className={styles.controllPanel}>
-          <div className={styles.btnWrapper}>
+          {/* <div className={styles.btnWrapper}>
             <CustomButton
               // buttonType={BUTTONTYPES.SQUAREICON}
               iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
@@ -177,12 +178,13 @@ const StockManagement = ({ selectedPage }) => {
                 setIsAddStockModalOpen(true);
               }}
             />
-          </div>
+          </div> */}
           <div className={styles.btnWrapper}>
             <CustomButton
               // buttonType={BUTTONTYPES.SQUAREICON}
-              iconsLeft={<CareIcon size={12} color={"#FE5987"} />}
-              onClick={() => console.log("click")}
+              iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
+              optionalBackgroundColor={"#03a9f4"}
+              onClick={() => setIsRequestStockOpen(true)}
             />
           </div>
         </div>
@@ -195,8 +197,8 @@ const StockManagement = ({ selectedPage }) => {
         <div className={styles.stockTable}></div>
       </div>
 
-      {isAddStockModalOpen ? (
-        <CustomModal open={setIsAddStockModalOpen} title={`Add New Stock`}>
+      {isRequestStockOpen ? (
+        <CustomModal open={setIsRequestStockOpen} title={`Stock Exchanges`}>
           <div className={styles.hospitalData}></div>
         </CustomModal>
       ) : (
