@@ -7,6 +7,7 @@ import { BUTTONTYPES } from "../../../share/enums";
 import StockSummaryTable from "../../common/components/table/stockTables/StockSummaryTable";
 import TabController from "../../common/components/tab/TabController";
 import StockDetails from "../../common/components/table/stockTables/StockDetails";
+import CareIcon from "../../../assets/icons/svgs/CareIcon";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -161,11 +162,20 @@ const StockManagement = ({ selectedPage }) => {
       </div>
       <div className={styles.stockMngWrapper}>
         <div className={styles.controllPanel}>
-          <CustomButton
-            // buttonType={BUTTONTYPES.SQUAREICON}
-            iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => console.log("click")}
-          />
+          <div className={styles.btnWrapper}>
+            <CustomButton
+              // buttonType={BUTTONTYPES.SQUAREICON}
+              iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
+              onClick={() => console.log("click")}
+            />
+          </div>
+          <div className={styles.btnWrapper}>
+            <CustomButton
+              // buttonType={BUTTONTYPES.SQUAREICON}
+              iconsLeft={<CareIcon size={12} color={"#FE5987"} />}
+              onClick={() => console.log("click")}
+            />
+          </div>
         </div>
         <TabController
           tabs={tabs}
