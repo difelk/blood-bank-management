@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ClassicTable.module.scss";
-const ClassicTable = ({ tableHeader, dataset, actions }) => {
+const ClassicTable = ({ tableHeader, dataset, actions, getSelected }) => {
   return (
     <>
       <table className={styles.table}>
@@ -15,13 +15,15 @@ const ClassicTable = ({ tableHeader, dataset, actions }) => {
           {dataset.map((donor, index) => (
             <tr key={index}>
               {Object.keys(donor).map((key) => (
-                <td key={key}>{donor[key]}</td>
+                <td key={key}>
+                  <button
+                    className={styles.noStylesBtn}
+                    onClick={() => getSelected(donor)}
+                  >
+                    {donor[key]}
+                  </button>
+                </td>
               ))}
-              {/* Add edit and delete buttons if needed */}
-              {/* <td>
-                <button>Edit</button>
-                <button>Delete</button>
-            </td> */}
             </tr>
           ))}
         </tbody>

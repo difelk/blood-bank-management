@@ -13,6 +13,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [editModeType, setEditModeType] = useState("");
+  const [selectedDonor, setSelectedDonor] = useState({});
 
   const tableHeaderForDonor = [
     { name: "Donor NIC", width: "25%" },
@@ -156,7 +157,10 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     isDisabled={false}
                     optionalTextColor={"WHITE"}
                     iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
-                    onClick={() => setEditModeType("BASIC")}
+                    onClick={() => {
+                      setEditModeType("BASIC");
+                      setSelectedDonor({});
+                    }}
                   />
 
                   <CustomButton
@@ -166,7 +170,10 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     isDisabled={false}
                     optionalTextColor={"WHITE"}
                     iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
-                    onClick={() => setEditModeType("DONOR")}
+                    onClick={() => {
+                      setEditModeType("DONOR");
+                      setSelectedDonor({});
+                    }}
                   />
                 </div>
                 <div className={styles.hospitalBasicData}>
@@ -195,6 +202,10 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                 <ClassicTable
                   tableHeader={tableHeaderForDonor}
                   dataset={datasetforDonor}
+                  getSelected={(value) => {
+                    setSelectedDonor(value);
+                    setEditModeType("DONOR");
+                  }}
                 />
                 {/* <div className={styles.hospitalBasicData}>
               {Object.keys(selectedHospital.stock).map(
@@ -227,7 +238,18 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                   </>
                 ) : (
                   <>
-                    <DonorForm />
+                    {Object.keys(selectedDonor).length === 0 ? (
+                      <div>
+                        <p>Select a Donor to Edit</p>
+                        <ClassicTable
+                          tableHeader={tableHeaderForDonor}
+                          dataset={datasetforDonor}
+                          getSelected={(value) => setSelectedDonor(value)}
+                        />
+                      </div>
+                    ) : (
+                      <DonorForm donor={selectedDonor} />
+                    )}
                   </>
                 )}
               </div>
