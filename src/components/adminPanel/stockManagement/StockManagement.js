@@ -31,7 +31,8 @@ const summaryDetailsTableHeader = [
   // { name: "Stock ID", width: "20%" },
   { name: "Date", width: "20%" },
   { name: "Category", width: "20%" },
-  { name: "Blood Group", width: "40%" },
+  { name: "Blood Group", width: "30%" },
+  { name: "Qty", width: "10%" },
   { name: "Action", width: "20%" },
 ];
 
@@ -40,7 +41,6 @@ const summaryDetailsTableDataSet = [
     // stockId: "202402241617V1",
     date: "2024/02/24 19:17",
     category: "REGULAR",
-    // location: "Colombo",
     stock: {
       APLUS: 70,
       AMINUS: 88,
@@ -51,6 +51,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "80%",
   },
   {
     // stockId: "202402241618V1",
@@ -67,6 +68,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "80%",
   },
   {
     // stockId: "202402241619V1",
@@ -83,6 +85,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "80%",
   },
   {
     // stockId: "202402241620V1",
@@ -99,6 +102,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "80%",
   },
   {
     // stockId: "202402241621V1",
@@ -115,6 +119,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "80%",
   },
 ];
 
