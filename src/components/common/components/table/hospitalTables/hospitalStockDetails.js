@@ -3,10 +3,50 @@ import styles from "./HospitalStockDetails.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import EditIcon from "../../../../../assets/icons/svgs/EditIcon";
+import ClassicTable from "../classicTable/ClassicTable";
+import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
+import DonorForm from "../donorTables/DonorForm";
+import HospitalStockBasicDataForm from "./HospitalStockBasicDataForm";
 
 const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState({});
+  const [selectedItem, setSelectedItem] = useState({});
+  const [editModeType, setEditModeType] = useState("");
+  const [selectedDonor, setSelectedDonor] = useState({});
+
+  const tableHeaderForDonor = [
+    { name: "Donor NIC", width: "20%" },
+    { name: "First Name", width: "20%" },
+    { name: "Last Name", width: "20%" },
+    { name: "Blood Type", width: "20%" },
+    { name: "Quantity", width: "20%" },
+    // { name: "Action", width: "25%" },
+  ];
+  const datasetforDonor = [
+    {
+      nic: 12345798,
+      firstName: "John",
+      lastName: "Doe",
+      bloodType: "O+",
+      qty: "50%",
+    },
+    {
+      nic: 98754321,
+      firstName: "Ilmee",
+      lastName: "desilva",
+      bloodType: "A-",
+      qty: "30%",
+    },
+    {
+      nic: 98754321,
+      firstName: "ranil",
+      lastName: "wickramasinghe",
+      bloodType: "A+",
+      qty: "45%",
+    },
+  ];
 
   const getStatusColor = (value) => {
     if (value <= 20) {
@@ -113,8 +153,9 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h"); //   setIsModalOpen(true);
-                  //   setSelectedHospital(item);
+                  setIsModalOpen(true);
+                  setSelectedItem(item);
+                  setEditModeType("");
                 }}
               />
             </div>
@@ -122,36 +163,109 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Hospital Details"}>
+        <CustomModal
+          open={setIsModalOpen}
+          title={"Hospital Stock Details"}
+          width={600}
+        >
           <div className={styles.hospitalData}>
-            <div className={styles.hospitalBasicData}>
-              <div className={styles.dflexRow}>
-                <p>Stock ID:</p>
-                <p>{selectedHospital.hospitalName}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Date:</p>
-                <p>{selectedHospital.city}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Category:</p>
-                <p>(+94) 7845874</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>location:</p>
-                <p>(+94) 7845874</p>
-              </div>
-            </div>
-            <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedHospital.stock).map(
-                (bloodGroup, subIndex) => (
+            {!editModeType ? (
+              <>
+                <div className={styles.controllerBtns}>
+                  <CustomButton
+                    buttonText={"Edit Basic Data"}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
+                    onClick={() => {
+                      setEditModeType("BASIC");
+                      setSelectedDonor({});
+                    }}
+                  />
+
+                  <CustomButton
+                    buttonText={"Edit Donor Data"}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
+                    onClick={() => {
+                      setEditModeType("DONOR");
+                      setSelectedDonor({});
+                    }}
+                  />
+                </div>
+                <div className={styles.hospitalBasicData}>
                   <div className={styles.dflexRow}>
-                    <p>Blood Group</p>
-                    <p>{selectedHospital.stock[bloodGroup]}</p>
+                    <p>Stock ID:</p>
+                    <p>{selectedItem.stockId ?? "10254784"}</p>
                   </div>
-                )
-              )}
-            </div>
+                  <div className={styles.dflexRow}>
+                    <p>Date:</p>
+                    <p>{selectedItem.date}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>Category:</p>
+                    <p>{selectedItem.category ?? "Regular"}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>location:</p>
+                    <p>{selectedItem.location ?? "Hospital 01"}</p>
+                  </div>
+                  <div className={styles.dflexRow}>
+                    <p>qty:</p>
+                    <p>{selectedItem.location ?? "80%"}</p>
+                  </div>
+                </div>
+                <div className={styles.centerText}>Donor Details</div>
+                <ClassicTable
+                  tableHeader={tableHeaderForDonor}
+                  dataset={datasetforDonor}
+                  getSelected={(value) => {
+                    setSelectedDonor(value);
+                    setEditModeType("DONOR");
+                  }}
+                />
+              </>
+            ) : (
+              <div className={styles.subForm}>
+                <div className={styles.subFormBtns}>
+                  <CustomButton
+                    buttonText={""}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<BackArrowIcon size={15} color={"#ffffff"} />}
+                    onClick={() => setEditModeType("")}
+                  />
+                </div>
+
+                {editModeType === "BASIC" ? (
+                  <>
+                    <HospitalStockBasicDataForm />
+                  </>
+                ) : (
+                  <>
+                    {Object.keys(selectedDonor).length === 0 ? (
+                      <div>
+                        <p>Select a Donor to Edit</p>
+                        <ClassicTable
+                          tableHeader={tableHeaderForDonor}
+                          dataset={datasetforDonor}
+                          getSelected={(value) => setSelectedDonor(value)}
+                        />
+                      </div>
+                    ) : (
+                      <DonorForm donor={selectedDonor} />
+                    )}
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </CustomModal>
       ) : (
