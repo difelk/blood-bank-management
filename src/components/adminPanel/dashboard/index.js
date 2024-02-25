@@ -7,6 +7,7 @@ import HospitalManagement from "../hospitalManagement/HospitalManagement";
 import StockManagement from "../stockManagement/StockManagement";
 import DonorManagement from "../donorManagement/DonorManagement";
 import EventManagement from "../eventManagement/EventManagement";
+import UserManagement from "../userManagement/UserManagement";
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState("Dashboard");
@@ -23,7 +24,7 @@ const Dashboard = () => {
       case "Event Management":
         return <EventManagement selectedPage={currentPage} />;
       case "User Management":
-        return <EventManagement selectedPage={currentPage} />;
+        return <UserManagement selectedPage={currentPage} />;
       case "Hospital Management":
         return <HospitalManagement selectedPage={currentPage} />;
       default:
