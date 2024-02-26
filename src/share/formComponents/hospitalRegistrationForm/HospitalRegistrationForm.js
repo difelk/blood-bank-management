@@ -63,6 +63,10 @@ const HospitalRegistrationForm = ({ isAllowedFullAccess }) => {
       errors.hospital_location = "Main Location contain at least 3 letters";
     }
 
+    if (!values.sector) {
+      errors.sector = "Please select an option";
+    }
+
     return errors;
   };
 

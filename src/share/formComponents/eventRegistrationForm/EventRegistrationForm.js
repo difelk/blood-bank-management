@@ -71,6 +71,24 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
       errors.venue = "Venue contain at least 3 letters";
     }
 
+    if (!values.start_date) {
+      errors.start_date = "Start Date is required";
+    } else {
+      if (new Date(values.start_date) <= new Date()) {
+        errors.start_date = "Start Date cannot be today or a past date";
+      }
+    }
+
+    if (!values.end_date) {
+      errors.end_date = "End Date is required";
+    } else {
+      if (new Date(values.end_date) < new Date(values.start_date)) {
+        errors.end_date = "End Date must be same or after the Start Date";
+      } else if (new Date(values.end_date) <= new Date()) {
+        errors.end_date = "End Date cannot be today or a past date";
+      }
+    }
+
     return errors;
   };
 
