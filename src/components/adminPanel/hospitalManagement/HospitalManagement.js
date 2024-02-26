@@ -10,6 +10,7 @@ import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import commonStyles from "../../../styles/common.module.scss";
 import HospitalsTable from "../../common/components/table/hospitalTables/HospitalsTable";
+import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegistrationForm/HospitalRegistrationForm";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -193,9 +194,10 @@ const tabs = [
   { key: 3, value: "Hospital Stock Details" },
 ];
 
-const HospitalManagement = ({ selectedPage }) => {
+const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
+  const [selectedHospital, setSelectedHospital] = useState({});
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -265,8 +267,12 @@ const HospitalManagement = ({ selectedPage }) => {
       </div>
       {modalType ? (
         modalType === "ADD" ? (
-          <CustomModal open={setModalType} title={`Add Stock`}>
+          <CustomModal open={setModalType} title={`Add Hospital`} height={"500px"}>
             <div className={styles.hospitalData}></div>
+            <HospitalRegistrationForm
+              Hospital={selectedHospital}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </CustomModal>
         ) : modalType === "REQUEST" ? (
           <CustomModal open={setModalType} title={`Stock Exhange and Request`}>
