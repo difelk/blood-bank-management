@@ -12,7 +12,7 @@ const sampleDropdownData = [
 ];
 
 const ProfileInformation = () => {
-  const [isHopitalUser, setIsHospitalUser] = useState(false);
+  const [isHopitalUser, setIsHospitalUser] = useState(true);
 
   const normalUserInitialValues = {
     first_name: "",
