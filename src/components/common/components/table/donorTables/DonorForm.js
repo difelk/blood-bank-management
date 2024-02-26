@@ -296,7 +296,13 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   onClick={() => handleSubmit(values)}
                 />
               ) : (
-                ""
+                <CustomButton
+                  buttonText={"Remove From Stock"}
+                  buttonType={"DELETE"}
+                  isDisabled={false}
+                  active={true}
+                  onClick={() => handleSubmit(values)}
+                />
               )}
             </div>
           </Form>

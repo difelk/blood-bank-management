@@ -8,6 +8,7 @@ import StockDetails from "../../common/components/table/stockTables/StockDetails
 import CustomModal from "../../common/components/modal/CustomModal";
 import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import commonStyles from "../../../styles/common.module.scss";
+import ExchangeAndReceive from "../../common/components/other/ExchangeAndReceive/ExchangeAndReceive";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -185,7 +186,9 @@ const StockManagement = ({ selectedPage }) => {
 
       {isRequestStockOpen ? (
         <CustomModal open={setIsRequestStockOpen} title={`Stock Exchanges`}>
-          <div className={styles.hospitalData}></div>
+          <div className={styles.hospitalData}>
+            <ExchangeAndReceive />
+          </div>
         </CustomModal>
       ) : (
         ""

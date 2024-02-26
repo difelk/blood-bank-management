@@ -78,6 +78,17 @@
     box-shadow: none !important;
 }
 
+.borderOnlyBtn {
+    padding: 75px;
+    background: transparent;
+    box-shadow: none;
+    border: 2px solid #5C38FF;
+}
+
+.borderOnlyBtn:hover {
+    background: #F7F5FF;
+}
+
 
 .secondaryBtnsemiRound {
     background-color: #4c4bbb;
