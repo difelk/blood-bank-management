@@ -14,16 +14,17 @@ const sampleDropdownData = [
   { key: 3, value: "Semi-Government" },
 ];
 
-const EventRegistrationForm = ({isAllowedFullAccess}) => {
-
-
+const EventRegistrationForm = ({ isAllowedFullAccess }) => {
   const InitialValues = {
+    event_name: "",
+    organization_name: "",
     contact_no: "",
+    venue: "",
+    start_date: "",
+    end_date: "",
     no: "",
     street: "",
     city: "",
-    hospital_location: "",
-    hospital_name: "",
   };
 
   const validate = (values) => {
@@ -50,23 +51,39 @@ const EventRegistrationForm = ({isAllowedFullAccess}) => {
             <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input100].join(" ")}>
                 <CustomInput
-                  placeHolder={"Hospital Name"}
-                  id={"hospital_name"}
-                  name={"hospital_name"}
+                  placeHolder={"Event Name"}
+                  id={"event_name"}
+                  name={"event_name"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("hospital_name", value);
+                    setFieldValue("event_name", value);
                   }}
-                  default={values.hospital_name ?? ""}
-                  error={errors.hospital_name}
+                  default={values.event_name ?? ""}
+                  error={errors.event_name}
                   type={"text"}
                   touched={touched}
                 />
-                <span>{errors.hospital_name}</span>
+                <span>{errors.event_name}</span>
               </div>
             </div>
 
             <div className={styles.inputWrapper}>
+              <div className={[styles.groupInputs, styles.input50].join(" ")}>
+                <CustomInput
+                  placeHolder={"Organization Name"}
+                  id={"organization_name"}
+                  name={"organization_name"}
+                  disabled={false}
+                  getValue={(value) => {
+                    setFieldValue("organization_name", value);
+                  }}
+                  default={values.organization_name ?? ""}
+                  error={errors.organization_name}
+                  type={"text"}
+                  touched={touched}
+                />
+                <span>{errors.organization_name}</span>
+              </div>
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
                 <CustomInput
                   placeHolder={"Contact No"}
@@ -83,34 +100,47 @@ const EventRegistrationForm = ({isAllowedFullAccess}) => {
                 />
                 <span>{errors.contact_no}</span>
               </div>
-              <div className={[styles.groupInputs, styles.input50].join(" ")}>
-                <div className={styles.mgn12}>
-                  <CustomDropdown
-                    dataset={sampleDropdownData}
-                    placeHolder={"Select Sector"}
-                    id={"sector"}
-                    name={"sector"}
-                    disabled={false}
-                    getValue={(value) => {
-                    //   console.log("drop - ", value);
-                      setFieldValue("sector", value);
-                    }}
-                  />
-                  <span>{errors.sector}</span>
-                </div>
-                {/* <div>
-                  <CustomDatePicker
-                    placeholder={"Birthday"}
-                    onDateChange={(date) => {
-                      setFieldValue("birthday", date);
-                    }}
-                  />
-                  <span>{errors.birthday}</span>
-                </div> */}
-              </div>
-               
             </div>
-
+            <div className={styles.inputWrapper}>
+              <div className={[styles.groupInputs, styles.input30].join(" ")}>
+                <CustomInput
+                  placeHolder={"Venue"}
+                  id={"venue"}
+                  name={"venue"}
+                  disabled={false}
+                  getValue={(value) => {
+                    setFieldValue("venue", value);
+                  }}
+                  default={values.venue ?? ""}
+                  error={errors.venue}
+                  type={"text"}
+                  touched={touched}
+                />
+                <span>{errors.venue}</span>
+              </div>
+              <div className={[styles.groupInputs, styles.input30].join(" ")}>
+                <div className={styles.dateDiv}>
+                  <CustomDatePicker
+                    placeholder={"Start Date"}
+                    onDateChange={(date) => {
+                      setFieldValue("start_date", date);
+                    }}
+                  />
+                  <span>{errors.start_date}</span>
+                </div>
+              </div>
+              <div className={[styles.groupInputs, styles.input30].join(" ")}>
+                <div className={styles.dateDiv}>
+                  <CustomDatePicker
+                    placeholder={"End Date"}
+                    onDateChange={(date) => {
+                      setFieldValue("end_date", date);
+                    }}
+                  />
+                  <span>{errors.end_date}</span>
+                </div>
+              </div>
+            </div>
             <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -162,7 +192,6 @@ const EventRegistrationForm = ({isAllowedFullAccess}) => {
               </div>
             </div>
 
-            
             <div
               className={[
                 styles.submitBtnWrapper,
