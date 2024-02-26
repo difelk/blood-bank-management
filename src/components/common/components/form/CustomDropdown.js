@@ -3,7 +3,13 @@ import styles from "./CustomDropdown.module.scss";
 import ArrowIcon from "../../../../assets/icons/svgs/ArrowIcon";
 import { useFormikContext } from "formik";
 
-const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
+const CustomDropdown = ({
+  placeHolder,
+  dataset,
+  name,
+  defaultValue,
+  touched,
+}) => {
   const { setFieldValue } = useFormikContext();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [filteredDataSet, setFilteredDataSet] = useState([]);
@@ -53,6 +59,7 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
           onFocus={() => {
             setIsDropdownVisible(true);
             setSearchValue(undefined);
+            touched(true);
           }}
           onBlur={() => setIsDropdownVisible(false)}
           onChange={(e) => setSearchValue(e.target.value)}

@@ -80,9 +80,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
       errors.city = "City should contain at least 3 letters";
     }
 
-    // if (!values.birthday) {
-    //   errors.birthday = "Birthday is required";
-    // }
+    if (!values.birthday) {
+      errors.birthday = "Birthday is required";
+    }
 
     return errors;
   };
@@ -101,7 +101,14 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
         onSubmit={handleSubmit}
         validateOnBlur
       >
-        {({ isSubmitting, values, errors, touched, setFieldValue }) => (
+        {({
+          isSubmitting,
+          values,
+          errors,
+          touched,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             <div className={formStyles.inputWrapper}>
               <div
@@ -120,9 +127,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.nic ?? ""}
                   error={errors.nic}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("nic", value)}
                 />
-                <span>{errors.nic}</span>
+                <span>{touched.nic ? errors.nic : ""}</span>
               </div>
             </div>
 
@@ -143,9 +150,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.first_name ?? ""}
                   error={errors.first_name}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("first_name", value)}
                 />
-                <span>{errors.first_name}</span>
+                <span>{touched.first_name ? errors.first_name : ""}</span>
               </div>
 
               <div
@@ -164,9 +171,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.last_name ?? ""}
                   error={errors.last_name}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("last_name", value)}
                 />
-                <span>{errors.last_name}</span>
+                <span>{touched.last_name ? errors.last_name : ""}</span>
               </div>
             </div>
 
@@ -189,16 +196,18 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   getValue={(value) => {
                     setFieldValue("bloodType", value);
                   }}
+                  touched={(value) => setFieldTouched("bloodType", value)}
                 />
-                <span>{errors.gender}</span>
+                <span>{touched.bloodType ? errors.bloodType : ""}</span>
 
                 <CustomDatePicker
                   placeholder={"Birthday"}
                   onDateChange={(date) => {
                     setFieldValue("birthday", date);
                   }}
+                  touched={(value) => setFieldTouched("birthday", value)}
                 />
-                <span>{errors.birthday}</span>
+                <span>{touched.birthday ? errors.birthday : ""}</span>
               </div>
             </div>
 
@@ -219,9 +228,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.no ?? ""}
                   error={errors.no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("no", value)}
                 />
-                <span>{errors.no}</span>
+                <span>{touched.no ? errors.no : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(
@@ -239,9 +248,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.street ?? ""}
                   error={errors.street}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("street", value)}
                 />
-                <span>{errors.street}</span>
+                <span>{touched.street ? errors.street : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(
@@ -259,9 +268,9 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                   default={values.city ?? ""}
                   error={errors.city}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("city", value)}
                 />
-                <span>{errors.city}</span>
+                <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
 

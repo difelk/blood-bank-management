@@ -37,7 +37,11 @@ const CustomInput = (props) => {
           handleInputChange(e);
           setInputValue(e.target.value);
         }}
-        onFocus={() => setInputFocus(true)}
+        onFocus={() => {
+          setInputFocus(true);
+          props.touched(true);
+          console.log("focus");
+        }}
         onBlur={() => setInputFocus(false)}
         value={field.value ?? ""}
         disabled={props.disabled}
