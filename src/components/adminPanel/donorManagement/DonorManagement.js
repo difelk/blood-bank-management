@@ -117,7 +117,7 @@ const DonorManagement = ({ selectedPage }) => {
           {
             <SearchTableData
               name={"search"}
-              placeholder={"donor search by NIC"}
+              placeholder={"Donor search by NIC"}
               getOnChangeSearchValue={(value) => filterData(value)}
               getOnClickedSearchValue={(value) => filterData(value)}
             />
