@@ -35,6 +35,8 @@ const CustomButton = ({
         return Styles.whiteBtn;
       case "ghost":
         return Styles.ghostBtn;
+      case "BORDER_ONLY":
+        return Styles.borderOnlyBtn;
       case "ICON":
         return Styles.iconBtn;
       case "CLOSE":
