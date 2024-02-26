@@ -19,8 +19,6 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
     ScrollToTopButton();
   }, [isModalOpen]);
 
-  console.log("tableHeader - ", tableHeader);
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -62,7 +60,6 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h");
                   setIsModalOpen(true);
                   setSelectedEvent(item);
                 }}
@@ -84,7 +81,7 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
                 <p>{selectedEvent.name}</p>
               </div>
               <div className={styles.dflexRow}>
-              <p>Blood Group:</p>
+                <p>Blood Group:</p>
                 <p>{selectedEvent.bloodGroup}</p>
               </div>
             </div>

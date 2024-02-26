@@ -95,8 +95,6 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
     ScrollToTopButton();
   }, [isModalOpen]);
 
-  console.log("tableHeader - ", tableHeader);
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>

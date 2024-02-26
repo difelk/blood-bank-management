@@ -25,8 +25,6 @@ const DonorTable = ({
     ScrollToTopButton();
   }, [isModalOpen]);
 
-  console.log("tableHeader - ", tableHeader);
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -74,7 +72,6 @@ const DonorTable = ({
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h");
                   setIsModalOpen(true);
                   setSelectedDonor(item);
                 }}

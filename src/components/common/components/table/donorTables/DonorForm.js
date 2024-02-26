@@ -19,7 +19,6 @@ const bloodTypes = [
 ];
 
 const DonorForm = ({ donor, isAllowedFullAccess }) => {
-  console.log("donor - ", donor);
   const initialValues = {
     nic: donor.nic ?? "",
     first_name: donor.firstName ?? "",

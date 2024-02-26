@@ -14,7 +14,6 @@ const CustomButton = ({
 }) => {
   // const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
 
-  console.log("optionalBackgroundColor  = ", optionalBackgroundColor);
   // const handleChange = (event) => {
   //   setSelectedValue(event.target.value);
   //   return getDropdownValue(selectedValue);

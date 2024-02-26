@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState("Dashboard");
 
   const renderContent = (page) => {
-    console.log("page - ", page);
     switch (page) {
       case "Dashboard":
         return <Content selectedPage={currentPage} />;

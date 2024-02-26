@@ -68,7 +68,6 @@ const HospitalStockSummaryTable = ({ tableHeader, dataset, actionType }) => {
           </div>
         ))}
       </div>
-      {console.log("selectedItem - ", selectedItem)}
       {isModalOpen ? (
         <CustomModal
           open={setIsModalOpen}

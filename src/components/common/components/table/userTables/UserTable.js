@@ -19,8 +19,6 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
     ScrollToTopButton();
   }, [isModalOpen]);
 
-  console.log("tableHeader - ", tableHeader);
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -62,7 +60,6 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  console.log("h");
                   setIsModalOpen(true);
                   setSelectedUser(item);
                 }}
@@ -84,11 +81,11 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
                 <p>{selectedUser.name}</p>
               </div>
               <div className={styles.dflexRow}>
-              <p>Contact No:</p>
+                <p>Contact No:</p>
                 <p>{selectedUser.contactNo}</p>
               </div>
               <div className={styles.dflexRow}>
-              <p>Priviledge:</p>
+                <p>Priviledge:</p>
                 <p>Admin</p>
               </div>
             </div>
