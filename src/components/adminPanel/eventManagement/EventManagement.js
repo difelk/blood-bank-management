@@ -6,6 +6,8 @@ import AddIcon from "../../../assets/icons/svgs/AddIcon";
 import TabController from "../../common/components/tab/TabController";
 import EventTable from "../../common/components/table/eventTables/EventTable";
 import commonStyles from "../../../styles/common.module.scss";
+import CustomModal from "../../common/components/modal/CustomModal";
+import EventRegistrationForm from "../../../share/formComponents/eventRegistrationForm/EventRegistrationForm";
 
 const eventTableHeader = [
   { name: "Event Name", width: "25%" },
@@ -27,8 +29,10 @@ const tabs = [
   // { key: 2, value: "Stock Details" },
 ];
 
-const EventManagement = ({ selectedPage }) => {
+const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [modalType, setModalType] = useState("");
+  const [selectedEvent, setSelectedEvent] = useState({});
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -61,7 +65,7 @@ const EventManagement = ({ selectedPage }) => {
           <CustomButton
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => console.log("click")}
+            onClick={() =>  setModalType("ADD")}
           />
         </div>
         <TabController
@@ -72,6 +76,21 @@ const EventManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+      {modalType ? (
+        modalType === "ADD" ? (
+          <CustomModal open={setModalType} title={`Add Event`} height={"400px"}>
+            <div className={styles.hospitalData}></div>
+            <EventRegistrationForm
+              Event={selectedEvent}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
+          </CustomModal>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
     </div>
   );
 };
