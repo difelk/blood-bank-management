@@ -30,6 +30,47 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
   const validate = (values) => {
     const errors = {};
 
+    if (!values.contact_no) {
+      errors.contact_no = "Contact Number is required";
+    } else if (!/^(0\d{9})$/.test(values.contact_no)) {
+      errors.contact_no = "Invalid Contact Number";
+    }
+
+    if (!values.no) {
+      errors.no = "Address No is required";
+    }
+
+    if (!values.street) {
+      errors.street = "Street address is required";
+    } else if (!/^[^\d\s]{2,}/.test(values.street)) {
+      errors.street = "Street address should contain at least 2 letters";
+    }
+
+    if (!values.city) {
+      errors.city = "City is required";
+    } else if (!/^[^\d\s]{3,}/.test(values.city)) {
+      errors.city = "City should contain at least 3 letters";
+    }
+
+    if (!values.event_name) {
+      errors.event_name = "Event Name is required";
+    } else if (!/^[^\d\s]{2,}/.test(values.event_name)) {
+      errors.event_name = "Event Name should contain at least 2 letters";
+    }
+
+    if (!values.organization_name) {
+      errors.organization_name = "Organization Name is required";
+    } else if (!/^[^\d\s]{2,}/.test(values.organization_name)) {
+      errors.organization_name =
+        "Organization Name should contain at least 2 letters";
+    }
+
+    if (!values.venue) {
+      errors.venue = "Venue is required";
+    } else if (!/^[^\d\s]{3,}/.test(values.venue)) {
+      errors.venue = "Venue contain at least 3 letters";
+    }
+
     return errors;
   };
 
