@@ -87,7 +87,14 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
         onSubmit={handleSubmit}
         validateOnBlur
       >
-        {({ isSubmitting, values, errors, touched, setFieldValue }) => (
+        {({
+          isSubmitting,
+          values,
+          errors,
+          touched,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input100].join(" ")}>
@@ -102,9 +109,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.event_name ?? ""}
                   error={errors.event_name}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("event_name", value)}
                 />
-                <span>{errors.event_name}</span>
+                <span>{touched.event_name ? errors.event_name : ""}</span>
               </div>
             </div>
 
@@ -121,9 +128,13 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.organization_name ?? ""}
                   error={errors.organization_name}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) =>
+                    setFieldTouched("organization_name", value)
+                  }
                 />
-                <span>{errors.organization_name}</span>
+                <span>
+                  {touched.organization_name ? errors.organization_name : ""}
+                </span>
               </div>
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
                 <CustomInput
@@ -137,9 +148,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.contact_no ?? ""}
                   error={errors.contact_no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("contact_no", value)}
                 />
-                <span>{errors.contact_no}</span>
+                <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
             </div>
             <div className={styles.inputWrapper}>
@@ -155,9 +166,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.venue ?? ""}
                   error={errors.venue}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("venue", value)}
                 />
-                <span>{errors.venue}</span>
+                <span>{touched.venue ? errors.venue : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <div className={styles.dateDiv}>
@@ -166,8 +177,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                     onDateChange={(date) => {
                       setFieldValue("start_date", date);
                     }}
+                    touched={(value) => setFieldTouched("start_date", value)}
                   />
-                  <span>{errors.start_date}</span>
+                  <span>{touched.start_date ? errors.start_date : ""}</span>
                 </div>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
@@ -177,8 +189,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                     onDateChange={(date) => {
                       setFieldValue("end_date", date);
                     }}
+                    touched={(value) => setFieldTouched("end_date", value)}
                   />
-                  <span>{errors.end_date}</span>
+                  <span>{touched.end_date ? errors.end_date : ""}</span>
                 </div>
               </div>
             </div>
@@ -195,9 +208,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.no ?? ""}
                   error={errors.no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("no", value)}
                 />
-                <span>{errors.no}</span>
+                <span>{touched.no ? errors.no : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -211,9 +224,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.street ?? ""}
                   error={errors.street}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("street", value)}
                 />
-                <span>{errors.street}</span>
+                <span>{touched.street ? errors.street : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -227,9 +240,9 @@ const EventRegistrationForm = ({ isAllowedFullAccess }) => {
                   default={values.city ?? ""}
                   error={errors.city}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("city", value)}
                 />
-                <span>{errors.city}</span>
+                <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
 

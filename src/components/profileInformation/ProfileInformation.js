@@ -148,7 +148,14 @@ const ProfileInformation = () => {
         onSubmit={handleSubmit}
         validateOnBlur
       >
-        {({ isSubmitting, values, errors, touched, setFieldValue }) => (
+        {({
+          isSubmitting,
+          values,
+          errors,
+          touched,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             <div className={styles.inputWrapper}>
               {!isHopitalUser ? (
@@ -167,9 +174,9 @@ const ProfileInformation = () => {
                       default={values.first_name ?? ""}
                       error={errors.first_name}
                       type={"text"}
-                      touched={touched}
+                      touched={(value) => setFieldTouched("first_name", value)}
                     />
-                    <span>{errors.first_name}</span>
+                    <span>{touched.first_name ? errors.first_name : ""}</span>
                   </div>
                   <div
                     className={[styles.groupInputs, styles.input50].join(" ")}
@@ -185,9 +192,9 @@ const ProfileInformation = () => {
                       default={values.last_name ?? ""}
                       error={errors.last_name}
                       type={"text"}
-                      touched={touched}
+                      touched={(value) => setFieldTouched("last_name", value)}
                     />
-                    <span>{errors.last_name}</span>
+                    <span>{touched.last_name ? errors.last_name : ""}</span>
                   </div>
                 </>
               ) : (
@@ -205,9 +212,11 @@ const ProfileInformation = () => {
                     default={values.hospital_name ?? ""}
                     error={errors.hospital_name}
                     type={"text"}
-                    touched={touched}
+                    touched={(value) => setFieldTouched("hospital_name", value)}
                   />
-                  <span>{errors.hospital_name}</span>
+                  <span>
+                    {touched.hospital_name ? errors.hospital_name : ""}
+                  </span>
                 </div>
               )}
             </div>
@@ -225,9 +234,9 @@ const ProfileInformation = () => {
                   default={values.contact_no ?? ""}
                   error={errors.contact_no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("contact_no", value)}
                 />
-                <span>{errors.contact_no}</span>
+                <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
               {!isHopitalUser ? (
                 <>
@@ -245,9 +254,9 @@ const ProfileInformation = () => {
                       default={values.nic ?? ""}
                       error={errors.nic}
                       type={"text"}
-                      touched={touched}
+                      touched={(value) => setFieldTouched("nic", value)}
                     />
-                    <span>{errors.nic}</span>
+                    <span>{touched.nic ? errors.nic : ""}</span>
                   </div>
                 </>
               ) : (
@@ -263,9 +272,13 @@ const ProfileInformation = () => {
                     default={values.hospital_location ?? ""}
                     error={errors.hospital_location}
                     type={"text"}
-                    touched={touched}
+                    touched={(value) =>
+                      setFieldTouched("hospital_location", value)
+                    }
                   />
-                  <span>{errors.hospital_location}</span>
+                  <span>
+                    {touched.hospital_location ? errors.hospital_location : ""}
+                  </span>
                 </div>
               )}
             </div>
@@ -283,9 +296,9 @@ const ProfileInformation = () => {
                   default={values.no ?? ""}
                   error={errors.no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("no", value)}
                 />
-                <span>{errors.no}</span>
+                <span>{touched.no ? errors.no : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -299,9 +312,9 @@ const ProfileInformation = () => {
                   default={values.street ?? ""}
                   error={errors.street}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("street", value)}
                 />
-                <span>{errors.street}</span>
+                <span>{touched.street ? errors.street : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -315,9 +328,9 @@ const ProfileInformation = () => {
                   default={values.city ?? ""}
                   error={errors.city}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("city", value)}
                 />
-                <span>{errors.city}</span>
+                <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
 
@@ -335,7 +348,7 @@ const ProfileInformation = () => {
                       setFieldValue("gender", value);
                     }}
                   />
-                  <span>{errors.gender}</span>
+                  <span>{touched.first_name ? errors.gender : ""}</span>
                 </div>
                 <div>
                   <CustomDatePicker
@@ -344,7 +357,7 @@ const ProfileInformation = () => {
                       setFieldValue("birthday", date);
                     }}
                   />
-                  <span>{errors.birthday}</span>
+                  <span>{touched.first_name ? errors.birthday : ""}</span>
                 </div>
               </div>
             </div> */}

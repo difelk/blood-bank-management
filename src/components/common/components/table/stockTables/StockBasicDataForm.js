@@ -86,7 +86,14 @@ const StockBasicDataForm = () => {
         onSubmit={handleSubmit}
         validateOnBlur
       >
-        {({ isSubmitting, values, errors, touched, setFieldValue }) => (
+        {({
+          isSubmitting,
+          values,
+          errors,
+          touched,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input100].join(" ")}>
@@ -101,9 +108,9 @@ const StockBasicDataForm = () => {
                   default={values.hospital_name ?? ""}
                   error={errors.hospital_name}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("hospital_name", value)}
                 />
-                <span>{errors.hospital_name}</span>
+                <span>{touched.hospital_name ? errors.hospital_name : ""}</span>
               </div>
             </div>
 
@@ -120,9 +127,9 @@ const StockBasicDataForm = () => {
                   default={values.contact_no ?? ""}
                   error={errors.contact_no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("contact_no", value)}
                 />
-                <span>{errors.contact_no}</span>
+                <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
 
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
@@ -137,9 +144,13 @@ const StockBasicDataForm = () => {
                   default={values.hospital_location ?? ""}
                   error={errors.hospital_location}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) =>
+                    setFieldTouched("hospital_location", value)
+                  }
                 />
-                <span>{errors.hospital_location}</span>
+                <span>
+                  {touched.hospital_location ? errors.hospital_location : ""}
+                </span>
               </div>
             </div>
 
@@ -156,9 +167,9 @@ const StockBasicDataForm = () => {
                   default={values.no ?? ""}
                   error={errors.no}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("no", value)}
                 />
-                <span>{errors.no}</span>
+                <span>{touched.no ? errors.no : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -172,9 +183,9 @@ const StockBasicDataForm = () => {
                   default={values.street ?? ""}
                   error={errors.street}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("street", value)}
                 />
-                <span>{errors.street}</span>
+                <span>{touched.street ? errors.street : ""}</span>
               </div>
               <div className={[styles.groupInputs, styles.input30].join(" ")}>
                 <CustomInput
@@ -188,9 +199,9 @@ const StockBasicDataForm = () => {
                   default={values.city ?? ""}
                   error={errors.city}
                   type={"text"}
-                  touched={touched}
+                  touched={(value) => setFieldTouched("city", value)}
                 />
-                <span>{errors.city}</span>
+                <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
 
