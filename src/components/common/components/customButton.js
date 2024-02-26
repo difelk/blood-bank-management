@@ -27,6 +27,8 @@ const CustomButton = ({
         return Styles.secondaryBtn;
       case "submit":
         return Styles.submitBtn;
+      case "DELETE":
+        return Styles.deleteBtn;
       case "secondaryRound":
         return Styles.secondaryBtnsemiRound;
       case "white":

@@ -6,6 +6,9 @@ import AddIcon from "../../../assets/icons/svgs/AddIcon";
 import TabController from "../../common/components/tab/TabController";
 import HospitalStockDetails from "../../common/components/table/hospitalTables/HospitalStockDetails";
 import HospitalStockSummaryTable from "../../common/components/table/hospitalTables/HospitalStockSummaryTable";
+import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
+import CustomModal from "../../common/components/modal/CustomModal";
+import commonStyles from "../../../styles/common.module.scss";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -123,6 +126,7 @@ const tabs = [
 
 const HospitalManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [modalType, setModalType] = useState("");
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -159,11 +163,19 @@ const HospitalManagement = ({ selectedPage }) => {
         <h4>{selectedPage}</h4>
       </div>
       <div className={styles.stockMngWrapper}>
-        <div className={styles.controllPanel}>
+        <div className={commonStyles.controllPanel}>
           <CustomButton
-            // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => console.log("click")}
+            onClick={() => {
+              setModalType("ADD");
+            }}
+          />
+          <CustomButton
+            iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
+            optionalBackgroundColor={"#03a9f4"}
+            onClick={() => {
+              setModalType("REQUEST");
+            }}
           />
         </div>
         <TabController
@@ -174,6 +186,21 @@ const HospitalManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+      {modalType ? (
+        modalType === "ADD" ? (
+          <CustomModal open={setModalType} title={`Add Stock`}>
+            <div className={styles.hospitalData}></div>
+          </CustomModal>
+        ) : modalType === "REQUEST" ? (
+          <CustomModal open={setModalType} title={`Stock Exhange and Request`}>
+            <div className={styles.hospitalData}></div>
+          </CustomModal>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
     </div>
   );
 };

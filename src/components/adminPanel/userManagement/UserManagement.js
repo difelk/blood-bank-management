@@ -6,6 +6,8 @@ import AddIcon from "../../../assets/icons/svgs/AddIcon";
 import { BUTTONTYPES } from "../../../share/enums";
 import TabController from "../../common/components/tab/TabController";
 import UserTable from "../../common/components/table/userTables/UserTable";
+import NotesIcon from "../../../assets/icons/svgs/NotesIcon";
+import CustomModal from "../../common/components/modal/CustomModal";
 
 const userTableHeader = [
   { name: "NIC", width: "25%" },
@@ -28,6 +30,7 @@ const tabs = [
 
 const UserManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [modalType, setModalType] = useState("");
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -56,11 +59,20 @@ const UserManagement = ({ selectedPage }) => {
         <h4>{selectedPage}</h4>
       </div>
       <div className={styles.stockMngWrapper}>
-        <div className={styles.controllPanel}>
+        <div className={[styles.controllPanel, styles.groupBtns].join(" ")}>
           <CustomButton
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => console.log("click")}
+            onClick={() => {
+              setModalType("ADD");
+            }}
+          />
+          <CustomButton
+            // buttonType={BUTTONTYPES.SQUAREICON}
+            iconsLeft={<NotesIcon size={24} color={"#000000"} />}
+            onClick={() => {
+              setModalType("NOTE");
+            }}
           />
         </div>
         <TabController
@@ -71,6 +83,21 @@ const UserManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+      {modalType ? (
+        modalType === "ADD" ? (
+          <CustomModal open={setModalType} title={`Add User`}>
+            <div className={styles.hospitalData}></div>
+          </CustomModal>
+        ) : modalType === "NOTE" ? (
+          <CustomModal open={setModalType} title={`Add Note`}>
+            <div className={styles.hospitalData}></div>
+          </CustomModal>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
     </div>
   );
 };

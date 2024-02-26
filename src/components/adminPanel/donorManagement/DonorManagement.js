@@ -3,10 +3,9 @@ import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./DonorManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
 import AddIcon from "../../../assets/icons/svgs/AddIcon";
-import { BUTTONTYPES } from "../../../share/enums";
-import StockSummaryTable from "../../common/components/table/stockTables/StockSummaryTable";
 import TabController from "../../common/components/tab/TabController";
 import DonorTable from "../../common/components/table/donorTables/DonorTable";
+import commonStyles from "../../../styles/common.module.scss";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -66,6 +65,7 @@ const DonorManagement = ({ selectedPage }) => {
             dataset={donorTableDataSet}
             tableHeader={donorTableHeader}
             actionType={"VIEW"}
+            isAllowedFullAccess={true}
           />
         );
       default:
@@ -74,6 +74,7 @@ const DonorManagement = ({ selectedPage }) => {
             dataset={donorTableDataSet}
             tableHeader={donorTableHeader}
             actionType={"VIEW"}
+            isAllowedFullAccess={true}
           />
         );
     }
@@ -85,7 +86,7 @@ const DonorManagement = ({ selectedPage }) => {
         <h4>{selectedPage}</h4>
       </div>
       <div className={styles.stockMngWrapper}>
-        <div className={styles.controllPanel}>
+        <div className={commonStyles.controllPanel}>
           <CustomButton
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
