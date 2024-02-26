@@ -119,26 +119,6 @@ const HospitalRegistrationForm = ({isAllowedFullAccess}) => {
                 />
                 <span>{errors.contact_no}</span>
               </div>
-             
-                <div className={[styles.groupInputs, styles.input50].join(" ")}>
-                  <CustomInput
-                    placeHolder={"Main Location"}
-                    id={"hospital_location"}
-                    name={"hospital_location"}
-                    disabled={false}
-                    getValue={(value) => {
-                      setFieldValue("hospital_location", value);
-                    }}
-                    default={values.hospital_location ?? ""}
-                    error={errors.hospital_location}
-                    type={"text"}
-                    touched={touched}
-                  />
-                  <span>{errors.hospital_location}</span>
-                </div>
-            </div>
-
-            <div className={styles.inputWrapper}>
               <div className={[styles.groupInputs, styles.input50].join(" ")}>
                 <div className={styles.mgn12}>
                   <CustomDropdown
@@ -164,6 +144,7 @@ const HospitalRegistrationForm = ({isAllowedFullAccess}) => {
                   <span>{errors.birthday}</span>
                 </div> */}
               </div>
+               
             </div>
 
             <div className={styles.inputWrapper}>
