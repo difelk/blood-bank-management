@@ -9,6 +9,8 @@ import HospitalStockSummaryTable from "../../common/components/table/hospitalTab
 import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import commonStyles from "../../../styles/common.module.scss";
+import HospitalsTable from "../../common/components/table/hospitalTables/HospitalsTable";
+import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegistrationForm/HospitalRegistrationForm";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -34,6 +36,73 @@ const summaryDetailsTableHeader = [
   { name: "Category", width: "20%" },
   { name: "Blood Group", width: "40%" },
   { name: "Action", width: "20%" },
+];
+
+const hospitalsTablesHeader = [
+  // { name: "Stock ID", width: "20%" },
+  { name: "Hospital Name", width: "20%" },
+  { name: "City", width: "20%" },
+  { name: "Stock", width: "40%" },
+  { name: "Action", width: "20%" },
+];
+
+const hospitalsTablesDataSet = [
+  {
+    hospitalName: "Hospital 001",
+    city: "Colombo",
+    stock: {
+      APLUS: 70,
+      AMINUS: 88,
+      BPLUS: 50,
+      BMINUS: 87,
+      OPLUS: 20,
+      OMINUS: 43,
+      ABPLUS: 38,
+      ABMINUS: 78,
+    },
+  },
+  {
+    hospitalName: "Hospital 002",
+    city: "Colombo",
+    stock: {
+      APLUS: 70,
+      AMINUS: 88,
+      BPLUS: 50,
+      BMINUS: 87,
+      OPLUS: 20,
+      OMINUS: 43,
+      ABPLUS: 38,
+      ABMINUS: 78,
+    },
+  },
+  {
+    hospitalName: "Hospital 003",
+    city: "Colombo",
+    stock: {
+      APLUS: 70,
+      AMINUS: 88,
+      BPLUS: 50,
+      BMINUS: 87,
+      OPLUS: 20,
+      OMINUS: 43,
+      ABPLUS: 38,
+      ABMINUS: 78,
+    },
+  },
+  {
+    hospitalName: "Hospital 004",
+    city: "Colombo",
+    stock: {
+      APLUS: 70,
+      AMINUS: 88,
+      BPLUS: 50,
+      BMINUS: 87,
+      OPLUS: 20,
+      OMINUS: 43,
+      ABPLUS: 38,
+      ABMINUS: 78,
+    },
+  },
 ];
 
 const summaryDetailsTableDataSet = [
@@ -120,17 +189,27 @@ const summaryDetailsTableDataSet = [
 ];
 
 const tabs = [
-  { key: 1, value: "Hospital Stock Summary" },
-  { key: 2, value: "Hospital Stock Details" },
+  { key: 1, value: "Hospitals Summary" },
+  { key: 2, value: "Hospital Stock Summary" },
+  { key: 3, value: "Hospital Stock Details" },
 ];
 
-const HospitalManagement = ({ selectedPage }) => {
+const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
+  const [selectedHospital, setSelectedHospital] = useState({});
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
+        return (
+          <HospitalsTable
+            dataset={hospitalsTablesDataSet}
+            tableHeader={hospitalsTablesHeader}
+            actionType={"VIEW"}
+          />
+        );
+      case 2:
         return (
           <HospitalStockSummaryTable
             dataset={summaryTableDataSet}
@@ -138,7 +217,7 @@ const HospitalManagement = ({ selectedPage }) => {
             actionType={"VIEW"}
           />
         );
-      case 2:
+      case 3:
         return (
           <HospitalStockDetails
             dataset={summaryDetailsTableDataSet}
@@ -148,9 +227,9 @@ const HospitalManagement = ({ selectedPage }) => {
         );
       default:
         return (
-          <HospitalStockSummaryTable
-            dataset={summaryTableDataSet}
-            tableHeader={summaryTableHeader}
+          <HospitalsTable
+            dataset={hospitalsTablesDataSet}
+            tableHeader={hospitalsTablesHeader}
             actionType={"VIEW"}
           />
         );
@@ -188,8 +267,12 @@ const HospitalManagement = ({ selectedPage }) => {
       </div>
       {modalType ? (
         modalType === "ADD" ? (
-          <CustomModal open={setModalType} title={`Add Stock`}>
+          <CustomModal open={setModalType} title={`Add Hospital`} height={"500px"}>
             <div className={styles.hospitalData}></div>
+            <HospitalRegistrationForm
+              Hospital={selectedHospital}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </CustomModal>
         ) : modalType === "REQUEST" ? (
           <CustomModal open={setModalType} title={`Stock Exhange and Request`}>
