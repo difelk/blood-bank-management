@@ -12,10 +12,14 @@ import DonorIcon from "../../../assets/icons/svgs/DonorIcon";
 import EventIcon from "../../../assets/icons/svgs/EventIcon";
 import UserIcon from "../../../assets/icons/svgs/UserIcon";
 import LogoutIcon from "../../../assets/icons/svgs/LogoutIcon";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     setCurrentPage("Dashboard");
   }, []);
@@ -34,6 +38,10 @@ const SideBar = ({ setCurrentPage }) => {
   useEffect(() => {
     ScrollToTopButton();
   }, [isModalOpen]);
+
+  function redirectToHome() {
+    navigate("/");
+  }
 
   return (
     <>
@@ -249,7 +257,10 @@ const SideBar = ({ setCurrentPage }) => {
             iconsRight={""}
             isDisabled={false}
             active={activeTab === TAB.SETTINGS ? true : false}
-            onClick={() => getSelectedNavigationOption(TAB.HOME)}
+            onClick={() => {
+              getSelectedNavigationOption(TAB.HOME);
+              redirectToHome();
+            }}
           />
         </div>
       </div>
