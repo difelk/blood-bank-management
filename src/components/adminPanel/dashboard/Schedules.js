@@ -13,7 +13,6 @@ const Schedules = () => {
 
   const getUserProfileDrodown = (value) => {
     setSelectedDropdown(value);
-    console.log("sehedules value - ", value);
   };
 
   const profileData = [{ key: "profile", value: "View Profile" }];

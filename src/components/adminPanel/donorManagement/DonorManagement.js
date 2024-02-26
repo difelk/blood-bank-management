@@ -6,6 +6,7 @@ import AddIcon from "../../../assets/icons/svgs/AddIcon";
 import TabController from "../../common/components/tab/TabController";
 import DonorTable from "../../common/components/table/donorTables/DonorTable";
 import commonStyles from "../../../styles/common.module.scss";
+import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -56,13 +57,14 @@ const tabs = [
 const DonorManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
+  const [filteredData, setFilteredData] = useState(donorTableDataSet);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
         return (
           <DonorTable
-            dataset={donorTableDataSet}
+            dataset={filteredData}
             tableHeader={donorTableHeader}
             actionType={"VIEW"}
             isAllowedFullAccess={true}
@@ -71,12 +73,25 @@ const DonorManagement = ({ selectedPage }) => {
       default:
         return (
           <DonorTable
-            dataset={donorTableDataSet}
+            dataset={filteredData}
             tableHeader={donorTableHeader}
             actionType={"VIEW"}
             isAllowedFullAccess={true}
           />
         );
+    }
+  };
+
+  const filterData = (searchValue) => {
+    console.log("searchValue - ", searchValue);
+    const filteredDataSet = donorTableDataSet.filter((value) =>
+      value.nic.toLocaleLowerCase().includes(searchValue)
+    );
+    console.log("filteredDataSet - ", filteredDataSet);
+    if (filteredDataSet && searchValue) {
+      setFilteredData(filteredDataSet);
+    } else {
+      setFilteredData(donorTableDataSet);
     }
   };
 
@@ -98,6 +113,16 @@ const DonorManagement = ({ selectedPage }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+        <div>
+          {
+            <SearchTableData
+              name={"search"}
+              placeholder={"donor search by NIC"}
+              getOnChangeSearchValue={(value) => filterData(value)}
+              getOnClickedSearchValue={(value) => filterData(value)}
+            />
+          }
+        </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
