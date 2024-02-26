@@ -1,0 +1,267 @@
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .tableHeader {
+        display: flex;
+        align-items: center;
+        background: #dbddfd;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        .tableHeaderItem {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 8px 0;
+
+            p {
+                font-size: 12px;
+                color: #7e7ed4;
+            }
+        }
+
+    }
+
+    .tableBody {
+
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-height: 530px;
+        overflow: auto;
+
+        .tableData {
+            width: 100%;
+            margin: 4px 0;
+            padding: 8px 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 3px 3px 1px #e9e9e9;
+
+            .tableDataItem {
+                display: flex;
+                text-align: center;
+                justify-content: center;
+
+                p {
+                    width: 100%;
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+
+                .groupDataItems {}
+
+                .groupdataItem {
+                    // width: 25px !important;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    width: 28px;
+                    height: 28px;
+                    padding: 1PX;
+                    font-size: 12PX;
+                    background-color: red;
+                    color: #ffffff;
+                    margin: 0 4px;
+                    border-radius: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 2px 4px 3px 0px #cacaca;
+                }
+            }
+
+        }
+
+        .tableData:first-child {
+            margin-top: 0 !important;
+            border-top-left-radius: 0 !important;
+            border-top-right-radius: 0 !important;
+        }
+
+    }
+
+
+
+}
+
+.codeRed {
+    background-color: #E9303E !important;
+}
+
+.codeOrange {
+    background-color: #E99E23 !important;
+}
+
+.codeLightBlue {
+    background-color: #0286CA !important;
+}
+
+.codeIdeal {
+    background-color: #5253CE !important;
+}
+
+.hospitalData {
+    display: flex;
+    flex-direction: column;
+
+    .tableWrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .tableHeader {
+            display: flex;
+            align-items: center;
+            background: #dbddfd;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+
+            .tableHeaderItem {
+                font-size: 16px;
+                font-weight: 700;
+                padding: 8px 0;
+
+                p {
+                    font-size: 12px;
+                    color: #7e7ed4;
+                }
+            }
+
+        }
+
+        .tableBody {
+
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 530px;
+            overflow: auto;
+
+            .tableData {
+                width: 100%;
+                margin: 4px 0;
+                padding: 8px 0;
+                background-color: #ffffff;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                box-shadow: 3px 3px 1px #e9e9e9;
+
+                .tableDataItem {
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+
+                    p {
+                        width: 100%;
+                        font-size: 12px;
+                        font-weight: 700;
+                    }
+
+                    .groupDataItems {}
+
+                    .groupdataItem {
+                        // width: 25px !important;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+                        width: 28px;
+                        height: 28px;
+                        padding: 1PX;
+                        font-size: 12PX;
+                        background-color: red;
+                        color: #ffffff;
+                        margin: 0 4px;
+                        border-radius: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 2px 4px 3px 0px #cacaca;
+                    }
+                }
+
+            }
+
+            .tableData:first-child {
+                margin-top: 0 !important;
+                border-top-left-radius: 0 !important;
+                border-top-right-radius: 0 !important;
+            }
+
+        }
+
+
+
+    }
+
+    .codeRed {
+        background-color: #E9303E !important;
+    }
+
+    .codeOrange {
+        background-color: #E99E23 !important;
+    }
+
+    .codeLightBlue {
+        background-color: #0286CA !important;
+    }
+
+    .codeIdeal {
+        background-color: #5253CE !important;
+    }
+
+    .hospitalData {
+        display: flex;
+        flex-direction: column;
+
+        .hospitalBasicData {
+            padding: 8px;
+            border-bottom: 2px solid rgb(195, 195, 195);
+        }
+
+        .dflexRow {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            p {
+                font-size: 12px;
+                margin: 4px 0;
+                max-width: 180px;
+            }
+        }
+    }
+
+    .hospitalBasicData {
+        padding: 8px;
+        border-bottom: 2px solid rgb(195, 195, 195);
+    }
+
+    .dflexRow {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            font-size: 12px;
+            margin: 4px 0;
+            max-width: 180px;
+        }
+    }
+}
+
+.controllerBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        margin: 0 8px;
+    }
+}
