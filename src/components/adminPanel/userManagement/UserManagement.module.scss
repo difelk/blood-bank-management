@@ -7,3 +7,12 @@
         margin: 12px 0;
     }
 }
+
+.groupBtns {
+    display: flex;
+    align-items: center;
+
+    button {
+        margin-right: 8px;
+    }
+}

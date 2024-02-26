@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./StockManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
-import AddIcon from "../../../assets/icons/svgs/AddIcon";
-import { BUTTONTYPES } from "../../../share/enums";
 import StockSummaryTable from "../../common/components/table/stockTables/StockSummaryTable";
 import TabController from "../../common/components/tab/TabController";
 import StockDetails from "../../common/components/table/stockTables/StockDetails";
-import CareIcon from "../../../assets/icons/svgs/CareIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
+import commonStyles from "../../../styles/common.module.scss";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -30,7 +28,6 @@ const summaryTableDataSet = [
 ];
 
 const summaryDetailsTableHeader = [
-  // { name: "Stock ID", width: "20%" },
   { name: "Date", width: "20%" },
   { name: "Category", width: "20%" },
   { name: "Blood Group", width: "30%" },
@@ -40,7 +37,6 @@ const summaryDetailsTableHeader = [
 
 const summaryDetailsTableDataSet = [
   {
-    // stockId: "202402241617V1",
     date: "2024/02/24 19:17",
     category: "REGULAR",
     stock: {
@@ -169,19 +165,9 @@ const StockManagement = ({ selectedPage }) => {
         <h4>{selectedPage}</h4>
       </div>
       <div className={styles.stockMngWrapper}>
-        <div className={styles.controllPanel}>
-          {/* <div className={styles.btnWrapper}>
-            <CustomButton
-              // buttonType={BUTTONTYPES.SQUAREICON}
-              iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-              onClick={() => {
-                setIsAddStockModalOpen(true);
-              }}
-            />
-          </div> */}
+        <div className={commonStyles.controllPanel}>
           <div className={styles.btnWrapper}>
             <CustomButton
-              // buttonType={BUTTONTYPES.SQUAREICON}
               iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
               optionalBackgroundColor={"#03a9f4"}
               onClick={() => setIsRequestStockOpen(true)}

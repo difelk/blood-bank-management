@@ -3,9 +3,9 @@ import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./EventManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
 import AddIcon from "../../../assets/icons/svgs/AddIcon";
-import { BUTTONTYPES } from "../../../share/enums";
 import TabController from "../../common/components/tab/TabController";
 import EventTable from "../../common/components/table/eventTables/EventTable";
+import commonStyles from "../../../styles/common.module.scss";
 
 const eventTableHeader = [
   { name: "Event Name", width: "25%" },
@@ -57,7 +57,7 @@ const EventManagement = ({ selectedPage }) => {
         <h4>{selectedPage}</h4>
       </div>
       <div className={styles.stockMngWrapper}>
-        <div className={styles.controllPanel}>
+        <div className={commonStyles.controllPanel}>
           <CustomButton
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}

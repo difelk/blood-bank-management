@@ -218,7 +218,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     <p>{selectedItem.location ?? "80%"}</p>
                   </div>
                 </div>
-                <div className={styles.centerText}>Donor Details</div>
+                <div className={styles.centerText}>Donors List</div>
                 <ClassicTable
                   tableHeader={tableHeaderForDonor}
                   dataset={datasetforDonor}

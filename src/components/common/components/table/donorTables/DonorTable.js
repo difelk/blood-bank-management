@@ -5,7 +5,12 @@ import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import DonorForm from "./DonorForm";
 
-const DonorTable = ({ tableHeader, dataset, actionType }) => {
+const DonorTable = ({
+  tableHeader,
+  dataset,
+  actionType,
+  isAllowedFullAccess,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDonor, setSelectedDonor] = useState({});
 
@@ -81,7 +86,10 @@ const DonorTable = ({ tableHeader, dataset, actionType }) => {
       {isModalOpen ? (
         <CustomModal open={setIsModalOpen} title={"Donor Details"}>
           <div className={styles.hospitalData}>
-            <DonorForm donor={selectedDonor} />
+            <DonorForm
+              donor={selectedDonor}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </div>
         </CustomModal>
       ) : (

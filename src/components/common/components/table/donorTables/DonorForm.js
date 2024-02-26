@@ -18,7 +18,7 @@ const bloodTypes = [
   { key: "O-", value: "O -" },
 ];
 
-const DonorForm = ({ donor }) => {
+const DonorForm = ({ donor, isAllowedFullAccess }) => {
   console.log("donor - ", donor);
   const initialValues = {
     nic: donor.nic ?? "",
@@ -265,7 +265,12 @@ const DonorForm = ({ donor }) => {
               </div>
             </div>
 
-            <div className={formStyles.submitBtnWrapper}>
+            <div
+              className={[
+                formStyles.submitBtnWrapper,
+                formStyles.groupBtnsWrapper,
+              ].join(" ")}
+            >
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
@@ -273,6 +278,17 @@ const DonorForm = ({ donor }) => {
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
+              {isAllowedFullAccess ? (
+                <CustomButton
+                  buttonText={"Delete"}
+                  buttonType={"DELETE"}
+                  isDisabled={false}
+                  active={true}
+                  onClick={() => handleSubmit(values)}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </Form>
         )}
