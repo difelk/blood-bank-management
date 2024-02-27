@@ -18,7 +18,7 @@ const bloodTypes = [
   { key: "O-", value: "O -" },
 ];
 
-const DonorForm = ({ donor, isAllowedFullAccess }) => {
+const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
   const initialValues = {
     nic: donor.nic ?? "",
     first_name: donor.firstName ?? "",
@@ -286,22 +286,28 @@ const DonorForm = ({ donor, isAllowedFullAccess }) => {
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
-              {isAllowedFullAccess ? (
-                <CustomButton
-                  buttonText={"Delete"}
-                  buttonType={"DELETE"}
-                  isDisabled={false}
-                  active={true}
-                  onClick={() => handleSubmit(values)}
-                />
+              {!isCreateDonor ? (
+                <>
+                  {isAllowedFullAccess ? (
+                    <CustomButton
+                      buttonText={"Delete"}
+                      buttonType={"DELETE"}
+                      isDisabled={false}
+                      active={true}
+                      onClick={() => handleSubmit(values)}
+                    />
+                  ) : (
+                    <CustomButton
+                      buttonText={"Remove From Stock"}
+                      buttonType={"DELETE"}
+                      isDisabled={false}
+                      active={true}
+                      onClick={() => handleSubmit(values)}
+                    />
+                  )}
+                </>
               ) : (
-                <CustomButton
-                  buttonText={"Remove From Stock"}
-                  buttonType={"DELETE"}
-                  isDisabled={false}
-                  active={true}
-                  onClick={() => handleSubmit(values)}
-                />
+                ""
               )}
             </div>
           </Form>
