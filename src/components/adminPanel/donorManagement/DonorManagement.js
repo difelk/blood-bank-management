@@ -145,7 +145,7 @@ const DonorManagement = ({ selectedPage }) => {
               />
             }
           </div>
-          <div className={commonStyles.mrg_l_5}>
+          <div>
             {" "}
             {
               <Filter
