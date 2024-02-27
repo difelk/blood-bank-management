@@ -9,6 +9,7 @@ import CustomModal from "../../common/components/modal/CustomModal";
 import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import commonStyles from "../../../styles/common.module.scss";
 import ExchangeAndReceive from "../../common/components/other/ExchangeAndReceive/ExchangeAndReceive";
+import EmptyMessage from "../../../share/empty/Empty";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -134,29 +135,41 @@ const StockManagement = ({ selectedPage }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        return (
-          <StockSummaryTable
-            dataset={summaryTableDataSet}
-            tableHeader={summaryTableHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!summaryTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <StockSummaryTable
+              dataset={summaryTableDataSet}
+              tableHeader={summaryTableHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
       case 2:
-        return (
-          <StockDetails
-            dataset={summaryDetailsTableDataSet}
-            tableHeader={summaryDetailsTableHeader}
-            actionType={"VIEW_EDIT"}
-          />
-        );
+        if (!summaryDetailsTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <StockDetails
+              dataset={summaryDetailsTableDataSet}
+              tableHeader={summaryDetailsTableHeader}
+              actionType={"VIEW_EDIT"}
+            />
+          );
+        }
       default:
-        return (
-          <StockSummaryTable
-            dataset={summaryTableDataSet}
-            tableHeader={summaryTableHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!summaryTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <StockSummaryTable
+              dataset={summaryTableDataSet}
+              tableHeader={summaryTableHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
     }
   };
 
@@ -169,6 +182,7 @@ const StockManagement = ({ selectedPage }) => {
         <div className={commonStyles.controllPanel}>
           <div className={styles.btnWrapper}>
             <CustomButton
+              buttonType={"CIRCLE_ACTIONS"}
               iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
               optionalBackgroundColor={"#03a9f4"}
               onClick={() => setIsRequestStockOpen(true)}

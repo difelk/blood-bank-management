@@ -9,6 +9,7 @@ import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 import DonorForm from "../donorTables/DonorForm";
 import HospitalStockBasicDataForm from "./HospitalStockBasicDataForm";
 import AddIcon from "../../../../../assets/icons/svgs/AddIcon";
+import AddIcon2 from "../../../../../assets/icons/svgs/AddIcon2";
 
 const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -202,7 +203,7 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                     active={true}
                     isDisabled={false}
                     optionalTextColor={"WHITE"}
-                    iconsLeft={<AddIcon size={15} color={"#ffffff"} />}
+                    iconsLeft={<AddIcon2 size={15} color={"#ffffff"} />}
                     onClick={() => {
                       setEditModeType("ADD");
                       setSelectedDonor({});

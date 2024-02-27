@@ -9,6 +9,7 @@ import UserTable from "../../common/components/table/userTables/UserTable";
 import NotesIcon from "../../../assets/icons/svgs/NotesIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import UserRegistrationForm from "../../../share/formComponents/userRegistrationForm/UserRegistrationForm";
+import EmptyMessage from "../../../share/empty/Empty";
 
 const userTableHeader = [
   { name: "NIC", width: "25%" },
@@ -19,10 +20,30 @@ const userTableHeader = [
 ];
 
 const userTableDataSet = [
-  { nic: "975083691V", first_name: "Alice", last_name: "Brown", contact_no: "0772909244" },
-  { nic: "956738921V", first_name: "Sarah",last_name: "Lee", contact_no: "0777777292" },
-  { nic: "123456789V", first_name: "John",last_name: "Doe", contact_no: "0772838093" },
-  { nic: "936725684V", first_name: "Jane ",last_name: "Smith", contact_no: "0772909244" },
+  {
+    nic: "975083691V",
+    first_name: "Alice",
+    last_name: "Brown",
+    contact_no: "0772909244",
+  },
+  {
+    nic: "956738921V",
+    first_name: "Sarah",
+    last_name: "Lee",
+    contact_no: "0777777292",
+  },
+  {
+    nic: "123456789V",
+    first_name: "John",
+    last_name: "Doe",
+    contact_no: "0772838093",
+  },
+  {
+    nic: "936725684V",
+    first_name: "Jane ",
+    last_name: "Smith",
+    contact_no: "0772909244",
+  },
 ];
 
 const tabs = [
@@ -38,23 +59,31 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        return (
-          <UserTable
-            dataset={userTableDataSet}
-            tableHeader={userTableHeader}
-            actionType={"VIEW"}
-            isAllowedFullAccess={true}
-          />
-        );
+        if (!userTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <UserTable
+              dataset={userTableDataSet}
+              tableHeader={userTableHeader}
+              actionType={"VIEW"}
+              isAllowedFullAccess={true}
+            />
+          );
+        }
       default:
-        return (
-          <UserTable
-            dataset={userTableDataSet}
-            tableHeader={userTableHeader}
-            actionType={"VIEW"}
-            isAllowedFullAccess={true}
-          />
-        );
+        if (!userTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <UserTable
+              dataset={userTableDataSet}
+              tableHeader={userTableHeader}
+              actionType={"VIEW"}
+              isAllowedFullAccess={true}
+            />
+          );
+        }
     }
   };
 
@@ -66,13 +95,16 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
       <div className={styles.stockMngWrapper}>
         <div className={[styles.controllPanel, styles.groupBtns].join(" ")}>
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
             onClick={() => {
               setModalType("ADD");
             }}
+            optionalBackgroundColor={"#5585CC"}
           />
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<NotesIcon size={24} color={"#000000"} />}
             onClick={() => {
