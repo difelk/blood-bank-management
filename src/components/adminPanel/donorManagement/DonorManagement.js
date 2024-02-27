@@ -8,6 +8,8 @@ import DonorTable from "../../common/components/table/donorTables/DonorTable";
 import commonStyles from "../../../styles/common.module.scss";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
+import CustomModal from "../../common/components/modal/CustomModal";
+import DonorForm from "../../common/components/table/donorTables/DonorForm";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -116,9 +118,8 @@ const DonorManagement = ({ selectedPage }) => {
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
           <CustomButton
-            // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => console.log("click")}
+            onClick={() => setIsDonorFormOpen(true)}
           />
         </div>
 
@@ -158,6 +159,19 @@ const DonorManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+      {isDonorFormOpen ? (
+        <CustomModal open={setIsDonorFormOpen} title={`Add New Donor`}>
+          <div className={styles.hospitalData}>
+            <DonorForm
+              donor={[]}
+              isAllowedFullAccess={false}
+              isCreateDonor={true}
+            />
+          </div>
+        </CustomModal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
