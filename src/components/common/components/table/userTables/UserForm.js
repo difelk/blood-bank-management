@@ -1,12 +1,14 @@
 import React from "react";
-import styles from "../userRegistrationForm/UserRegistrationForm.module.scss";
-import formStyles from "../../../components/common/components/form/CustomForm.module.scss";
-import CustomButton from "../../../components/common/components/customButton";
+// import styles from "../userTables/UserTable.module.scss";
+// import formStyles from "../../form/CustomForm.module.scss";
+import styles from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
+import formStyles from "../../form/CustomForm.module.scss";
+import CustomButton from "../../customButton";
+import CustomInput from "../../form/CustomInput";
 import { Form, Formik } from "formik";
-import CustomInput from "../../../components/common/components/form/CustomInput";
-import CustomDropdown from "../../../components/common/components/form/CustomDropdown";
-import CustomDatePicker from "../../../components/common/components/form/CustomDatePicker";
-import CustomPasswordInput from "../../../components/common/components/form/CustomPasswordInput";
+import CustomDropdown from "../../form/CustomDropdown";
+import CustomDatePicker from "../../form/CustomDatePicker";
+import CustomPasswordInput from "../../form/CustomPasswordInput";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -24,22 +26,22 @@ const userTypes = [
   { key: 2, value: "User" },
 ];
 
-const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
+const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
   const initialValues = {
-    nic: "",
-    first_name: "",
-    last_name: "",
-    contact_no: "",
-    bloodType: "",
-    no: "",
-    street: "",
-    city: "",
-    birthday: "",
-    userType: "",
-    user_name: "",
-    temp_pw: "",
-    confirm_temp_pw: "",
-    recovery_email: "",
+    nic: user.nic ?? "",
+    first_name: user.first_name ?? "",
+    last_name: user.last_name ?? "",
+    contact_no: user.contact_no ?? "",
+    bloodType: user.bloodType ?? "",
+    no: user.no ?? "",
+    street: user.street ?? "",
+    city: user.city ?? "",
+    birthday: user.birthday ?? "",
+    userType: user.userType ?? "",
+    user_name: user.user_name ?? "",
+    temp_pw: user.temp_pw ?? "",
+    confirm_temp_pw: user.confirm_temp_pw ?? "",
+    recovery_email: user.recovery_email ?? "",
   };
 
   const validation = (values) => {
@@ -466,4 +468,4 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     </div>
   );
 };
-export default UserRegistrationForm;
+export default UserForm;
