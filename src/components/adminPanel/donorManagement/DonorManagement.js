@@ -130,19 +130,11 @@ const DonorManagement = ({ selectedPage }) => {
         <div
           className={[
             commonStyles.d_flex,
-            commonStyles.align_items_center,
-            commonStyles.justify_center,
+            commonStyles.flex_column,
+            commonStyles.align_items_normal,
+            commonStyles.justify_flex_start,
           ].join(" ")}
         >
-          <div className={commonStyles.mrg_r_5}>
-            {" "}
-            {
-              <Filter
-                filterOptions={filterOptions}
-                getFilterOption={getFilterOption}
-              />
-            }
-          </div>
           <div>
             {
               <SearchTableData
@@ -150,6 +142,15 @@ const DonorManagement = ({ selectedPage }) => {
                 placeholder={"Donor search by NIC"}
                 getOnChangeSearchValue={(value) => filterData(value)}
                 getOnClickedSearchValue={(value) => filterData(value)}
+              />
+            }
+          </div>
+          <div className={commonStyles.mrg_l_5}>
+            {" "}
+            {
+              <Filter
+                filterOptions={filterOptions}
+                getFilterOption={getFilterOption}
               />
             }
           </div>
