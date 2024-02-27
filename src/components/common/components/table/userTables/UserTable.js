@@ -3,8 +3,9 @@ import styles from "./UserTable.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import UserForm from "./UserForm";
 
-const UserTable = ({ tableHeader, dataset, actionType }) => {
+const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
 
@@ -50,7 +51,7 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.contactNo}</p>
+              <p>{item.contact_no}</p>
             </div>
             <div
               className={styles.tableDataItem}
@@ -69,34 +70,12 @@ const UserTable = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"User Details"}>
-          <div className={styles.hospitalData}>
-            <div className={styles.hospitalBasicData}>
-              <div className={styles.dflexRow}>
-                <p>NIC:</p>
-                <p>{selectedUser.nic}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Name:</p>
-                <p>{selectedUser.name}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Contact No:</p>
-                <p>{selectedUser.contactNo}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Priviledge:</p>
-                <p>Admin</p>
-              </div>
-            </div>
-            {/* <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedUser.stock).map((bloodGroup, subIndex) => (
-                <div className={styles.dflexRow}>
-                  <p>Blood Group</p>
-                  <p>{selectedUser.stock[bloodGroup]}</p>
-                </div>
-              ))}
-            </div> */}
+        <CustomModal open={setIsModalOpen} title={"User Details"} >
+           <div className={styles.hospitalData}>
+            <UserForm
+              user={selectedUser}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </div>
         </CustomModal>
       ) : (

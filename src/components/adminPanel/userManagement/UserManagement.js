@@ -18,10 +18,10 @@ const userTableHeader = [
 ];
 
 const userTableDataSet = [
-  { nic: "975083691V", name: "Ilmee De Silva", contactNo: "0772909244" },
-  { nic: "975083691V", name: "Ilmee De Silva", contactNo: "0772909244" },
-  { nic: "975083691V", name: "Ilmee De Silva", contactNo: "0772909244" },
-  { nic: "975083691V", name: "Ilmee De Silva", contactNo: "0772909244" },
+  { nic: "975083691V", name: "Ilmee De Silva", contact_no: "0772909244" },
+  { nic: "956738921V", name: "Dilshan Fernando", contact_no: "0777777292" },
+  { nic: "123456789V", name: "Dilshan", contact_no: "0772838093" },
+  { nic: "936725684V", name: "Ilmee ", contact_no: "0772909244" },
 ];
 
 const tabs = [
@@ -42,6 +42,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             dataset={userTableDataSet}
             tableHeader={userTableHeader}
             actionType={"VIEW"}
+            isAllowedFullAccess={true}
           />
         );
       default:
@@ -50,6 +51,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             dataset={userTableDataSet}
             tableHeader={userTableHeader}
             actionType={"VIEW"}
+            isAllowedFullAccess={true}
           />
         );
     }
