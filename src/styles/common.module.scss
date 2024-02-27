@@ -13,7 +13,7 @@
 
 }
 
-.flex-column {
+.flex_column {
     flex-direction: column;
 }
 
@@ -21,15 +21,29 @@
     align-items: center;
 }
 
+.align_items_normal {
+    align-items: normal;
+}
+
+
 .space_between {
     justify-content: space-between;
 }
 
 .justify_center {
     justify-content: center;
+
+}
+
+.justify_flex_start {
+    justify-content: flex-start;
 }
 
 
 .mrg_r_5 {
     margin-right: 2rem;
+}
+
+.mrg_l_5 {
+    margin-left: 2rem;
 }
