@@ -1,0 +1,51 @@
+.deletePopUpWrapper {
+    position: absolute;
+    background-color: #DF0B55;
+    padding: 8px;
+    border-radius: 4px;
+    top: -170px;
+    right: -4px;
+    z-index: 10;
+    box-shadow: 1px 3px 8px 0px #08196f94;
+    min-width: 260px;
+    max-width: 280px;
+
+
+    p {
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    span {
+        font-size: 10px;
+        color: #ffffff;
+    }
+
+    .confirmationBtnsWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        button {
+            padding: 8px;
+            font-size: 14px;
+            min-width: 100px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btnTypeNo {
+            background-color: #2196f3;
+            font-weight: 600;
+        }
+
+        .btnTypeYes {
+            background-color: #ffffff;
+            font-weight: 600;
+        }
+    }
+}
