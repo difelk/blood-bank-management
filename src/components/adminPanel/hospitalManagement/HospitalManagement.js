@@ -267,7 +267,11 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
       </div>
       {modalType ? (
         modalType === "ADD" ? (
-          <CustomModal open={setModalType} title={`Add Hospital`} height={"400px"}>
+          <CustomModal
+            open={setModalType}
+            title={`Add Hospital`}
+            height={"400px"}
+          >
             <div className={styles.hospitalData}></div>
             <HospitalRegistrationForm
               Hospital={selectedHospital}
