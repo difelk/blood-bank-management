@@ -8,6 +8,7 @@ import TabController from "../../common/components/tab/TabController";
 import UserTable from "../../common/components/table/userTables/UserTable";
 import NotesIcon from "../../../assets/icons/svgs/NotesIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
+import UserRegistrationForm from "../../../share/formComponents/userRegistrationForm/UserRegistrationForm";
 
 const userTableHeader = [
   { name: "NIC", width: "25%" },
@@ -28,9 +29,10 @@ const tabs = [
   // { key: 2, value: "Stock Details" },
 ];
 
-const UserManagement = ({ selectedPage }) => {
+const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
+  const [selectedUser, setSelectedUser] = useState({});
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -87,6 +89,10 @@ const UserManagement = ({ selectedPage }) => {
         modalType === "ADD" ? (
           <CustomModal open={setModalType} title={`Add User`}>
             <div className={styles.hospitalData}></div>
+            <UserRegistrationForm
+              User={selectedUser}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </CustomModal>
         ) : modalType === "NOTE" ? (
           <CustomModal open={setModalType} title={`Add Note`}>
