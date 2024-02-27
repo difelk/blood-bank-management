@@ -8,6 +8,7 @@ import ClassicTable from "../classicTable/ClassicTable";
 import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 import DonorForm from "../donorTables/DonorForm";
 import HospitalStockBasicDataForm from "./HospitalStockBasicDataForm";
+import AddIcon from "../../../../../assets/icons/svgs/AddIcon";
 
 const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -195,6 +196,18 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                       setSelectedDonor({});
                     }}
                   />
+                  <CustomButton
+                    buttonText={"Add Donor"}
+                    buttonType={"EDIT_MODE"}
+                    active={true}
+                    isDisabled={false}
+                    optionalTextColor={"WHITE"}
+                    iconsLeft={<AddIcon size={15} color={"#ffffff"} />}
+                    onClick={() => {
+                      setEditModeType("ADD");
+                      setSelectedDonor({});
+                    }}
+                  />
                 </div>
                 <div className={styles.hospitalBasicData}>
                   <div className={styles.dflexRow}>
@@ -246,6 +259,12 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                   <>
                     <HospitalStockBasicDataForm />
                   </>
+                ) : editModeType === "ADD" ? (
+                  <DonorForm
+                    donor={[]}
+                    isCreateDonor={true}
+                    isAllowedFullAccess={false}
+                  />
                 ) : (
                   <>
                     {Object.keys(selectedDonor).length === 0 ? (
