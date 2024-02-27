@@ -128,3 +128,34 @@
         }
     }
 }
+
+.inProgress {
+    background-color: #D9ECDA;
+    color: #28A728;
+}
+
+.done {
+    background-color: #D6F3FF;
+    color: #00B4FF;
+}
+
+.pending {
+    background-color: #FCF4F6;
+    color: #E05274;
+}
+
+.hold {
+    background-color: #FFF2D7;
+    color: #FFB400;
+}
+
+.statusBar {
+    width: 80px;
+
+    p {
+        padding: 4px;
+        margin: 0px;
+        border-radius: 4px;
+    }
+
+}
