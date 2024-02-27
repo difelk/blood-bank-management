@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./DonorTable.module.scss";
+import commonStyle from "../../../../../styles/common.module.scss";
 import formStyles from "../../form/CustomForm.module.scss";
 import CustomButton from "../../customButton";
 import CustomInput from "../../form/CustomInput";
 import { Form, Formik } from "formik";
 import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
+import DeletePopUp from "../../modal/popups/DeletePopUp";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -19,6 +21,15 @@ const bloodTypes = [
 ];
 
 const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
+  const [showConfirmation, setshowConfirmation] = useState(false);
+  const handleRemoveClick = (value) => {
+    setshowConfirmation(false);
+  };
+
+  const handleDeleteClick = (value) => {
+    setshowConfirmation(false);
+  };
+
   const initialValues = {
     nic: donor.nic ?? "",
     first_name: donor.firstName ?? "",
@@ -289,21 +300,45 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               {!isCreateDonor ? (
                 <>
                   {isAllowedFullAccess ? (
-                    <CustomButton
-                      buttonText={"Delete"}
-                      buttonType={"DELETE"}
-                      isDisabled={false}
-                      active={true}
-                      onClick={() => handleSubmit(values)}
-                    />
+                    <div style={commonStyle.deletRemoveBtnsWrapper}>
+                      {showConfirmation ? (
+                        <DeletePopUp
+                          isActionProceed={() => handleDeleteClick(values)}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <CustomButton
+                        buttonText={"Delete"}
+                        buttonType={"DELETE"}
+                        isDisabled={false}
+                        active={true}
+                        onClick={() => setshowConfirmation(true)}
+                      />
+                    </div>
                   ) : (
-                    <CustomButton
-                      buttonText={"Remove From Stock"}
-                      buttonType={"DELETE"}
-                      isDisabled={false}
-                      active={true}
-                      onClick={() => handleSubmit(values)}
-                    />
+                    <div style={commonStyle.deletRemoveBtnsWrapper}>
+                      {showConfirmation ? (
+                        <DeletePopUp
+                          popupMessage={
+                            "Are you sure you want to remove this donor from stock? "
+                          }
+                          subMessage={
+                            "You can re-add the donor by going back to the previous step and clicking the 'Add Donor' button."
+                          }
+                          isActionProceed={() => handleRemoveClick(values)}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <CustomButton
+                        buttonText={"Remove From Stock"}
+                        buttonType={"DELETE"}
+                        isDisabled={false}
+                        active={true}
+                        onClick={() => setshowConfirmation(true)}
+                      />
+                    </div>
                   )}
                 </>
               ) : (
