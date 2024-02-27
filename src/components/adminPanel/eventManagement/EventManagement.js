@@ -8,6 +8,7 @@ import EventTable from "../../common/components/table/eventTables/EventTable";
 import commonStyles from "../../../styles/common.module.scss";
 import CustomModal from "../../common/components/modal/CustomModal";
 import EventRegistrationForm from "../../../share/formComponents/eventRegistrationForm/EventRegistrationForm";
+import EmptyMessage from "../../../share/empty/Empty";
 
 const eventTableHeader = [
   { name: "Event Name", width: "25%" },
@@ -18,11 +19,36 @@ const eventTableHeader = [
 ];
 
 const eventTableDataSet = [
-  { eventName: "Event 1", date: "2024/01/03", location: "Location 1", status: "In progress"},
-  { eventName: "Event 2", date: "2024/01/03", location: "Location 2", status: "Done" },
-  { eventName: "Event 3", date: "2024/01/03", location: "Location 3", status: "Hold" },
-  { eventName: "Event 4", date: "2024/01/03", location: "Location 4", status: "Pending" },
-  { eventName: "Event 5", date: "2024/01/03", location: "Location 5", status: "In progress" },
+  {
+    eventName: "Event 1",
+    date: "2024/01/03",
+    location: "Location 1",
+    status: "In progress",
+  },
+  {
+    eventName: "Event 2",
+    date: "2024/01/03",
+    location: "Location 2",
+    status: "Done",
+  },
+  {
+    eventName: "Event 3",
+    date: "2024/01/03",
+    location: "Location 3",
+    status: "Hold",
+  },
+  {
+    eventName: "Event 4",
+    date: "2024/01/03",
+    location: "Location 4",
+    status: "Pending",
+  },
+  {
+    eventName: "Event 5",
+    date: "2024/01/03",
+    location: "Location 5",
+    status: "In progress",
+  },
 ];
 
 const tabs = [
@@ -38,21 +64,29 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        return (
-          <EventTable
-            dataset={eventTableDataSet}
-            tableHeader={eventTableHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!eventTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <EventTable
+              dataset={eventTableDataSet}
+              tableHeader={eventTableHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
       default:
-        return (
-          <EventTable
-            dataset={eventTableDataSet}
-            tableHeader={eventTableHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!eventTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <EventTable
+              dataset={eventTableDataSet}
+              tableHeader={eventTableHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
     }
   };
 
@@ -64,9 +98,11 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() =>  setModalType("ADD")}
+            onClick={() => setModalType("ADD")}
+            optionalBackgroundColor={"#5585CC"}
           />
         </div>
         <TabController

@@ -11,6 +11,8 @@ import CustomModal from "../../common/components/modal/CustomModal";
 import commonStyles from "../../../styles/common.module.scss";
 import HospitalsTable from "../../common/components/table/hospitalTables/HospitalsTable";
 import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegistrationForm/HospitalRegistrationForm";
+import AddIcon2 from "../../../assets/icons/svgs/AddIcon2";
+import EmptyMessage from "../../../share/empty/Empty";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -202,37 +204,54 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        return (
-          <HospitalsTable
-            dataset={hospitalsTablesDataSet}
-            tableHeader={hospitalsTablesHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!hospitalsTablesDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <HospitalsTable
+              dataset={hospitalsTablesDataSet}
+              tableHeader={hospitalsTablesHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
+
       case 2:
-        return (
-          <HospitalStockSummaryTable
-            dataset={summaryTableDataSet}
-            tableHeader={summaryTableHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!summaryTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <HospitalStockSummaryTable
+              dataset={summaryTableDataSet}
+              tableHeader={summaryTableHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
       case 3:
-        return (
-          <HospitalStockDetails
-            dataset={summaryDetailsTableDataSet}
-            tableHeader={summaryDetailsTableHeader}
-            actionType={"VIEW_EDIT"}
-          />
-        );
+        if (!summaryDetailsTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <HospitalStockDetails
+              dataset={summaryDetailsTableDataSet}
+              tableHeader={summaryDetailsTableHeader}
+              actionType={"VIEW_EDIT"}
+            />
+          );
+        }
       default:
-        return (
-          <HospitalsTable
-            dataset={hospitalsTablesDataSet}
-            tableHeader={hospitalsTablesHeader}
-            actionType={"VIEW"}
-          />
-        );
+        if (!hospitalsTablesDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <HospitalsTable
+              dataset={hospitalsTablesDataSet}
+              tableHeader={hospitalsTablesHeader}
+              actionType={"VIEW"}
+            />
+          );
+        }
     }
   };
 
@@ -244,12 +263,15 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
             onClick={() => {
               setModalType("ADD");
             }}
+            optionalBackgroundColor={"#5585CC"}
           />
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
             optionalBackgroundColor={"#03a9f4"}
             onClick={() => {

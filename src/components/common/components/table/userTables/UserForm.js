@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 // import styles from "../userTables/UserTable.module.scss";
 // import formStyles from "../../form/CustomForm.module.scss";
 import styles from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
+import commonStyle from "../../../../../styles/common.module.scss";
 import formStyles from "../../form/CustomForm.module.scss";
 import CustomButton from "../../customButton";
 import CustomInput from "../../form/CustomInput";
@@ -9,6 +10,7 @@ import { Form, Formik } from "formik";
 import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
 import CustomPasswordInput from "../../form/CustomPasswordInput";
+import DeletePopUp from "../../modal/popups/DeletePopUp";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -27,6 +29,8 @@ const userTypes = [
 ];
 
 const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
+  const [showConfirmation, setshowConfirmation] = useState(false);
+
   const initialValues = {
     nic: user.nic ?? "",
     first_name: user.first_name ?? "",
@@ -96,6 +100,10 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     }
 
     return errors;
+  };
+
+  const handleDeleteClick = (value) => {
+    setshowConfirmation(false);
   };
 
   const handleSubmit = (values) => {
@@ -425,9 +433,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   type={"text"}
                   touched={(value) => setFieldTouched("contact_no", value)}
                 />
-                <span>
-                  {touched.contact_no ? errors.contact_no : ""}
-                </span>
+                <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
             </div>
 
@@ -447,13 +453,22 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               {!isCreateUser ? (
                 <>
                   {isAllowedFullAccess ? (
-                    <CustomButton
-                      buttonText={"Delete"}
-                      buttonType={"DELETE"}
-                      isDisabled={false}
-                      active={true}
-                      onClick={() => handleSubmit(values)}
-                    />
+                    <div style={commonStyle.deletRemoveBtnsWrapper}>
+                      {showConfirmation ? (
+                        <DeletePopUp
+                          isActionProceed={() => handleDeleteClick(values)}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <CustomButton
+                        buttonText={"Delete"}
+                        buttonType={"DELETE"}
+                        isDisabled={false}
+                        active={true}
+                        onClick={() => setshowConfirmation(true)}
+                      />
+                    </div>
                   ) : (
                     ""
                   )}

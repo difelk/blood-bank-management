@@ -9,6 +9,7 @@ import StockBasicDataForm from "./StockBasicDataForm";
 import DonorForm from "../donorTables/DonorForm";
 import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 import AddIcon from "../../../../../assets/icons/svgs/AddIcon";
+import AddIcon2 from "../../../../../assets/icons/svgs/AddIcon2";
 
 const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -203,7 +204,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     active={true}
                     isDisabled={false}
                     optionalTextColor={"WHITE"}
-                    iconsLeft={<AddIcon size={15} color={"#ffffff"} />}
+                    iconsLeft={<AddIcon2 size={15} color={"#ffffff"} />}
                     onClick={() => {
                       setEditModeType("ADD");
                       setSelectedDonor({});

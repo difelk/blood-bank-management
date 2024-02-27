@@ -10,6 +10,7 @@ import SearchTableData from "../../common/components/Filters/Search/SearchTableD
 import Filter from "../../common/components/Filters/Filter/Filter";
 import CustomModal from "../../common/components/modal/CustomModal";
 import DonorForm from "../../common/components/table/donorTables/DonorForm";
+import EmptyMessage from "../../../share/empty/Empty";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -72,23 +73,31 @@ const DonorManagement = ({ selectedPage }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        return (
-          <DonorTable
-            dataset={filteredData}
-            tableHeader={donorTableHeader}
-            actionType={"VIEW"}
-            isAllowedFullAccess={true}
-          />
-        );
+        if (!filteredData.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <DonorTable
+              dataset={filteredData}
+              tableHeader={donorTableHeader}
+              actionType={"VIEW"}
+              isAllowedFullAccess={true}
+            />
+          );
+        }
       default:
-        return (
-          <DonorTable
-            dataset={filteredData}
-            tableHeader={donorTableHeader}
-            actionType={"VIEW"}
-            isAllowedFullAccess={true}
-          />
-        );
+        if (!filteredData.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <DonorTable
+              dataset={filteredData}
+              tableHeader={donorTableHeader}
+              actionType={"VIEW"}
+              isAllowedFullAccess={true}
+            />
+          );
+        }
     }
   };
 
@@ -118,8 +127,10 @@ const DonorManagement = ({ selectedPage }) => {
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
           <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
             onClick={() => setIsDonorFormOpen(true)}
+            optionalBackgroundColor={"#5585CC"}
           />
         </div>
 

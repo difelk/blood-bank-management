@@ -1,0 +1,34 @@
+.emptyMsgWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .emptyImg {
+        width: 130px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .emptyText {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h5 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 8px 0;
+            color: #9fb4d5;
+        }
+
+        font-size: 12px;
+        margin: 4px 0;
+        color: #667ba3ad;
+        font-weight: 500;
+
+    }
+}

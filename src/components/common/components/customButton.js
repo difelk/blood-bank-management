@@ -44,6 +44,8 @@ const CustomButton = ({
         return Styles.editModeBtn;
       case "SQicon":
         return Styles.SQiconBtn;
+      case "CIRCLE_ACTIONS":
+        return Styles.circleiconBtn;
       default:
         return Styles.primaryBtn;
     }
