@@ -12,16 +12,17 @@ import UserRegistrationForm from "../../../share/formComponents/userRegistration
 
 const userTableHeader = [
   { name: "NIC", width: "25%" },
-  { name: "Name", width: "25%" },
+  { name: "First Name", width: "25%" },
+  { name: "Last Name", width: "25%" },
   { name: "Contact No", width: "25%" },
   { name: "Actions", width: "25%" },
 ];
 
 const userTableDataSet = [
-  { nic: "975083691V", name: "Ilmee De Silva", contact_no: "0772909244" },
-  { nic: "956738921V", name: "Dilshan Fernando", contact_no: "0777777292" },
-  { nic: "123456789V", name: "Dilshan", contact_no: "0772838093" },
-  { nic: "936725684V", name: "Ilmee ", contact_no: "0772909244" },
+  { nic: "975083691V", first_name: "Alice", last_name: "Brown", contact_no: "0772909244" },
+  { nic: "956738921V", first_name: "Sarah",last_name: "Lee", contact_no: "0777777292" },
+  { nic: "123456789V", first_name: "John",last_name: "Doe", contact_no: "0772838093" },
+  { nic: "936725684V", first_name: "Jane ",last_name: "Smith", contact_no: "0772909244" },
 ];
 
 const tabs = [

@@ -45,17 +45,23 @@ const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) =>
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.name}</p>
+              <p>{item.first_name}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.contact_no}</p>
+              <p>{item.last_name}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
+            >
+              <p>{item.contact_no}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[4].width }}
             >
               <CustomButton
                 buttonType={"ICON"}
