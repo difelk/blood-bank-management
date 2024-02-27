@@ -129,24 +129,35 @@
     }
 }
 
+.inProgress,
+.done,
+.pending,
+.hold {
+    border: 1px solid;
+}
+
 .inProgress {
     background-color: #D9ECDA;
     color: #28A728;
+    border-color: #28A728;
 }
 
 .done {
     background-color: #D6F3FF;
     color: #00B4FF;
+    border-color: #00B4FF;
 }
 
 .pending {
     background-color: #FCF4F6;
     color: #E05274;
+    border-color: #E05274;
 }
 
 .hold {
     background-color: #FFF2D7;
     color: #FFB400;
+    border-color: #FFB400;
 }
 
 .statusBar {
@@ -157,5 +168,4 @@
         margin: 0px;
         border-radius: 4px;
     }
-
 }
