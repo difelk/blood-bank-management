@@ -13,6 +13,7 @@ import HospitalsTable from "../../common/components/table/hospitalTables/Hospita
 import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegistrationForm/HospitalRegistrationForm";
 import AddIcon2 from "../../../assets/icons/svgs/AddIcon2";
 import EmptyMessage from "../../../share/empty/Empty";
+import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -208,11 +209,14 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
           return <EmptyMessage />;
         } else {
           return (
-            <HospitalsTable
-              dataset={hospitalsTablesDataSet}
-              tableHeader={hospitalsTablesHeader}
-              actionType={"VIEW"}
-            />
+            <>
+              {/* <TableLoader /> */}
+              <HospitalsTable
+                dataset={hospitalsTablesDataSet}
+                tableHeader={hospitalsTablesHeader}
+                actionType={"VIEW"}
+              />
+            </>
           );
         }
 
@@ -284,6 +288,12 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+        <rect x="4" y="1" rx="1" ry="1" width="13" height="2" />
+        <rect x="5" y="4" rx="1" ry="1" width="38" height="6" />
+        <rect x="45" y="4" rx="1" ry="1" width="38" height="6" />
+        <rect x="4" y="12" rx="1" ry="1" width="13" height="2" />
+        <rect x="5" y="15" rx="1" ry="1" width="38" height="6" />
+        <rect x="45" y="15" rx="1" ry="1" width="38" height="6" />
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
