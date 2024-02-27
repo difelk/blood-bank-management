@@ -13,15 +13,16 @@ const eventTableHeader = [
   { name: "Event Name", width: "25%" },
   { name: "Date", width: "25%" },
   { name: "Location", width: "25%" },
+  { name: "Status", width: "25%" },
   { name: "Actions", width: "25%" },
 ];
 
 const eventTableDataSet = [
-  { eventName: "Event 1", date: "2024/01/03", location: "Location 1" },
-  { eventName: "Event 2", date: "2024/01/03", location: "Location 2" },
-  { eventName: "Event 3", date: "2024/01/03", location: "Location 3" },
-  { eventName: "Event 4", date: "2024/01/03", location: "Location 4" },
-  { eventName: "Event 5", date: "2024/01/03", location: "Location 5" },
+  { eventName: "Event 1", date: "2024/01/03", location: "Location 1", status: "In progress"},
+  { eventName: "Event 2", date: "2024/01/03", location: "Location 2", status: "Done" },
+  { eventName: "Event 3", date: "2024/01/03", location: "Location 3", status: "Hold" },
+  { eventName: "Event 4", date: "2024/01/03", location: "Location 4", status: "Pending" },
+  { eventName: "Event 5", date: "2024/01/03", location: "Location 5", status: "In progress" },
 ];
 
 const tabs = [

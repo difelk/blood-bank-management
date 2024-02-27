@@ -19,6 +19,21 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
     ScrollToTopButton();
   }, [isModalOpen]);
 
+  const getStatus = (status) => {
+    switch (status) {
+      case "In progress":
+        return styles.inProgress;
+      case "Done":
+        return styles.done;
+      case "Pending":
+        return styles.pending;
+      case "Hold":
+        return styles.hold;
+      default:
+        return styles.pending;
+    }
+  };
+
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -52,9 +67,19 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
             >
               <p>{item.location}</p>
             </div>
+
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
+            >
+              <div className={styles.statusBar}>
+                <p className={getStatus(item.status)}>{item.status}</p>
+              </div>
+            </div>
+
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[4].width }}
             >
               <CustomButton
                 buttonType={"ICON"}
