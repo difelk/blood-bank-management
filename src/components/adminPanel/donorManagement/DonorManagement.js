@@ -7,6 +7,7 @@ import TabController from "../../common/components/tab/TabController";
 import DonorTable from "../../common/components/table/donorTables/DonorTable";
 import commonStyles from "../../../styles/common.module.scss";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
+import Filter from "../../common/components/Filters/Filter/Filter";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -14,6 +15,13 @@ const donorTableHeader = [
   { name: "Last Name", width: "20%" },
   { name: "Blood Group", width: "20%" },
   { name: "Actions", width: "20%" },
+];
+
+const filterOptions = [
+  { key: 1, value: "Sort By NIC" },
+  { key: 2, value: "Sort By First name" },
+  { key: 2, value: "Sort By Last name" },
+  { key: 2, value: "Sort By Blood Group" },
 ];
 
 const donorTableDataSet = [
@@ -95,6 +103,11 @@ const DonorManagement = ({ selectedPage }) => {
     }
   };
 
+  const getFilterOption = (value) => {
+    switch (value.key) {
+    }
+  };
+
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -108,20 +121,38 @@ const DonorManagement = ({ selectedPage }) => {
             onClick={() => console.log("click")}
           />
         </div>
+
         <TabController
           tabs={tabs}
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
-        <div>
-          {
-            <SearchTableData
-              name={"search"}
-              placeholder={"Donor search by NIC"}
-              getOnChangeSearchValue={(value) => filterData(value)}
-              getOnClickedSearchValue={(value) => filterData(value)}
-            />
-          }
+        <div
+          className={[
+            commonStyles.d_flex,
+            commonStyles.align_items_center,
+            commonStyles.justify_center,
+          ].join(" ")}
+        >
+          <div className={commonStyles.mrg_r_5}>
+            {" "}
+            {
+              <Filter
+                filterOptions={filterOptions}
+                getFilterOption={getFilterOption}
+              />
+            }
+          </div>
+          <div>
+            {
+              <SearchTableData
+                name={"search"}
+                placeholder={"Donor search by NIC"}
+                getOnChangeSearchValue={(value) => filterData(value)}
+                getOnClickedSearchValue={(value) => filterData(value)}
+              />
+            }
+          </div>
         </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>

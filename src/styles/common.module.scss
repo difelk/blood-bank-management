@@ -6,3 +6,30 @@
         margin-right: 12px;
     }
 }
+
+.d_flex {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.align_items_center {
+    align-items: center;
+}
+
+.space_between {
+    justify-content: space-between;
+}
+
+.justify_center {
+    justify-content: center;
+}
+
+
+.mrg_r_5 {
+    margin-right: 2rem;
+}

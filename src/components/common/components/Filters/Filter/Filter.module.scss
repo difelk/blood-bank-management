@@ -1,0 +1,88 @@
+.filterWrapper {
+    position: relative;
+    display: flex;
+
+    .filterBtn {
+        border: none;
+        border-radius: 4px;
+        min-width: 80px;
+        padding: 8px;
+        margin-left: 8px;
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: all 300ms ease-in;
+        z-index: 10;
+
+        p {
+            margin: 0;
+            font-weight: 600;
+            color: #90A4AE;
+        }
+    }
+
+    .filterBtn:hover {
+        background-color: #eef5f8;
+    }
+
+    .filterDropdown {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        border-radius: 8px;
+        position: absolute;
+        top: 35px;
+        min-width: 115px;
+        padding: 4px;
+        box-shadow: -5px 3px 6px 1px #dadada;
+
+
+        button {
+            background-color: transparent;
+            border: none;
+            padding: 8px;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #afd5e8;
+        }
+
+
+    }
+
+    .noFilter {
+        display: none;
+    }
+
+    .filteredValue {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 8px;
+        background-color: #E8FCFF;
+        border: 2px solid #C0EFF7;
+        padding: 4px;
+        border-radius: 4px;
+        min-width: 60px;
+        font-size: 14px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        color: #68B4CA;
+
+        button {
+            background-color: transparent;
+            border: none;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+}
