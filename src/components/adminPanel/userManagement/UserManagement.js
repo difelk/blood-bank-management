@@ -10,6 +10,7 @@ import NotesIcon from "../../../assets/icons/svgs/NotesIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import UserRegistrationForm from "../../../share/formComponents/userRegistrationForm/UserRegistrationForm";
 import EmptyMessage from "../../../share/empty/Empty";
+import UserActivitiesTable from "../../common/components/table/userTables/UserActivitiesTable";
 
 const userTableHeader = [
   { name: "NIC", width: "25%" },
@@ -18,6 +19,15 @@ const userTableHeader = [
   { name: "Contact No", width: "25%" },
   { name: "Actions", width: "25%" },
 ];
+
+const userActivityTableHeader = [
+  { name: "NIC", width: "25%" },
+  { name: "UserName", width: "25%" },
+  { name: "UserRole", width: "25%" },
+  { name: "Organization", width: "25%" },
+  { name: "Actions", width: "25%" },
+];
+const userActivityTableDataSet = [];
 
 const userTableDataSet = [
   {
@@ -48,6 +58,7 @@ const userTableDataSet = [
 
 const tabs = [
   { key: 1, value: "User Details" },
+  { key: 2, value: "User Activities" },
   // { key: 2, value: "Stock Details" },
 ];
 
@@ -66,6 +77,19 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             <UserTable
               dataset={userTableDataSet}
               tableHeader={userTableHeader}
+              actionType={"VIEW"}
+              isAllowedFullAccess={true}
+            />
+          );
+        }
+      case 2:
+        if (!userActivityTableDataSet.length) {
+          return <EmptyMessage />;
+        } else {
+          return (
+            <UserActivitiesTable
+              dataset={[]}
+              tableHeader={userActivityTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
             />
