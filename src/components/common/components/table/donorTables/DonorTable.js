@@ -4,6 +4,16 @@ import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import DonorForm from "./DonorForm";
+import HistoryIcon from "../../../../../assets/icons/svgs/HistoryIcon";
+import ClassicTable from "../classicTable/ClassicTable";
+
+const donorHistorytableHeader = [
+  { name: "Stock ID", width: "20%" },
+  { name: "Donation Type", width: "20%" },
+  { name: "Event Name", width: "20%" },
+  { name: "Date", width: "20%" },
+  { name: "Qty", width: "20%" },
+];
 
 const DonorTable = ({
   tableHeader,
@@ -11,7 +21,7 @@ const DonorTable = ({
   actionType,
   isAllowedFullAccess,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
   const [selectedDonor, setSelectedDonor] = useState({});
 
   const ScrollToTopButton = () => {
@@ -22,8 +32,10 @@ const DonorTable = ({
   };
 
   useEffect(() => {
-    ScrollToTopButton();
-  }, [isModalOpen]);
+    if (modalType) {
+      ScrollToTopButton();
+    }
+  }, [modalType]);
 
   return (
     <div className={styles.tableWrapper}>
@@ -72,7 +84,16 @@ const DonorTable = ({
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
                 onClick={() => {
-                  setIsModalOpen(true);
+                  setModalType("VIEW");
+                  setSelectedDonor(item);
+                }}
+              />
+              <div />
+              <CustomButton
+                buttonType={"ICON"}
+                iconsLeft={<HistoryIcon size={20} color={"#BBB6B4"} />}
+                onClick={() => {
+                  setModalType("HISTORY");
                   setSelectedDonor(item);
                 }}
               />
@@ -80,12 +101,26 @@ const DonorTable = ({
           </div>
         ))}
       </div>
-      {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Donor Details"}>
+      {modalType === "VIEW" ? (
+        <CustomModal open={setModalType} title={"Donor Details"}>
           <div className={styles.hospitalData}>
             <DonorForm
               donor={selectedDonor}
               isAllowedFullAccess={isAllowedFullAccess}
+            />
+          </div>
+        </CustomModal>
+      ) : modalType === "HISTORY" ? (
+        <CustomModal
+          open={setModalType}
+          title={selectedDonor.firstName + " " + selectedDonor.lastName}
+          width={600}
+        >
+          <div className={styles.hospitalData}>
+            <ClassicTable
+              tableHeader={donorHistorytableHeader}
+              dataset={[]}
+              getSelected={() => {}}
             />
           </div>
         </CustomModal>

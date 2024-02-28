@@ -317,27 +317,35 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
                       />
                     </div>
                   ) : (
-                    <div style={commonStyle.deletRemoveBtnsWrapper}>
-                      {showConfirmation ? (
-                        <DeletePopUp
-                          popupMessage={
-                            "Are you sure you want to remove this donor from stock? "
-                          }
-                          subMessage={
-                            "You can re-add the donor by going back to the previous step and clicking the 'Add Donor' button."
-                          }
-                          isActionProceed={() => handleRemoveClick(values)}
+                    <div
+                      className={[
+                        commonStyle.d_flex,
+                        commonStyle.align_items_center,
+                        commonStyle.space_between,
+                      ].join(" ")}
+                    >
+                      <div style={commonStyle.deletRemoveBtnsWrapper}>
+                        {showConfirmation ? (
+                          <DeletePopUp
+                            popupMessage={
+                              "Are you sure you want to remove this donor from stock? "
+                            }
+                            subMessage={
+                              "You can re-add the donor by going back to the previous step and clicking the 'Add Donor' button."
+                            }
+                            isActionProceed={() => handleRemoveClick(values)}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <CustomButton
+                          buttonText={"Remove From Stock"}
+                          buttonType={"DELETE"}
+                          isDisabled={false}
+                          active={true}
+                          onClick={() => setshowConfirmation(true)}
                         />
-                      ) : (
-                        ""
-                      )}
-                      <CustomButton
-                        buttonText={"Remove From Stock"}
-                        buttonType={"DELETE"}
-                        isDisabled={false}
-                        active={true}
-                        onClick={() => setshowConfirmation(true)}
-                      />
+                      </div>
                     </div>
                   )}
                 </>
