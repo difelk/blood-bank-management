@@ -46,6 +46,8 @@ const CustomButton = ({
         return Styles.SQiconBtn;
       case "CIRCLE_ACTIONS":
         return Styles.circleiconBtn;
+      case "LINK":
+        return Styles.linkBtn;
       default:
         return Styles.primaryBtn;
     }
