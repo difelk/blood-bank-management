@@ -263,18 +263,7 @@ const StockManagement = ({ selectedPage }) => {
             commonStyles.justify_flex_start,
           ].join(" ")}
         >
-          {selectedTab.key == 1 ? (
-            <div>
-              {
-                <SearchTableData
-                  name={"Search"}
-                  // placeholder={""}
-                  getOnChangeSearchValue={(value) => filterData(value)}
-                  getOnClickedSearchValue={(value) => filterData(value)}
-                />
-              }
-            </div>
-          ) : (
+          {selectedTab.key == 2 ? (
             <>
               <div>
                 {
@@ -296,6 +285,8 @@ const StockManagement = ({ selectedPage }) => {
                 }
               </div>
             </>
+          ) : (
+            ""
           )}
         </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
