@@ -125,8 +125,8 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     const filteredDataSet = userTableDataSet.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
-        value.firstName.toLocaleLowerCase().includes(searchValue) ||
-        value.lastName.toLocaleLowerCase().includes(searchValue) 
+        value.first_name.toLocaleLowerCase().includes(searchValue) ||
+        value.last_name.toLocaleLowerCase().includes(searchValue) 
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
