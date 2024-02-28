@@ -10,12 +10,20 @@ import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import commonStyles from "../../../styles/common.module.scss";
 import ExchangeAndReceive from "../../common/components/other/ExchangeAndReceive/ExchangeAndReceive";
 import EmptyMessage from "../../../share/empty/Empty";
+import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
+import Filter from "../../common/components/Filters/Filter/Filter";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
   { name: "Last Updated", width: "25%" },
   { name: "Total", width: "25%" },
   { name: "Actions", width: "25%" },
+];
+
+const filterOptions = [
+  { key: 1, value: "Sort By Date" },
+  { key: 2, value: "Sort By Category" },
+  { key: 3, value: "Sort By Quantity" },
 ];
 
 const summaryTableDataSet = [
@@ -39,7 +47,7 @@ const summaryDetailsTableHeader = [
 
 const summaryDetailsTableDataSet = [
   {
-    date: "2024/02/24 19:17",
+    date: "2024/02/24 19:25",
     category: "REGULAR",
     stock: {
       APLUS: 70,
@@ -51,11 +59,11 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-    qty: "80%",
+    qty: "20%",
   },
   {
     // stockId: "202402241618V1",
-    date: "2024/02/24 19:18",
+    date: "2024/02/20 19:18",
     category: "EMERGENCY",
     // location: "Kandy",
     stock: {
@@ -68,11 +76,11 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-    qty: "80%",
+    qty: "58%",
   },
   {
     // stockId: "202402241619V1",
-    date: "2024/02/24 19:19",
+    date: "2024/01/24 18:22",
     category: "REGULAR",
     // location: "Galle",
     stock: {
@@ -102,7 +110,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-    qty: "80%",
+    qty: "74%",
   },
   {
     // stockId: "202402241621V1",
@@ -131,6 +139,7 @@ const tabs = [
 const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
+  const [filteredData, setFilteredData] = useState(summaryDetailsTableDataSet);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -147,12 +156,12 @@ const StockManagement = ({ selectedPage }) => {
           );
         }
       case 2:
-        if (!summaryDetailsTableDataSet.length) {
+        if (!filteredData.length) {
           return <EmptyMessage />;
         } else {
           return (
             <StockDetails
-              dataset={summaryDetailsTableDataSet}
+              dataset={filteredData}
               tableHeader={summaryDetailsTableHeader}
               actionType={"VIEW_EDIT"}
             />
@@ -170,6 +179,48 @@ const StockManagement = ({ selectedPage }) => {
             />
           );
         }
+    }
+  };
+
+  const filterData = (searchValue) => {
+    const filteredDataSet = summaryDetailsTableDataSet.filter(
+      (value) =>
+        value.date.toLocaleLowerCase().includes(searchValue) ||
+        value.category.toLocaleLowerCase().includes(searchValue) ||
+        value.qty.toLocaleLowerCase().includes(searchValue)
+    );
+    if (filteredDataSet && searchValue) {
+      setFilteredData(filteredDataSet);
+    } else {
+      setFilteredData(summaryDetailsTableDataSet);
+    }
+  };
+
+  const getFilterOption = (value) => {
+    switch (value.key) {
+      case 1:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.date > b.date ? 1 : a.date < b.date ? -1 : 0
+          )
+        );
+        break;
+      case 2:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.category > b.category ? 1 : a.category < b.category ? -1 : 0
+          )
+        );
+        break;
+      case 3:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.qty > b.qty ? 1 : a.qty < b.qty ? -1 : 0
+          )
+        );
+        break;
+      default:
+        break;
     }
   };
 
@@ -194,6 +245,49 @@ const StockManagement = ({ selectedPage }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+        <div
+          className={[
+            commonStyles.d_flex,
+            commonStyles.flex_column,
+            commonStyles.align_items_normal,
+            commonStyles.justify_flex_start,
+          ].join(" ")}
+        >
+          {selectedTab.key == 1 ? (
+            <div>
+              {
+                <SearchTableData
+                  name={"Search"}
+                  // placeholder={""}
+                  getOnChangeSearchValue={(value) => filterData(value)}
+                  getOnClickedSearchValue={(value) => filterData(value)}
+                />
+              }
+            </div>
+          ) : (
+            <>
+              <div>
+                {
+                  <SearchTableData
+                    name={"Search"}
+                    // placeholder={""}
+                    getOnChangeSearchValue={(value) => filterData(value)}
+                    getOnClickedSearchValue={(value) => filterData(value)}
+                  />
+                }
+              </div>
+              <div>
+                {" "}
+                {
+                  <Filter
+                    filterOptions={filterOptions}
+                    getFilterOption={getFilterOption}
+                  />
+                }
+              </div>
+            </>
+          )}
+        </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>

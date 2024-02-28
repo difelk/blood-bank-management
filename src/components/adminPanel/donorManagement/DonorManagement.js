@@ -124,31 +124,15 @@ const DonorManagement = ({ selectedPage }) => {
     switch (value.key) {
       case 1:
         setFilteredData(
-          [...filteredData].sort(
-            (a, b) => (a.nic > b.nic ? 1 : a.nic < b.nic ? -1 : 0)
-            // if (a.nic > b.nic) {
-            //   return 1;
-            // } else if (a.nic < b.nic) {
-            //   return -1;
-            // } else {
-            //   return 0;
-            // }
+          [...filteredData].sort((a, b) =>
+            a.nic > b.nic ? 1 : a.nic < b.nic ? -1 : 0
           )
         );
         break;
       case 2:
         setFilteredData(
-          [...filteredData].sort(
-            (a, b) =>
-              a.firstName > b.firstName ? 1 : a.firstName < b.firstName ? -1 : 0
-            //   if (a.firstName > b.firstName) {
-            //     return 1;
-            //   } else if (a.firstName < b.firstName) {
-            //     return -1;
-            //   } else {
-            //     return 0;
-            //   }
-            // })
+          [...filteredData].sort((a, b) =>
+            a.firstName > b.firstName ? 1 : a.firstName < b.firstName ? -1 : 0
           )
         );
         break;
@@ -170,7 +154,7 @@ const DonorManagement = ({ selectedPage }) => {
         break;
     }
   };
-  // console.log("filteredData - ", filteredData);
+
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
