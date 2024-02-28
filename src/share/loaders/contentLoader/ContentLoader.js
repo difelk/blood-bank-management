@@ -1,17 +1,26 @@
+import React from "react";
 import ContentLoader from "react-content-loader";
+import styles from "./loader.module.scss";
 
-const TableLoader = () => {
-  return (
-    <ContentLoader viewBox="0 0 100 60">
-      <rect x="5" y="1" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="9" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="17" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="26" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="35" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="44" rx="1" ry="1" width="80" height="5" />
-      <rect x="5" y="53" rx="1" ry="1" width="80" height="5" />
-    </ContentLoader>
-  );
-};
+const TableLoader = () => (
+  <ContentLoader
+    speed={2}
+    width={900}
+    height={550}
+    viewBox="0 0 900 500"
+    backgroundColor="#ffffff"
+    foregroundColor="#ecebeb"
+    className={styles.loaderanimation}
+  >
+    <rect x="0" y="0" rx="3" ry="3" width="800" height="60" />
+    <rect x="0" y="70" rx="3" ry="3" width="800" height="60" />
+    <rect x="0" y="140" rx="3" ry="3" width="800" height="60" />
+    <rect x="0" y="210" rx="3" ry="3" width="800" height="60" />
+    <rect x="0" y="280" rx="3" ry="3" width="800" height="60" />
+    <rect x="0" y="350" rx="3" ry="3" width="800" height="60" />
+    {/* <rect x="0" y="450" rx="3" ry="3" width="800" height="60" /> */}
+    {/* <rect x="0" y="540" rx="3" ry="3" width="800" height="60" /> */}
+  </ContentLoader>
+);
 
 export default TableLoader;

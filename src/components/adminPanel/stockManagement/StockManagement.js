@@ -10,6 +10,7 @@ import ExchangeIcon from "../../../assets/icons/svgs/ExchangeIcon";
 import commonStyles from "../../../styles/common.module.scss";
 import ExchangeAndReceive from "../../common/components/other/ExchangeAndReceive/ExchangeAndReceive";
 import EmptyMessage from "../../../share/empty/Empty";
+import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
 
@@ -139,6 +140,11 @@ const tabs = [
 const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
+
+  setTimeout(() => {
+    setIsloading(false);
+  }, [1000]);
   const [filteredData, setFilteredData] = useState(summaryDetailsTableDataSet);
 
   const loadComponent = () => {
@@ -229,6 +235,7 @@ const StockManagement = ({ selectedPage }) => {
       <div className={sectionStyles.dashboardTitle}>
         <h4>{selectedPage}</h4>
       </div>
+
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
           <div className={styles.btnWrapper}>
@@ -245,6 +252,9 @@ const StockManagement = ({ selectedPage }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+        <div className={styles.summeryTable}>
+          {isLoading ? <TableLoader /> : loadComponent()}
+        </div>
         <div
           className={[
             commonStyles.d_flex,
