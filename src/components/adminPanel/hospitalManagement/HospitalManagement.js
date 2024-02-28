@@ -14,12 +14,24 @@ import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegi
 import AddIcon2 from "../../../assets/icons/svgs/AddIcon2";
 import EmptyMessage from "../../../share/empty/Empty";
 import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
+import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
+import Filter from "../../common/components/Filters/Filter/Filter";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
   { name: "Last Updated", width: "25%" },
   { name: "Total", width: "25%" },
   { name: "Actions", width: "25%" },
+];
+
+const filterOptionsForHospitals = [
+  { key: 1, value: "Sort By Hospital Name" },
+  { key: 2, value: "Sort By City" },
+];
+
+const filterOptionsForStock = [
+  { key: 1, value: "Sort By Date" },
+  { key: 2, value: "Sort By Category" },
 ];
 
 const summaryTableDataSet = [
@@ -51,8 +63,8 @@ const hospitalsTablesHeader = [
 
 const hospitalsTablesDataSet = [
   {
-    hospitalName: "Hospital 001",
-    city: "Colombo",
+    hospitalName: "Hospital 004",
+    city: "Colombo 10",
     stock: {
       APLUS: 70,
       AMINUS: 88,
@@ -66,7 +78,21 @@ const hospitalsTablesDataSet = [
   },
   {
     hospitalName: "Hospital 002",
-    city: "Colombo",
+    city: "Kottawa",
+    stock: {
+      APLUS: 70,
+      AMINUS: 88,
+      BPLUS: 50,
+      BMINUS: 87,
+      OPLUS: 20,
+      OMINUS: 43,
+      ABPLUS: 38,
+      ABMINUS: 78,
+    },
+  },
+  {
+    hospitalName: "Hospital 001",
+    city: "Colombo 03",
     stock: {
       APLUS: 70,
       AMINUS: 88,
@@ -80,21 +106,7 @@ const hospitalsTablesDataSet = [
   },
   {
     hospitalName: "Hospital 003",
-    city: "Colombo",
-    stock: {
-      APLUS: 70,
-      AMINUS: 88,
-      BPLUS: 50,
-      BMINUS: 87,
-      OPLUS: 20,
-      OMINUS: 43,
-      ABPLUS: 38,
-      ABMINUS: 78,
-    },
-  },
-  {
-    hospitalName: "Hospital 004",
-    city: "Colombo",
+    city: "Maharagama",
     stock: {
       APLUS: 70,
       AMINUS: 88,
@@ -111,7 +123,7 @@ const hospitalsTablesDataSet = [
 const summaryDetailsTableDataSet = [
   {
     // stockId: "202402241617V1",
-    date: "2024/02/24 19:17",
+    date: "2024/02/10 09:34",
     category: "REGULAR",
     // location: "Colombo",
     stock: {
@@ -143,7 +155,7 @@ const summaryDetailsTableDataSet = [
   },
   {
     // stockId: "202402241619V1",
-    date: "2024/02/24 19:19",
+    date: "2024/01/24 14:20",
     category: "REGULAR",
     // location: "Galle",
     stock: {
@@ -159,7 +171,7 @@ const summaryDetailsTableDataSet = [
   },
   {
     // stockId: "202402241620V1",
-    date: "2024/02/24 19:20",
+    date: "2023/12/28 08:54",
     category: "EMERGENCY",
     // location: "Jaffna",
     stock: {
@@ -175,7 +187,7 @@ const summaryDetailsTableDataSet = [
   },
   {
     // stockId: "202402241621V1",
-    date: "2024/02/24 19:21",
+    date: "2024/02/25 19:21",
     category: "REGULAR",
     // location: "Matara",
     stock: {
@@ -201,18 +213,24 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedHospital, setSelectedHospital] = useState({});
+  const [filteredDataForHospitals, setFilteredDataForHospitals] = useState(
+    hospitalsTablesDataSet
+  );
+  const [filteredDataForStock, setFilteredDataForStock] = useState(
+    summaryDetailsTableDataSet
+  );
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!hospitalsTablesDataSet.length) {
+        if (!filteredDataForHospitals.length) {
           return <EmptyMessage />;
         } else {
           return (
             <>
               {/* <TableLoader /> */}
               <HospitalsTable
-                dataset={hospitalsTablesDataSet}
+                dataset={filteredDataForHospitals}
                 tableHeader={hospitalsTablesHeader}
                 actionType={"VIEW"}
               />
@@ -233,29 +251,107 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
           );
         }
       case 3:
-        if (!summaryDetailsTableDataSet.length) {
+        if (!filteredDataForStock.length) {
           return <EmptyMessage />;
         } else {
           return (
             <HospitalStockDetails
-              dataset={summaryDetailsTableDataSet}
+              dataset={filteredDataForStock}
               tableHeader={summaryDetailsTableHeader}
               actionType={"VIEW_EDIT"}
             />
           );
         }
       default:
-        if (!hospitalsTablesDataSet.length) {
+        if (!filteredDataForHospitals.length) {
           return <EmptyMessage />;
         } else {
           return (
             <HospitalsTable
-              dataset={hospitalsTablesDataSet}
+              dataset={filteredDataForHospitals}
               tableHeader={hospitalsTablesHeader}
               actionType={"VIEW"}
             />
           );
         }
+    }
+  };
+
+  const filterData = (searchValue) => {
+    if (selectedTab.key == 1) {
+      const filteredDataSetHospitals = hospitalsTablesDataSet.filter(
+        (value) =>
+          value.hospitalName.toLocaleLowerCase().includes(searchValue) ||
+          value.city.toLocaleLowerCase().includes(searchValue)
+      );
+
+      if (filteredDataSetHospitals && searchValue) {
+        setFilteredDataForHospitals(filteredDataSetHospitals);
+      } else {
+        setFilteredDataForHospitals(hospitalsTablesDataSet);
+      }
+
+      setFilteredDataForStock(summaryDetailsTableDataSet);
+    } else if (selectedTab.key == 3) {
+      const filteredDataSetStock = summaryDetailsTableDataSet.filter(
+        (value) =>
+          value.date.toLocaleLowerCase().includes(searchValue) ||
+          value.category.toLocaleLowerCase().includes(searchValue)
+      );
+
+      if (filteredDataSetStock && searchValue) {
+        setFilteredDataForStock(filteredDataSetStock);
+      } else {
+        setFilteredDataForStock(summaryDetailsTableDataSet);
+      }
+
+      setFilteredDataForHospitals(hospitalsTablesDataSet);
+    }
+  };
+
+  const getFilterOption = (value) => {
+    if (selectedTab.key == 1) {
+      switch (value.key) {
+        case 1:
+          setFilteredDataForHospitals(
+            [...filteredDataForHospitals].sort((a, b) =>
+              a.hospitalName > b.hospitalName
+                ? 1
+                : a.hospitalName < b.hospitalName
+                ? -1
+                : 0
+            )
+          );
+          break;
+        case 2:
+          setFilteredDataForHospitals(
+            [...filteredDataForHospitals].sort((a, b) =>
+              a.city > b.city ? 1 : a.city < b.city ? -1 : 0
+            )
+          );
+          break;
+        default:
+          break;
+      }
+    } else if (selectedTab.key == 3) {
+      switch (value.key) {
+        case 1:
+          setFilteredDataForStock(
+            [...filteredDataForStock].sort((a, b) =>
+              a.date > b.date ? 1 : a.date < b.date ? -1 : 0
+            )
+          );
+          break;
+        case 2:
+          setFilteredDataForStock(
+            [...filteredDataForStock].sort((a, b) =>
+              a.category > b.category ? 1 : a.category < b.category ? -1 : 0
+            )
+          );
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -288,6 +384,63 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+        <div
+          className={[
+            commonStyles.d_flex,
+            commonStyles.flex_column,
+            commonStyles.align_items_normal,
+            commonStyles.justify_flex_start,
+          ].join(" ")}
+        >
+          {selectedTab.key == 1 ? (
+            <>
+              <div>
+                {
+                  <SearchTableData
+                    name={"Search"}
+                    // placeholder={""}
+                    getOnChangeSearchValue={(value) => filterData(value)}
+                    getOnClickedSearchValue={(value) => filterData(value)}
+                  />
+                }
+              </div>
+              <div>
+                {" "}
+                {
+                  <Filter
+                    filterOptions={filterOptionsForHospitals}
+                    getFilterOption={getFilterOption}
+                  />
+                }
+              </div>
+            </>
+          ) : selectedTab.key == 3 ? (
+            <>
+              <div>
+                {
+                  <SearchTableData
+                    name={"Search"}
+                    // placeholder={""}
+                    getOnChangeSearchValue={(value) => filterData(value)}
+                    getOnClickedSearchValue={(value) => filterData(value)}
+                  />
+                }
+              </div>
+              <div>
+                {" "}
+                {
+                  <Filter
+                    filterOptions={filterOptionsForStock}
+                    getFilterOption={getFilterOption}
+                  />
+                }
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+
         <rect x="4" y="1" rx="1" ry="1" width="13" height="2" />
         <rect x="5" y="4" rx="1" ry="1" width="38" height="6" />
         <rect x="45" y="4" rx="1" ry="1" width="38" height="6" />
