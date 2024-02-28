@@ -253,7 +253,7 @@ const StockManagement = ({ selectedPage }) => {
           activeTab={selectedTab}
         />
         <div className={styles.summeryTable}>
-          {isLoading ? <TableLoader /> : loadComponent()}
+          {/* {isLoading ? <TableLoader /> : loadComponent()} */}
         </div>
         <div
           className={[
