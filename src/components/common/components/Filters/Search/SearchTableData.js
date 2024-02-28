@@ -17,8 +17,8 @@ const SearchTableData = ({
     <div className={styles.searchWrapper}>
       <div className={styles.searchBox}>
         <input
-          name={name ?? "search"}
-          placeholder={placeholder ?? "search..."}
+          name={name ?? "Search"}
+          placeholder={placeholder ?? "Search..."}
           onChange={(e) => {
             getOnChangeSearchValue(e.target.value);
             setSearchValue(e.target.value);

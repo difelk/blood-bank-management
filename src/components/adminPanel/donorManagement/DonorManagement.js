@@ -23,8 +23,8 @@ const donorTableHeader = [
 const filterOptions = [
   { key: 1, value: "Sort By NIC" },
   { key: 2, value: "Sort By First name" },
-  { key: 2, value: "Sort By Last name" },
-  { key: 2, value: "Sort By Blood Group" },
+  { key: 3, value: "Sort By Last name" },
+  { key: 4, value: "Sort By Blood Group" },
 ];
 
 const donorTableDataSet = [
@@ -102,11 +102,17 @@ const DonorManagement = ({ selectedPage }) => {
   };
 
   const filterData = (searchValue) => {
-    console.log("searchValue - ", searchValue);
-    const filteredDataSet = donorTableDataSet.filter((value) =>
-      value.nic.toLocaleLowerCase().includes(searchValue)
+    // console.log("searchValue - ", searchValue);
+
+    const filteredDataSet = donorTableDataSet.filter(
+      (value) =>
+        value.nic.toLocaleLowerCase().includes(searchValue) ||
+        value.firstName.toLocaleLowerCase().includes(searchValue) ||
+        value.lastName.toLocaleLowerCase().includes(searchValue) ||
+        value.bloodType.toLocaleLowerCase().includes(searchValue)
     );
-    console.log("filteredDataSet - ", filteredDataSet);
+
+    // console.log("filteredDataSet - ", filteredDataSet);
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
     } else {
@@ -116,9 +122,55 @@ const DonorManagement = ({ selectedPage }) => {
 
   const getFilterOption = (value) => {
     switch (value.key) {
+      case 1:
+        setFilteredData(
+          [...filteredData].sort(
+            (a, b) => (a.nic > b.nic ? 1 : a.nic < b.nic ? -1 : 0)
+            // if (a.nic > b.nic) {
+            //   return 1;
+            // } else if (a.nic < b.nic) {
+            //   return -1;
+            // } else {
+            //   return 0;
+            // }
+          )
+        );
+        break;
+      case 2:
+        setFilteredData(
+          [...filteredData].sort(
+            (a, b) =>
+              a.firstName > b.firstName ? 1 : a.firstName < b.firstName ? -1 : 0
+            //   if (a.firstName > b.firstName) {
+            //     return 1;
+            //   } else if (a.firstName < b.firstName) {
+            //     return -1;
+            //   } else {
+            //     return 0;
+            //   }
+            // })
+          )
+        );
+        break;
+      case 3:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.lastName > b.lastName ? 1 : a.lastName < b.lastName ? -1 : 0
+          )
+        );
+        break;
+      case 4:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.bloodType > b.bloodType ? 1 : a.bloodType < b.bloodType ? -1 : 0
+          )
+        );
+        break;
+      default:
+        break;
     }
   };
-
+  // console.log("filteredData - ", filteredData);
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -150,8 +202,8 @@ const DonorManagement = ({ selectedPage }) => {
           <div>
             {
               <SearchTableData
-                name={"search"}
-                placeholder={"Donor search by NIC"}
+                name={"Search"}
+                // placeholder={""}
                 getOnChangeSearchValue={(value) => filterData(value)}
                 getOnClickedSearchValue={(value) => filterData(value)}
               />
