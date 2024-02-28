@@ -13,11 +13,11 @@ import EmptyMessage from "../../../share/empty/Empty";
 import UserActivitiesTable from "../../common/components/table/userTables/UserActivitiesTable";
 
 const userTableHeader = [
-  { name: "NIC", width: "25%" },
-  { name: "First Name", width: "25%" },
-  { name: "Last Name", width: "25%" },
-  { name: "Contact No", width: "25%" },
-  { name: "Actions", width: "25%" },
+  { name: "NIC", width: "20%" },
+  { name: "First Name", width: "20%" },
+  { name: "Last Name", width: "20%" },
+  { name: "Contact No", width: "20%" },
+  { name: "Actions", width: "20%" },
 ];
 
 const userActivityTableHeader = [
