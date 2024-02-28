@@ -5,7 +5,7 @@ import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import UserActivtiesListTable from "./UserActivtiesListTable";
 
-const tableHeader = [
+const activitytableHeader = [
   { name: "Activity Name", width: "25%" },
   { name: "Date", width: "25%" },
   { name: "Description", width: "50%" },
@@ -94,7 +94,7 @@ const UserActivitiesTable = ({
           <div className={styles.hospitalData}>
             <UserActivtiesListTable
               dataset={[]}
-              tableHeader={tableHeader}
+              tableHeader={activitytableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
             />
