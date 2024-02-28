@@ -102,8 +102,6 @@ const DonorManagement = ({ selectedPage }) => {
   };
 
   const filterData = (searchValue) => {
-    // console.log("searchValue - ", searchValue);
-
     const filteredDataSet = donorTableDataSet.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
@@ -111,8 +109,6 @@ const DonorManagement = ({ selectedPage }) => {
         value.lastName.toLocaleLowerCase().includes(searchValue) ||
         value.bloodType.toLocaleLowerCase().includes(searchValue)
     );
-
-    // console.log("filteredDataSet - ", filteredDataSet);
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
     } else {

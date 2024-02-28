@@ -11,6 +11,9 @@ import CustomModal from "../../common/components/modal/CustomModal";
 import UserRegistrationForm from "../../../share/formComponents/userRegistrationForm/UserRegistrationForm";
 import EmptyMessage from "../../../share/empty/Empty";
 import UserActivitiesTable from "../../common/components/table/userTables/UserActivitiesTable";
+import commonStyles from "../../../styles/common.module.scss";
+import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
+import Filter from "../../common/components/Filters/Filter/Filter";
 
 const userTableHeader = [
   { name: "NIC", width: "20%" },
@@ -18,6 +21,12 @@ const userTableHeader = [
   { name: "Last Name", width: "20%" },
   { name: "Contact No", width: "20%" },
   { name: "Actions", width: "20%" },
+];
+
+const filterOptions = [
+  { key: 1, value: "Sort By NIC" },
+  { key: 2, value: "Sort By First name" },
+  { key: 3, value: "Sort By Last name" },
 ];
 
 const userActivityTableHeader = [
@@ -66,16 +75,17 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
+  const [filteredData, setFilteredData] = useState(userTableDataSet);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!userTableDataSet.length) {
+        if (!filteredData.length) {
           return <EmptyMessage />;
         } else {
           return (
             <UserTable
-              dataset={userTableDataSet}
+              dataset={filteredData}
               tableHeader={userTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
@@ -96,18 +106,60 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
           );
         }
       default:
-        if (!userTableDataSet.length) {
+        if (!filteredData.length) {
           return <EmptyMessage />;
         } else {
           return (
             <UserTable
-              dataset={userTableDataSet}
+              dataset={filteredData}
               tableHeader={userTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
             />
           );
         }
+    }
+  };
+
+  const filterData = (searchValue) => {
+    const filteredDataSet = userTableDataSet.filter(
+      (value) =>
+        value.nic.toLocaleLowerCase().includes(searchValue) ||
+        value.firstName.toLocaleLowerCase().includes(searchValue) ||
+        value.lastName.toLocaleLowerCase().includes(searchValue) 
+    );
+    if (filteredDataSet && searchValue) {
+      setFilteredData(filteredDataSet);
+    } else {
+      setFilteredData(userTableDataSet);
+    }
+  };
+
+  const getFilterOption = (value) => {
+    switch (value.key) {
+      case 1:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.nic > b.nic ? 1 : a.nic < b.nic ? -1 : 0
+          )
+        );
+        break;
+      case 2:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.first_name > b.first_name ? 1 : a.first_name < b.first_name ? -1 : 0
+          )
+        );
+        break;
+      case 3:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.last_name > b.last_name ? 1 : a.last_name < b.last_name ? -1 : 0
+          )
+        );
+        break;
+      default:
+        break;
     }
   };
 
@@ -141,6 +193,34 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
+          <div
+          className={[
+            commonStyles.d_flex,
+            commonStyles.flex_column,
+            commonStyles.align_items_normal,
+            commonStyles.justify_flex_start,
+          ].join(" ")}
+        >
+          <div>
+            {
+              <SearchTableData
+                name={"Search"}
+                // placeholder={""}
+                getOnChangeSearchValue={(value) => filterData(value)}
+                getOnClickedSearchValue={(value) => filterData(value)}
+              />
+            }
+          </div>
+          <div>
+            {" "}
+            {
+              <Filter
+                filterOptions={filterOptions}
+                getFilterOption={getFilterOption}
+              />
+            }
+          </div>
+        </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
