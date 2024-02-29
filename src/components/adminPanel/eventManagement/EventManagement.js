@@ -84,6 +84,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
               dataset={filteredData}
               tableHeader={eventTableHeader}
               actionType={"VIEW"}
+              isAllowedFullAccess={true}
             />
           );
         }
@@ -96,6 +97,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
               dataset={filteredData}
               tableHeader={eventTableHeader}
               actionType={"VIEW"}
+              isAllowedFullAccess={true}
             />
           );
         }
@@ -122,14 +124,22 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
       case 1:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.event_name > b.event_name ? 1 : a.event_name < b.event_name ? -1 : 0
+            a.event_name > b.event_name
+              ? 1
+              : a.event_name < b.event_name
+              ? -1
+              : 0
           )
         );
         break;
       case 2:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.start_date > b.start_date ? 1 : a.start_date < b.start_date ? -1 : 0
+            a.start_date > b.start_date
+              ? 1
+              : a.start_date < b.start_date
+              ? -1
+              : 0
           )
         );
         break;
@@ -161,6 +171,8 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
     resetFilters?.current?.resetFilter();
     tableReset();
   }, [selectedTab]);
+
+  // console.log("isAllowedFullAccess - ", isAllowedFullAccess);
 
   return (
     <div className={sectionStyles.sectionStyles}>
@@ -213,6 +225,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
+
       {modalType ? (
         modalType === "ADD" ? (
           <CustomModal open={setModalType} title={`Add Event`} height={"500px"}>
