@@ -48,6 +48,10 @@ const CustomButton = ({
         return Styles.circleiconBtn;
       case "LINK":
         return Styles.linkBtn;
+      case "LOGOUT":
+        return Styles.logoutBtn;
+      case "CANCEL":
+        return Styles.cancelBtn;
       default:
         return Styles.primaryBtn;
     }
