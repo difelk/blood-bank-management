@@ -1,12 +1,12 @@
 // Banner
-.bannerImage{
+.bannerImage {
     // height: 25px;
     width: 100%;
     // margin-right: 8px;
 }
 
 // About us intro view
-.aboutUsBox{
+.aboutUsBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -19,7 +19,8 @@
     margin-top: 80px;
     width: 75%;
 }
-.aboutUsContent{
+
+.aboutUsContent {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,31 +28,34 @@
     // height: 200px;
     width: 58%;
 }
-.aboutUsContent p{
+
+.aboutUsContent p {
     color: #000;
     text-align: justify;
     font-size: 16px;
 }
+
 .colorTxt {
-    color: #FD5586; 
+    color: #FD5586;
 }
 
 // About us button div
-.aboutUsBtnBox{
+.aboutUsBtnBox {
     // margin-top: 8px;
 }
+
 .aboutUsBtn {
     border: none;
     border-radius: 8px;
     padding: 8px 16px;
-    background-color: #CF4243; 
-    color: white; 
-    font-size: 12px; 
+    background-color: #CF4243;
+    color: white;
+    font-size: 12px;
     cursor: pointer;
 }
 
 // About us image - right side
-.imgContent{
+.imgContent {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,14 +63,15 @@
     // height: 200px;
     width: 38%;
 }
-.image{
+
+.image {
     // height: 300px;
     width: 100%;
     // margin-right: 8px;
 }
 
 // Recent events
-.recentEventsBox{
+.recentEventsBox {
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
@@ -79,7 +84,8 @@
     background-color: #d2d2d2;
     height: 600px;
 }
-.eventImgBox{
+
+.eventImgBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -89,7 +95,8 @@
     width: 75%;
     // margin-bottom: 40px;
 }
-.leftEventBox{
+
+.leftEventBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -100,33 +107,40 @@
     // margin-left: 120px;
     margin-right: 4px;
 }
-.leftEventBox img{
+
+.leftEventBox img {
     height: 417px;
     // width: auto;
 }
-.middleEventBox{
+
+.middleEventBox {
     display: flex;
     flex-direction: column;
 }
-.upperImg{
+
+.upperImg {
     position: relative;
     display: inline-block;
 }
-.upperImg img{
+
+.upperImg img {
     height: 200px;
     // width: 300px;
     padding: 8px;
 }
-.bottomImg img{
+
+.bottomImg img {
     height: 200px;
     // width: 300px;
     padding: 8px;
 }
-.bottomImg{
+
+.bottomImg {
     position: relative;
     display: inline-block;
 }
-.rightEventBox{
+
+.rightEventBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -137,40 +151,45 @@
     // margin-right: 120px;
     margin-left: 4px;
 }
-.rightEventBox img{
+
+.rightEventBox img {
     height: 417px;
     // width: auto;
 }
-.viewMoreBtnBox{
+
+.viewMoreBtnBox {
     margin: 12px;
 }
-.viewMoreBtn{
+
+.viewMoreBtn {
     border: none;
     border-radius: 8px;
     padding: 8px 16px;
-    background-color: #CF4243; 
-    color: white; 
-    font-size: 12px; 
+    background-color: #CF4243;
+    color: white;
+    font-size: 12px;
     cursor: pointer;
 }
+
 .topText {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    padding: 16px; 
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 16px;
     // width: 100%;
     // color: white; 
 }
-.topText p{
+
+.topText p {
     color: #EBE7E7;
     text-align: justify;
     font-size: 12px;
 }
 
 // Our achievements
-.ourAchieveBox{
+.ourAchieveBox {
     display: flex;
     flex-direction: column;
     // margin-top: 80px;
@@ -178,17 +197,19 @@
     width: 100%;
     // background-color: #d2d2d2;
     background-image: url('../images/achievements.png');
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     position: relative;
     height: 500px;
     align-items: center;
     justify-content: center;
 }
-.ourAchieveBox h2{
+
+.ourAchieveBox h2 {
     position: relative;
     z-index: 2;
 }
+
 .ourAchieveBox::before {
     content: '';
     position: absolute;
@@ -198,13 +219,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1;
-  }
-  
+}
+
 .ourAchieveBox img {
-    position: relative; 
-    z-index: 1; 
-  }
-.mainContainer{
+    position: relative;
+    z-index: 1;
+}
+
+.mainContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -214,7 +236,8 @@
     margin: 0 auto;
     width: 75%;
 }
-.contentBox{
+
+.contentBox {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -222,34 +245,38 @@
     justify-content: space-between;
     // width: 100%;
 }
-.imgBox{
+
+.imgBox {
     display: flex;
     align-items: center;
     position: relative;
     z-index: 2;
     margin-right: 8px;
 }
-.txtBox{
+
+.txtBox {
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 2;
     margin-right: 8px;
 }
-.txtBox p{
+
+.txtBox p {
     text-align: justify;
     margin: 4px;
     font-size: 14px;
     color: #fff;
     font-weight: 700;
 }
-.achieveImages{
+
+.achieveImages {
     height: 65px;
     width: 65px;
 }
 
 // Latest news
-.recentNewsBox{
+.recentNewsBox {
     display: flex;
     flex-direction: column;
     margin-top: 80px;
@@ -257,7 +284,8 @@
     // background-color: #d2d2d2;
     height: 600px;
 }
-.newsImgBox{
+
+.newsImgBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -267,49 +295,58 @@
     width: 75%;
     // margin-bottom: 40px;
 }
-.leftNewsBox{
+
+.leftNewsBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 40px;
 }
-.leftNewsBox img{
+
+.leftNewsBox img {
     height: 250px;
     width: auto;
 }
-.middleNewsBox{
+
+.middleNewsBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 40px;
 }
-.middleNewsBox img{
+
+.middleNewsBox img {
     height: 250px;
     width: auto;
 }
-.rightNewsBox{
+
+.rightNewsBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     // margin-left: 32px;
 }
-.rightNewsBox img{
+
+.rightNewsBox img {
     height: 250px;
     width: auto;
 }
-.readMoreBtnBox{
+
+.readMoreBtnBox {
     margin: 12px;
 }
-.readMoreBtn{
+
+.readMoreBtn {
     border: none;
     border-radius: 8px;
     padding: 8px 16px;
-    background-color: #CF4243; 
-    color: white; 
-    font-size: 12px; 
+    background-color: #CF4243;
+    color: white;
+    font-size: 12px;
     cursor: pointer;
 }
-.newsTxtBox{
+
+.newsTxtBox {
     display: flex;
     flex-direction: column;
     background-color: #f5f5f5;
@@ -317,29 +354,92 @@
     border-bottom-right-radius: 12px;
     padding: 8px;
 }
-.newsTxtBox p{
+
+.newsTxtBox p {
     text-align: justify;
     font-size: 12px;
 }
 
-.dateAndBtnBox{
+.dateAndBtnBox {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-.dateTag{
+
+.dateTag {
     color: #A8A8A8;
 }
 
-.linkBox:hover{
+.linkBox:hover {
     text-decoration: #CF4243;
 }
-.linkBox a{
+
+.linkBox a {
     align-items: center;
     margin-left: 44px;
     text-decoration: none;
     color: #6156DB;
     font-weight: 500;
     font-size: 14px;
+}
+
+
+// ***
+
+.homeBannerWrapper {
+    width: 75%;
+    margin: 80px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .bannerTextSection {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        text-align: left;
+
+        h4 {
+            color: #164864;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 4px 0;
+        }
+
+        h6 {
+            color: #164864;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 4px 0;
+        }
+
+        p {
+            font-size: 14px;
+            color: #A5ABB0;
+            line-height: 1.5rem;
+        }
+
+        button {
+            width: 180px;
+            margin: 12px 0;
+            background-color: transparent;
+            border: 2px solid #FD5086;
+            border-radius: 4px;
+            padding: 8px;
+            color: #FD5086;
+            cursor: pointer;
+        }
+    }
+
+    .bannerImgSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+
+        img {
+            width: 100%;
+        }
+    }
 }

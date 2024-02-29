@@ -7,8 +7,18 @@ const About = ({ name, age }) => {
   return (
     <div>
       {/* Banner */}
-      <div>
-        <img className={Styles.bannerImage} src={aboutUsBanner} alt="banner" />
+      <div className={Styles.bannerImagWrapper}>
+        <div>
+          <h4>Heading Title</h4>
+          <p>Some Random Text</p>
+        </div>
+        <div>
+          <img
+            className={Styles.bannerImage}
+            src={aboutUsBanner}
+            alt="banner"
+          />
+        </div>
       </div>
 
       {/* Our vision */}
