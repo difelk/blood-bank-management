@@ -132,6 +132,43 @@
     background-color: #f6f4f4;
 }
 
+.logoutBtn {
+    width: 100px;
+    padding: 16px;
+    margin: 12px 0;
+    border: none;
+    background-color: #D85753;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 300ms ease-in;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none !important;
+    color: #ffffff;
+}
+
+
+.cancelBtn {
+    width: 100px;
+    padding: 16px;
+    margin: 12px 0;
+    border: none;
+    background-color: #606060;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 300ms ease-in;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none !important;
+    color: #ffffff;
+}
+
 
 .ghostBtn {
     width: 80%;

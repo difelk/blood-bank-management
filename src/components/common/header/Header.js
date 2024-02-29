@@ -41,9 +41,9 @@ const Header = ({ isAdmin }) => {
             <ul>
               <a href="/">Home</a>
 
-              <a href="/events">Events</a>
+              {/* <a href="/events">Events</a> */}
 
-              <a href="/news">News</a>
+              <a href="/news">Contact</a>
 
               <a href="/about">About</a>
 
@@ -69,7 +69,7 @@ const Header = ({ isAdmin }) => {
         <CustomModal
           open={setIsLoginModalOpen}
           title={`Login`}
-          height={"300px"}
+          height={"350px"}
         >
           <LoginForm />
         </CustomModal>

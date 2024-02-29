@@ -7,16 +7,30 @@ import customFormStyles2 from "../common/components/form/CustomPasswordInput.mod
 const LoginForm = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUserNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [isUsernameFocus, setIsUsernameFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
 
   const handleUserName = (value) => {
-    setUserName(value);
+    if (!value || value.trim() === "") {
+      setUserNameError("Username is required");
+    } else {
+      setUserNameError("");
+      setUserName(value);
+    }
   };
 
   const handlePassword = (value) => {
-    setPassword(value);
+    if (!value || value.trim() === "") {
+      setPasswordError("Password is required");
+    } else {
+      setPasswordError("");
+      setPassword(value);
+    }
   };
+
+  const handleSubmit = () => {};
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
@@ -48,6 +62,7 @@ const LoginForm = () => {
             disabled={false}
             className={customFormStyles.error}
           />
+          <label className={styles.error}>{usernameError}</label>
         </div>
 
         <div
@@ -77,9 +92,17 @@ const LoginForm = () => {
             disabled={false}
             className={customFormStyles2.error}
           />
+          <label className={styles.error}>{passwordError}</label>
         </div>
+        <button className={styles.forgetPassword}>
+          {" "}
+          Forgot your password?
+        </button>
       </div>
-      <button className={styles.submitBtn}>Login</button>
+
+      <button className={styles.submitBtn} onClick={handleSubmit}>
+        Login
+      </button>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import EventIcon from "../../../assets/icons/svgs/EventIcon";
 import UserIcon from "../../../assets/icons/svgs/UserIcon";
 import LogoutIcon from "../../../assets/icons/svgs/LogoutIcon";
 import { useNavigate } from "react-router-dom";
+import Logout from "../../login/Logout";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -46,10 +47,13 @@ const SideBar = ({ setCurrentPage }) => {
   return (
     <>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"Logout"} />
+        <CustomModal open={setIsModalOpen} title={"Logout"}>
+          <Logout openModal={setIsModalOpen} />
+        </CustomModal>
       ) : (
         ""
       )}
+      {console.log("isModalOpen - ", isModalOpen)}
       <div className={Styles.sidebarContainer}>
         <div className={Styles.sidebarWrapper}>
           <div className={Styles.logowrapper}>
