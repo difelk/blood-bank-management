@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-
 import styles from "../eventRegistrationForm/EventRegistrationForm.module.scss";
 import { Formik, Form } from "formik";
-
 import CustomInput from "../../../components/common/components/form/CustomInput";
 import CustomButton from "../../../components/common/components/customButton";
 import CustomDropdown from "../../../components/common/components/form/CustomDropdown";
 import CustomDatePicker from "../../../components/common/components/form/CustomDatePicker";
 
-const sampleDropdownData = [
-  { key: 1, value: "Government" },
-  { key: 2, value: "Private" },
-  { key: 3, value: "Semi-Government" },
-];
 
 const EventRegistrationForm = ({ isAllowedFullAccess }) => {
   const InitialValues = {

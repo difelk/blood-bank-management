@@ -29,33 +29,33 @@ const filterOptions = [
 
 const eventTableDataSet = [
   {
-    eventName: "Event 3",
-    date: "2024/01/08",
-    location: "Location 2",
+    event_name: "Event 3",
+    start_date: "2024/01/08",
+    venue: "Location 2",
     status: "In progress",
   },
   {
-    eventName: "Event 4",
-    date: "2023/12/24",
-    location: "Location 5",
+    event_name: "Event 4",
+    start_date: "2023/12/24",
+    venue: "Location 5",
     status: "Done",
   },
   {
-    eventName: "Event 1",
-    date: "2024/02/04",
-    location: "Location 1",
+    event_name: "Event 1",
+    start_date: "2024/02/04",
+    venue: "Location 1",
     status: "Hold",
   },
   {
-    eventName: "Event 5",
-    date: "2024/01/03",
-    location: "Location 3",
+    event_name: "Event 5",
+    start_date: "2024/01/03",
+    venue: "Location 3",
     status: "Pending",
   },
   {
-    eventName: "Event 2",
-    date: "2024/01/28",
-    location: "Location 4",
+    event_name: "Event 2",
+    start_date: "2024/01/28",
+    venue: "Location 4",
     status: "In progress",
   },
 ];
@@ -105,9 +105,9 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const filterData = (searchValue) => {
     const filteredDataSet = eventTableDataSet.filter(
       (value) =>
-        value.eventName.toLocaleLowerCase().includes(searchValue) ||
-        value.date.toLocaleLowerCase().includes(searchValue) ||
-        value.location.toLocaleLowerCase().includes(searchValue) ||
+        value.event_name.toLocaleLowerCase().includes(searchValue) ||
+        value.start_date.toLocaleLowerCase().includes(searchValue) ||
+        value.venue.toLocaleLowerCase().includes(searchValue) ||
         value.status.toLocaleLowerCase().includes(searchValue)
     );
     if (filteredDataSet && searchValue) {
@@ -122,21 +122,21 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
       case 1:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.eventName > b.eventName ? 1 : a.eventName < b.eventName ? -1 : 0
+            a.event_name > b.event_name ? 1 : a.event_name < b.event_name ? -1 : 0
           )
         );
         break;
       case 2:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.date > b.date ? 1 : a.date < b.date ? -1 : 0
+            a.start_date > b.start_date ? 1 : a.start_date < b.start_date ? -1 : 0
           )
         );
         break;
       case 3:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.location > b.location ? 1 : a.location < b.location ? -1 : 0
+            a.venue > b.venue ? 1 : a.venue < b.venue ? -1 : 0
           )
         );
         break;
@@ -218,7 +218,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
           <CustomModal open={setModalType} title={`Add Event`} height={"500px"}>
             <div className={styles.hospitalData}></div>
             <EventRegistrationForm
-              Event={selectedEvent}
+              event={selectedEvent}
               isAllowedFullAccess={isAllowedFullAccess}
             />
           </CustomModal>

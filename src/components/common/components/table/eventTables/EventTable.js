@@ -3,8 +3,14 @@ import styles from "./EventTable.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import EventForm from "./EventForm";
 
-const EventTable = ({ tableHeader, dataset, actionType }) => {
+const EventTable = ({
+  tableHeader,
+  dataset,
+  actionType,
+  isAllowedFullAccess,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({});
 
@@ -54,19 +60,19 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
             >
-              <p>{item.eventName}</p>
+              <p>{item.event_name}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.date}</p>
+              <p>{item.start_date}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.location}</p>
+              <p>{item.venue}</p>
             </div>
 
             <div
@@ -95,30 +101,12 @@ const EventTable = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"User Details"}>
+        <CustomModal open={setIsModalOpen} title={"Event Details"}>
           <div className={styles.hospitalData}>
-            <div className={styles.hospitalBasicData}>
-              <div className={styles.dflexRow}>
-                <p>NIC:</p>
-                <p>{selectedEvent.nic}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Name:</p>
-                <p>{selectedEvent.name}</p>
-              </div>
-              <div className={styles.dflexRow}>
-                <p>Blood Group:</p>
-                <p>{selectedEvent.bloodGroup}</p>
-              </div>
-            </div>
-            {/* <div className={styles.hospitalBasicData}>
-              {Object.keys(selectedEvent.stock).map((bloodGroup, subIndex) => (
-                <div className={styles.dflexRow}>
-                  <p>Blood Group</p>
-                  <p>{selectedEvent.stock[bloodGroup]}</p>
-                </div>
-              ))}
-            </div> */}
+            <EventForm
+              event={selectedEvent}
+              isAllowedFullAccess={isAllowedFullAccess}
+            />
           </div>
         </CustomModal>
       ) : (
