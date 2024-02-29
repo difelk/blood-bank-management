@@ -8,10 +8,13 @@ import instaIconImg from "../../images/insta.png";
 import fbIconImg from "../../images/fb.png";
 import logo from "../../images/bloodLogo.png";
 import { useLocation } from "react-router-dom";
+import CustomModal from "../components/modal/CustomModal";
+import LoginForm from "../../login/Login";
 
 const Header = ({ isAdmin }) => {
   const location = useLocation();
   const [isAdminPanel, setisAdminPanel] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   useEffect(() => {
     const path = location.pathname;
     if (path.includes("admin")) {
@@ -20,55 +23,20 @@ const Header = ({ isAdmin }) => {
       setisAdminPanel(false);
     }
   }, []);
+
+  const handleLoginClick = () => {
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <div className={Styles.header}>
-      {/* {!isAdminPanel ? (
-        <div className={Styles.loginHeader}>
-          <div className={Styles.leftBox}>
-            <div className={Styles.phoneBox}>
-              <img className={Styles.image} src={phoneIconImg} alt="phone" />
-              <p>+94011234567</p>
-            </div>
-            <div className={Styles.emailBox}>
-              <img className={Styles.image} src={emailIconImg} alt="email" />
-              <p>emailaddress@domain.lk</p>
-            </div>
-          </div>
-
-          <div className={Styles.rightBox}>
-            <div className={Styles.loginBox}>
-              <img className={Styles.image} src={userIconImg} alt="pic" />
-              <p>Login</p>
-            </div>
-            <div className={Styles.socialMediaBox}>
-              <a href="https://example.com">
-                <img
-                  className={Styles.image}
-                  src={twitterIconImg}
-                  alt="twitter"
-                />
-              </a>
-              <a href="https://example.com">
-                <img className={Styles.image} src={instaIconImg} alt="insta" />
-              </a>
-              <a href="https://example.com">
-                <img className={Styles.image} src={fbIconImg} alt="fb" />
-              </a>
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )} */}
-      {/* Pages links div */}
       {!isAdminPanel ? (
         <div className={Styles.pagesLinkHeader}>
-          {/* Left div - logo */}
           <div className={Styles.leftLogoBox}>
             <img className={Styles.logoImage} src={logo} alt="Logo" />
             <p>BloodCentral Network</p>
           </div>
-          {/* Right div - Links */}
+
           <div className={Styles.rightLinkBox}>
             <ul>
               <a href="/">Home</a>
@@ -84,11 +52,27 @@ const Header = ({ isAdmin }) => {
                   HI JOE
                 </a>
               ) : (
-                <button className={Styles.logUserBtn}>Login</button>
+                <button
+                  className={Styles.logUserBtn}
+                  onClick={handleLoginClick}
+                >
+                  Login
+                </button>
               )}
             </ul>
           </div>
         </div>
+      ) : (
+        ""
+      )}
+      {isLoginModalOpen ? (
+        <CustomModal
+          open={setIsLoginModalOpen}
+          title={`Login`}
+          height={"300px"}
+        >
+          <LoginForm />
+        </CustomModal>
       ) : (
         ""
       )}

@@ -11,9 +11,7 @@ import CustomModal from "../../common/components/modal/CustomModal";
 import commonStyles from "../../../styles/common.module.scss";
 import HospitalsTable from "../../common/components/table/hospitalTables/HospitalsTable";
 import HospitalRegistrationForm from "../../../share/formComponents/hospitalRegistrationForm/HospitalRegistrationForm";
-import AddIcon2 from "../../../assets/icons/svgs/AddIcon2";
 import EmptyMessage from "../../../share/empty/Empty";
-import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
 
