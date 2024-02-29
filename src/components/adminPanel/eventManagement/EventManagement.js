@@ -71,13 +71,14 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedEvent, setSelectedEvent] = useState({});
+  const [isSearchHasValue, setSearchHasValue] = useState(false);
   const [filteredData, setFilteredData] = useState(eventTableDataSet);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <EventTable
@@ -90,7 +91,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
         }
       default:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <EventTable
@@ -105,6 +106,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
   };
 
   const filterData = (searchValue) => {
+    searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
     const filteredDataSet = eventTableDataSet.filter(
       (value) =>
         value.event_name.toLocaleLowerCase().includes(searchValue) ||

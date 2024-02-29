@@ -77,7 +77,6 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-    
   },
   {
     hospitalName: "Hospital 002",
@@ -92,7 +91,6 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-    
   },
   {
     hospitalName: "Hospital 001",
@@ -107,7 +105,6 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-   
   },
   {
     hospitalName: "Hospital 003",
@@ -122,7 +119,6 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
-   
   },
 ];
 
@@ -232,12 +228,13 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [filteredDataForStock, setFilteredDataForStock] = useState(
     summaryDetailsTableDataSet
   );
+  const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
         if (!filteredDataForHospitals.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <>
@@ -253,7 +250,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
       case 2:
         if (!summaryTableDataSet.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <HospitalStockSummaryTable
@@ -265,7 +262,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
         }
       case 3:
         if (!filteredDataForStock.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <HospitalStockDetails
@@ -277,7 +274,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
         }
       default:
         if (!filteredDataForHospitals.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <HospitalsTable
@@ -292,6 +289,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
   const filterData = (searchValue) => {
     if (selectedTab.key === 1) {
+      searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
       const filteredDataSetHospitals = hospitalsTablesDataSet.filter(
         (value) =>
           value.hospitalName.toLocaleLowerCase().includes(searchValue) ||
@@ -306,6 +304,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
       setFilteredDataForStock(summaryDetailsTableDataSet);
     } else if (selectedTab.key === 3) {
+      searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
       const filteredDataSetStock = summaryDetailsTableDataSet.filter(
         (value) =>
           value.date.toLocaleLowerCase().includes(searchValue) ||
@@ -362,13 +361,13 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
             )
           );
           break;
-          case 3:
-            setFilteredDataForStock(
-          [...filteredDataForStock].sort((a, b) =>
-            a.qty > b.qty ? 1 : a.qty < b.qty ? -1 : 0
-          )
-        );
-        break;
+        case 3:
+          setFilteredDataForStock(
+            [...filteredDataForStock].sort((a, b) =>
+              a.qty > b.qty ? 1 : a.qty < b.qty ? -1 : 0
+            )
+          );
+          break;
         default:
           break;
       }
