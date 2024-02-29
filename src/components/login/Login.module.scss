@@ -1,0 +1,30 @@
+.inputWrapper {
+    width: 100%;
+
+    input {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+
+}
+
+
+.submitBtn {
+    width: 180px;
+    margin: 12px 0;
+    background-color: transparent;
+    border: 2px solid #FD5086;
+    border-radius: 4px;
+    padding: 12px;
+    color: #FD5086;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 300ms ease-in;
+
+}
+
+.submitBtn:hover {
+    background-color: #FD5086;
+    color: #ffffff;
+}
