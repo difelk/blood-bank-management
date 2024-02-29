@@ -1,6 +1,5 @@
 import React from "react";
 import Styles from "./Home.module.scss";
-import homeBanner from "../images/homeBanner.png";
 import { Link, Route, Routes } from "react-router-dom";
 import About from "../about/About";
 import aboutUsHomeImg from "../images/aboutUsHomeImg.png";
@@ -18,6 +17,12 @@ import news1 from "../images/newsImg.png";
 import news2 from "../images/newsImg.png";
 import news3 from "../images/newsImg.png";
 import homelogo from "../../assets/img/home.jpg";
+import asiriLogo from "../../assets/img/hospitals/apollo_hospitals_logo.png";
+import nawalokaLogo from "../../assets/img/hospitals/Nawaloka_Hospitals.png";
+import hemashLogo from "../../assets/img/hospitals/Hemashospital.png";
+import lankaHospitalLogo from "../../assets/img/hospitals/Lanka_Hospitals_logo.png";
+import appoloLogo from "../../assets/img/hospitals/apollo_hospitals_logo.png";
+import royalLogo from "../../assets/img/hospitals/royal_hospital.png";
 
 const Home = ({}) => {
   return (
@@ -37,6 +42,29 @@ const Home = ({}) => {
         </div>
         <div className={Styles.bannerImgSection}>
           <img className={Styles.bannerImage} src={homelogo} alt="banner" />
+        </div>
+      </div>
+      <div className={Styles.partnerSectionWrapper}>
+        {/* <h4>Our Partners</h4> */}
+        <div className={Styles.partnerSection}>
+          <div className={Styles.logowrapper}>
+            <img src={asiriLogo} alt="asiri hospital logo" />
+          </div>
+          <div className={Styles.logowrapper}>
+            <img src={nawalokaLogo} alt="nawaloka hospital logo" />
+          </div>
+          <div className={Styles.logowrapper}>
+            <img src={hemashLogo} alt="hemas hospital logo" />
+          </div>
+          <div className={Styles.logowrapper}>
+            <img src={lankaHospitalLogo} alt="lanka hospital logo" />
+          </div>
+          <div className={Styles.logowrapper}>
+            <img src={appoloLogo} alt="appolo hospital logo" />
+          </div>
+          <div className={Styles.logowrapper}>
+            <img src={royalLogo} alt="royal hospital logo" />
+          </div>
         </div>
       </div>
       {/* About us intro view */}
