@@ -114,8 +114,8 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       <div className={styles.tableBody}>
-        {dataset.map((item) => (
-          <div className={styles.tableData}>
+        {dataset.map((item, index) => (
+          <div className={styles.tableData} key={index}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}

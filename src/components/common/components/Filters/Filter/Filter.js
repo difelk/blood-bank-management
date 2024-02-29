@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import styles from "./Filter.module.scss";
 import commonStyles from "../../../../../styles/common.module.scss";
 import FilterIcon from "../../../../../assets/icons/svgs/FilterIcon";
 import CloseIcon from "../../../../../assets/icons/svgs/Close";
 
-const Filter = ({ filterOptions, getFilterOption }) => {
+const Filter = forwardRef(({ filterOptions, getFilterOption }, ref) => {
   const [isFilterSelected, setIsFilterSelected] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -13,8 +13,15 @@ const Filter = ({ filterOptions, getFilterOption }) => {
     setIsFilterSelected(false);
     getFilterOption(value);
   };
+  useImperativeHandle(ref, () => ({
+    resetFilter() {
+      setSelectedValue("");
+      setIsFilterSelected(false);
+      getFilterOption({});
+    },
+  }));
 
-  const resetFilter = () => {
+  const reset = () => {
     setSelectedValue("");
     setIsFilterSelected(false);
     getFilterOption({});
@@ -50,7 +57,7 @@ const Filter = ({ filterOptions, getFilterOption }) => {
               styles.filteredValue,
             ].join(" ")}
           >
-            <button onClick={() => resetFilter({})}>
+            <button onClick={() => reset({})}>
               <CloseIcon size={18} color={"#68B4CA"} />
             </button>
             <span>{selectedValue}</span>
@@ -61,8 +68,8 @@ const Filter = ({ filterOptions, getFilterOption }) => {
       </div>
       {isFilterSelected ? (
         <div className={styles.filterDropdown}>
-          {filterOptions.map((option) => (
-            <button onClick={() => handleFilterItemClick(option)}>
+          {filterOptions.map((option, index) => (
+            <button onClick={() => handleFilterItemClick(option)} key={index}>
               {option.value}
             </button>
           ))}
@@ -72,6 +79,6 @@ const Filter = ({ filterOptions, getFilterOption }) => {
       )}
     </div>
   );
-};
+});
 
 export default Filter;

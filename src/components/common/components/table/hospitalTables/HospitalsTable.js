@@ -67,18 +67,19 @@ const HospitalsTable = ({ tableHeader, dataset, actions }) => {
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
-        {tableHeader.map((header) => (
+        {tableHeader.map((header, index) => (
           <div
             className={styles.tableHeaderItem}
             style={{ width: header.width }}
+            key={index}
           >
             <p>{header.name}</p>
           </div>
         ))}
       </div>
       <div className={styles.tableBody}>
-        {dataset.map((item) => (
-          <div className={styles.tableData}>
+        {dataset.map((item, index) => (
+          <div className={styles.tableData} key={index}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}

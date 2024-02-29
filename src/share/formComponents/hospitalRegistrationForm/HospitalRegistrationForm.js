@@ -27,8 +27,6 @@ const HospitalRegistrationForm = ({ isAllowedFullAccess }) => {
   const validate = (values) => {
     const errors = {};
 
-    console.log("values - ", values);
-
     if (!values.contact_no) {
       errors.contact_no = "Contact Number is required";
     } else if (!/^(0\d{9})$/.test(values.contact_no)) {

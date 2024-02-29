@@ -21,12 +21,9 @@ const Header = ({ isAdmin }) => {
     }
   }, []);
   return (
-    // Full header
     <div className={Styles.header}>
-      {/* Login header box (Dark Green) */}
-      {!isAdminPanel ? (
+      {/* {!isAdminPanel ? (
         <div className={Styles.loginHeader}>
-          {/* Left box - with phone and email */}
           <div className={Styles.leftBox}>
             <div className={Styles.phoneBox}>
               <img className={Styles.image} src={phoneIconImg} alt="phone" />
@@ -37,11 +34,11 @@ const Header = ({ isAdmin }) => {
               <p>emailaddress@domain.lk</p>
             </div>
           </div>
-          {/* Right box - with login/register and social media links images */}
+
           <div className={Styles.rightBox}>
             <div className={Styles.loginBox}>
               <img className={Styles.image} src={userIconImg} alt="pic" />
-              <p>Login/Register</p>
+              <p>Login</p>
             </div>
             <div className={Styles.socialMediaBox}>
               <a href="https://example.com">
@@ -62,7 +59,7 @@ const Header = ({ isAdmin }) => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
       {/* Pages links div */}
       {!isAdminPanel ? (
         <div className={Styles.pagesLinkHeader}>
@@ -82,7 +79,13 @@ const Header = ({ isAdmin }) => {
 
               <a href="/about">About</a>
 
-              {isAdmin ? <a href="/admin">Admin</a> : ""}
+              {isAdmin ? (
+                <a href="/admin" className={Styles.adminUserLink}>
+                  HI JOE
+                </a>
+              ) : (
+                <button className={Styles.logUserBtn}>Login</button>
+              )}
             </ul>
           </div>
         </div>

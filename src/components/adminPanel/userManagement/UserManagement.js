@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./UserManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -84,6 +84,8 @@ const tabs = [
 ];
 
 const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
@@ -199,6 +201,16 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     }
   };
 
+  const tableReset = () => {
+    setFilteredData(userTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
+
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -240,6 +252,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
           <div>
             {
               <SearchTableData
+                ref={resetSearchField}
                 name={"Search"}
                 // placeholder={""}
                 getOnChangeSearchValue={(value) => filterData(value)}
@@ -251,6 +264,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             {" "}
             {
               <Filter
+                ref={resetFilters}
                 filterOptions={filterOptions}
                 getFilterOption={getFilterOption}
               />

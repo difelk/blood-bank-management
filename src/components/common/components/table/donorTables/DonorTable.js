@@ -40,10 +40,11 @@ const DonorTable = ({
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
-        {tableHeader.map((header) => (
+        {tableHeader.map((header, index) => (
           <div
             className={styles.tableHeaderItem}
             style={{ width: header.width }}
+            key={index}
           >
             <p>{header.name}</p>
           </div>
@@ -51,7 +52,7 @@ const DonorTable = ({
       </div>
       <div className={styles.tableBody}>
         {dataset.map((item, index) => (
-          <div className={styles.tableData}>
+          <div className={styles.tableData} key={index}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}

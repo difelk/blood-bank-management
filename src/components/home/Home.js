@@ -17,13 +17,27 @@ import News from "../news/News";
 import news1 from "../images/newsImg.png";
 import news2 from "../images/newsImg.png";
 import news3 from "../images/newsImg.png";
+import homelogo from "../../assets/img/home.jpg";
 
 const Home = ({}) => {
   return (
     <div>
       {/* Banner */}
-      <div>
-        <img className={Styles.bannerImage} src={homeBanner} alt="banner" />
+      <div className={Styles.homeBannerWrapper}>
+        <div className={Styles.bannerTextSection}>
+          <h4>Saving Lives, One Donation at a Time</h4>
+          <h6>Together, We Can Make a Lifesaving Impact</h6>
+          <p>
+            Discover the Power of Giving - Your Contribution Can Make a Profound
+            Difference in Someone's Life. Every Donation Counts Towards Saving
+            Lives and Ensuring a Stable Blood Supply for Those in Need. Join Us
+            in the Lifesaving Journey Today!
+          </p>
+          <button>Learn More</button>
+        </div>
+        <div className={Styles.bannerImgSection}>
+          <img className={Styles.bannerImage} src={homelogo} alt="banner" />
+        </div>
       </div>
       {/* About us intro view */}
       <div className={`${Styles.aboutUsBox}  mt-5`}>

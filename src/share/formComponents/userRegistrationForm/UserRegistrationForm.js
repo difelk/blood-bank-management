@@ -103,7 +103,6 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
   const handleSubmit = (values) => {
     console.log("values - ", values);
-    console.log("values - ", values);
     setTimeout(() => {}, 400);
   };
 
@@ -428,9 +427,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   type={"text"}
                   touched={(value) => setFieldTouched("contact_no", value)}
                 />
-                <span>
-                  {touched.contact_no ? errors.contact_no : ""}
-                </span>
+                <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(

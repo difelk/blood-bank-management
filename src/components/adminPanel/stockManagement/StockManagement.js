@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./StockManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -138,6 +138,8 @@ const tabs = [
 ];
 
 const StockManagement = ({ selectedPage }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
   const [isLoading, setIsloading] = useState(true);
@@ -230,6 +232,16 @@ const StockManagement = ({ selectedPage }) => {
     }
   };
 
+  const tableReset = () => {
+    setFilteredData(summaryDetailsTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
+
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -268,6 +280,7 @@ const StockManagement = ({ selectedPage }) => {
               <div>
                 {
                   <SearchTableData
+                    ref={resetSearchField}
                     name={"Search"}
                     // placeholder={""}
                     getOnChangeSearchValue={(value) => filterData(value)}
@@ -279,6 +292,7 @@ const StockManagement = ({ selectedPage }) => {
                 {" "}
                 {
                   <Filter
+                    ref={resetFilters}
                     filterOptions={filterOptions}
                     getFilterOption={getFilterOption}
                   />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./EventManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -66,6 +66,8 @@ const tabs = [
 ];
 
 const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedEvent, setSelectedEvent] = useState({});
@@ -149,6 +151,16 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
         break;
     }
   };
+
+  const tableReset = () => {
+    setFilteredData(eventTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
 
   return (
     <div className={sectionStyles.sectionStyles}>

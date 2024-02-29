@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./DonorManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -66,6 +66,8 @@ const tabs = [
 ];
 
 const DonorManagement = ({ selectedPage }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
   const [filteredData, setFilteredData] = useState(donorTableDataSet);
@@ -150,6 +152,16 @@ const DonorManagement = ({ selectedPage }) => {
         break;
     }
   };
+
+  const tableReset = () => {
+    setFilteredData(donorTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
 
   return (
     <div className={sectionStyles.sectionStyles}>
