@@ -1,10 +1,10 @@
 import * as React from "react";
-const AddIcon = (size, color) => (
+const AddIcon = (size = "800px", color) => (
   <svg
     fill={color ?? "#000000"}
     xmlns="http://www.w3.org/2000/svg"
-    width={size ?? "800px"}
-    height={size ?? "800px"}
+    width={size}
+    height={size}
     viewBox="0 0 52 52"
     enableBackground="new 0 0 52 52"
     xmlSpace="preserve"

@@ -8,8 +8,10 @@ const ClassicTable = ({ tableHeader, dataset, actions, getSelected }) => {
         <table className={styles.table}>
           <thead>
             <tr>
-              {tableHeader.map((head) => (
-                <th style={{ width: head.width }}>{head.name}</th>
+              {tableHeader.map((head, index) => (
+                <th style={{ width: head.width }} key={index}>
+                  {head.name}
+                </th>
               ))}
             </tr>
           </thead>

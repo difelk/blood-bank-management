@@ -36,10 +36,11 @@ const NavCustomeDropdown = ({ getDropdownValue, dataset, icon, defultTxt }) => {
         <div className={Styles.dropdownIcon}>{icon}</div>
         {showDropdown ? (
           <div className={Styles.dropdownList}>
-            {dataset.map((item) => (
+            {dataset.map((item, index) => (
               <button
                 className={Styles.dropdownItem}
                 onClick={() => handleDropDownItemClick(item)}
+                key={index}
               >
                 {item.value}
               </button>

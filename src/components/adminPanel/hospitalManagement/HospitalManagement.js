@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./HospitalManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -210,6 +210,8 @@ const tabs = [
 ];
 
 const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedHospital, setSelectedHospital] = useState({});
@@ -278,7 +280,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   };
 
   const filterData = (searchValue) => {
-    if (selectedTab.key == 1) {
+    if (selectedTab.key === 1) {
       const filteredDataSetHospitals = hospitalsTablesDataSet.filter(
         (value) =>
           value.hospitalName.toLocaleLowerCase().includes(searchValue) ||
@@ -292,7 +294,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
       }
 
       setFilteredDataForStock(summaryDetailsTableDataSet);
-    } else if (selectedTab.key == 3) {
+    } else if (selectedTab.key === 3) {
       const filteredDataSetStock = summaryDetailsTableDataSet.filter(
         (value) =>
           value.date.toLocaleLowerCase().includes(searchValue) ||
@@ -310,7 +312,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
   };
 
   const getFilterOption = (value) => {
-    if (selectedTab.key == 1) {
+    if (selectedTab.key === 1) {
       switch (value.key) {
         case 1:
           setFilteredDataForHospitals(
@@ -333,7 +335,7 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
         default:
           break;
       }
-    } else if (selectedTab.key == 3) {
+    } else if (selectedTab.key === 3) {
       switch (value.key) {
         case 1:
           setFilteredDataForStock(
@@ -354,6 +356,17 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
       }
     }
   };
+
+  const tableReset = () => {
+    setFilteredDataForHospitals(hospitalsTablesDataSet);
+    setFilteredDataForStock(summaryDetailsTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
 
   return (
     <div className={sectionStyles.sectionStyles}>

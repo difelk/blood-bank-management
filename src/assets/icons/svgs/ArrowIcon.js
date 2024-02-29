@@ -1,11 +1,11 @@
 import React from "react";
 
-const ArrowDownIcon = ({ size, color, flip }) => {
+const ArrowDownIcon = ({ size = "800px", color, flip }) => {
   return (
     <svg
       viewBox="0 0 8.526 4.876"
-      width={size ?? 8.528}
-      height={size ? size - 3.65 : 4.876}
+      width={size}
+      height={size}
       transform={flip ? "scale(1 -1) translate(0 0)" : ""}
     >
       <path

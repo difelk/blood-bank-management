@@ -82,7 +82,7 @@ const HospitalSummeryTable = ({ tableHeaders, datasets, actions }) => {
       </div>
       <div className={styles.tableBody}>
         {datasets.map((item, index) => (
-          <div className={styles.tableData}>
+          <div className={styles.tableData} key={index}>
             <div className={styles.tableDataItem} style={{ width: "25%" }}>
               <p>{item.hospitalName}</p>
             </div>

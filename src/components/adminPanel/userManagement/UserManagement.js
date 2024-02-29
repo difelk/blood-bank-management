@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./UserManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -72,6 +72,8 @@ const tabs = [
 ];
 
 const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
+  const resetSearchField = useRef(null);
+  const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
@@ -126,7 +128,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
         value.first_name.toLocaleLowerCase().includes(searchValue) ||
-        value.last_name.toLocaleLowerCase().includes(searchValue) 
+        value.last_name.toLocaleLowerCase().includes(searchValue)
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
@@ -147,7 +149,11 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
       case 2:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.first_name > b.first_name ? 1 : a.first_name < b.first_name ? -1 : 0
+            a.first_name > b.first_name
+              ? 1
+              : a.first_name < b.first_name
+              ? -1
+              : 0
           )
         );
         break;
@@ -162,6 +168,16 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
         break;
     }
   };
+
+  const tableReset = () => {
+    setFilteredData(userTableDataSet);
+  };
+
+  useEffect(() => {
+    resetSearchField?.current?.handleResetFormSearch();
+    resetFilters?.current?.resetFilter();
+    tableReset();
+  }, [selectedTab]);
 
   return (
     <div className={sectionStyles.sectionStyles}>
@@ -193,7 +209,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
           getActiveTab={(tab) => setSelectedTab(tab)}
           activeTab={selectedTab}
         />
-          <div
+        <div
           className={[
             commonStyles.d_flex,
             commonStyles.flex_column,
@@ -204,6 +220,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
           <div>
             {
               <SearchTableData
+                ref={resetSearchField}
                 name={"Search"}
                 // placeholder={""}
                 getOnChangeSearchValue={(value) => filterData(value)}
@@ -215,6 +232,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             {" "}
             {
               <Filter
+                ref={resetFilters}
                 filterOptions={filterOptions}
                 getFilterOption={getFilterOption}
               />

@@ -99,7 +99,7 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
 
   const handleSubmit = (values) => {
     console.log("values - ", values);
-    console.log("values - ", values);
+
     setTimeout(() => {}, 400);
   };
 
