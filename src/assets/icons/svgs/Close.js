@@ -1,9 +1,9 @@
 import * as React from "react";
-const CloseIcon = ({ size, color }) => (
+const CloseIcon = ({ size = "800px", color }) => (
   <svg
     fill={color ?? "#000000"}
-    width={size ?? "800px"}
-    height={size ?? "800px"}
+    width={size}
+    height={size}
     viewBox="-6 -6 24 24"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMinYMin"

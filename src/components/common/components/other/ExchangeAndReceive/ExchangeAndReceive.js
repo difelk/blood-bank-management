@@ -11,34 +11,12 @@ const ExchangeAndReceive = () => {
   return (
     <div className={styles.wrapperComp}>
       <div className={styles.btnWrapper}>
-        {/* <CustomButton
-          buttonType={"BORDER_ONLY"}
-          iconsLeft={<MailIcon size={1800} color={"#5C38FF"} />}
-          buttonStyles={{
-            backgroundColor: "transparent",
-            padding: "12px",
-            border: "1px solid #5C38FF",
-            borderRadius: "4px",
-          }}
-          onClick={() => console.log("")}
-        /> */}
         <button onClick={() => setExchangeReceiveType("RECEIVED")}>
           <img src={ReceivedIcon} alt="Received Icon" />
         </button>
         <span>Received</span>
       </div>
       <div className={styles.btnWrapper}>
-        {/* <CustomButton
-          buttonType={"BORDER_ONLY"}
-          //   iconsLeft={<SendIcon size={100} color={"#5C38FF"} />}
-          buttonStyles={{
-            backgroundColor: "transparent",
-            padding: "12px",
-            border: "1px solid #5C38FF",
-            borderRadius: "4px",
-          }}
-          onClick={() => console.log("")}
-        /> */}
         <button onClick={() => setExchangeReceiveType("SEND")}>
           <img src={SendIcon} alt="Send Icon" />
         </button>

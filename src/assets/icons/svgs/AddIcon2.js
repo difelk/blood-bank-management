@@ -1,11 +1,11 @@
 import React from "react";
 
-const AddIcon2 = ({ size, color }) => {
+const AddIcon2 = ({ size = "800px", color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size ?? 22.149}
-      height={size ?? 22.149}
+      width={size}
+      height={size}
       viewBox="0 0 22.149 22.149"
     >
       <g

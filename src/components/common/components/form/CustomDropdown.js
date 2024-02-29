@@ -16,8 +16,6 @@ const CustomDropdown = ({
   const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownItem, setSelectedDropdownItem] = useState("");
 
-  console.log("defaultValue - ", defaultValue);
-
   const filterData = () => {
     if (!searchValue) {
       setFilteredDataSet(dataset);

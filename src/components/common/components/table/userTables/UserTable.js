@@ -5,7 +5,12 @@ import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import UserForm from "./UserForm";
 
-const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) => {
+const UserTable = ({
+  tableHeader,
+  dataset,
+  actionType,
+  isAllowedFullAccess,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
 
@@ -23,10 +28,11 @@ const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) =>
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
-        {tableHeader.map((header) => (
+        {tableHeader.map((header, index) => (
           <div
             className={styles.tableHeaderItem}
             style={{ width: header.width }}
+            key={index}
           >
             <p>{header.name}</p>
           </div>
@@ -38,6 +44,7 @@ const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) =>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
+              key={index}
             >
               <p>{item.nic}</p>
             </div>
@@ -76,8 +83,8 @@ const UserTable = ({ tableHeader, dataset, actionType, isAllowedFullAccess }) =>
         ))}
       </div>
       {isModalOpen ? (
-        <CustomModal open={setIsModalOpen} title={"User Details"} >
-           <div className={styles.hospitalData}>
+        <CustomModal open={setIsModalOpen} title={"User Details"}>
+          <div className={styles.hospitalData}>
             <UserForm
               user={selectedUser}
               isAllowedFullAccess={isAllowedFullAccess}

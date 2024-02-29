@@ -58,7 +58,6 @@ const dataSet = [
 
 const ReceiveTable = () => {
   const [selectedStock, setSelectedStock] = useState();
-  console.log("selectedStock - ", selectedStock);
   return (
     <div className={styles.receiveTableWrapper}>
       {!selectedStock ? (
