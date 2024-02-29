@@ -42,7 +42,7 @@ const summaryDetailsTableHeader = [
   { name: "Date", width: "20%" },
   { name: "Category", width: "20%" },
   { name: "Blood Group", width: "30%" },
-  { name: "Qty", width: "10%" },
+  { name: "Quantity", width: "10%" },
   { name: "Action", width: "20%" },
 ];
 

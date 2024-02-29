@@ -28,6 +28,11 @@ const userTypes = [
   { key: 2, value: "User" },
 ];
 
+const organizationTypes = [
+  { key: 1, value: "Blood Bank" },
+  { key: 2, value: "Hospital" },
+];
+
 const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
 
@@ -46,6 +51,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     temp_pw: user.temp_pw ?? "",
     confirm_temp_pw: user.confirm_temp_pw ?? "",
     recovery_email: user.recovery_email ?? "",
+    organization: user.organization ?? "",
   };
 
   const validation = (values) => {
@@ -394,7 +400,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
+                className={[formStyles.groupInputs, formStyles.input30].join(
                   " "
                 )}
               >
@@ -416,7 +422,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 </span>
               </div>
               <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
+                className={[formStyles.groupInputs, formStyles.input30].join(
                   " "
                 )}
               >
@@ -434,6 +440,28 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   touched={(value) => setFieldTouched("contact_no", value)}
                 />
                 <span>{touched.contact_no ? errors.contact_no : ""}</span>
+              </div>
+
+              <div
+                className={[formStyles.groupInputs, formStyles.input30].join(
+                  " "
+                )}
+              >
+                <div className={styles.dateDiv}>
+                  <CustomDropdown
+                    dataset={organizationTypes}
+                    placeHolder={"Organization"}
+                    id={"organization"}
+                    name={"organization"}
+                    disabled={false}
+                    defaultValue={initialValues.organization}
+                    getValue={(value) => {
+                      setFieldValue("organization", value);
+                    }}
+                    touched={(value) => setFieldTouched("organization", value)}
+                  />
+                  <span>{touched.organization ? errors.organization : ""}</span>
+                </div>
               </div>
             </div>
 

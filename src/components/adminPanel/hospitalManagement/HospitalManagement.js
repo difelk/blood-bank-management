@@ -32,6 +32,7 @@ const filterOptionsForHospitals = [
 const filterOptionsForStock = [
   { key: 1, value: "Sort By Date" },
   { key: 2, value: "Sort By Category" },
+  { key: 3, value: "Sort By Quantity" },
 ];
 
 const summaryTableDataSet = [
@@ -49,7 +50,8 @@ const summaryDetailsTableHeader = [
   // { name: "Stock ID", width: "20%" },
   { name: "Date", width: "20%" },
   { name: "Category", width: "20%" },
-  { name: "Blood Group", width: "40%" },
+  { name: "Blood Group", width: "30%" },
+  { name: "Quantity", width: "10%" },
   { name: "Action", width: "20%" },
 ];
 
@@ -75,6 +77,7 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    
   },
   {
     hospitalName: "Hospital 002",
@@ -89,6 +92,7 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    
   },
   {
     hospitalName: "Hospital 001",
@@ -103,6 +107,7 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+   
   },
   {
     hospitalName: "Hospital 003",
@@ -117,6 +122,7 @@ const hospitalsTablesDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+   
   },
 ];
 
@@ -136,6 +142,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "50%",
   },
   {
     // stockId: "202402241618V1",
@@ -152,6 +159,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "70%",
   },
   {
     // stockId: "202402241619V1",
@@ -168,6 +176,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "65%",
   },
   {
     // stockId: "202402241620V1",
@@ -184,6 +193,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "40%",
   },
   {
     // stockId: "202402241621V1",
@@ -200,6 +210,7 @@ const summaryDetailsTableDataSet = [
       ABPLUS: 38,
       ABMINUS: 78,
     },
+    qty: "35%",
   },
 ];
 
@@ -351,6 +362,13 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
             )
           );
           break;
+          case 3:
+            setFilteredDataForStock(
+          [...filteredDataForStock].sort((a, b) =>
+            a.qty > b.qty ? 1 : a.qty < b.qty ? -1 : 0
+          )
+        );
+        break;
         default:
           break;
       }

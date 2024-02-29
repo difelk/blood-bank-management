@@ -24,6 +24,11 @@ const userTypes = [
   { key: 2, value: "User" },
 ];
 
+const organizationTypes = [
+  { key: 1, value: "Blood Bank" },
+  { key: 2, value: "Hospital" },
+];
+
 const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
   const initialValues = {
     nic: "",
@@ -383,7 +388,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
+                className={[formStyles.groupInputs, formStyles.input30].join(
                   " "
                 )}
               >
@@ -405,7 +410,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 </span>
               </div>
               <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
+                className={[formStyles.groupInputs, formStyles.input30].join(
                   " "
                 )}
               >
@@ -423,6 +428,27 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   touched={(value) => setFieldTouched("contact_no", value)}
                 />
                 <span>{touched.contact_no ? errors.contact_no : ""}</span>
+              </div>
+              <div
+                className={[formStyles.groupInputs, formStyles.input30].join(
+                  " "
+                )}
+              >
+                <div className={styles.dateDiv}>
+                  <CustomDropdown
+                    dataset={organizationTypes}
+                    placeHolder={"Select Organization"}
+                    id={"organization"}
+                    name={"organization"}
+                    disabled={false}
+                    defaultValue={initialValues.organization}
+                    getValue={(value) => {
+                      setFieldValue("organization", value);
+                    }}
+                    touched={(value) => setFieldTouched("organization", value)}
+                  />
+                  <span>{touched.organization ? errors.organization : ""}</span>
+                </div>
               </div>
             </div>
 

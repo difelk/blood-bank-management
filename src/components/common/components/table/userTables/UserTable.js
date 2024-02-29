@@ -70,6 +70,18 @@ const UserTable = ({
               className={styles.tableDataItem}
               style={{ width: tableHeader[4].width }}
             >
+              <p>{item.userType}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[5].width }}
+            >
+              <p>{item.organization}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[6].width }}
+            >
               <CustomButton
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}

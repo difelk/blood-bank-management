@@ -16,17 +16,21 @@ import SearchTableData from "../../common/components/Filters/Search/SearchTableD
 import Filter from "../../common/components/Filters/Filter/Filter";
 
 const userTableHeader = [
-  { name: "NIC", width: "20%" },
-  { name: "First Name", width: "20%" },
-  { name: "Last Name", width: "20%" },
-  { name: "Contact No", width: "20%" },
-  { name: "Actions", width: "20%" },
+  { name: "NIC", width: "18%" },
+  { name: "First Name", width: "12%" },
+  { name: "Last Name", width: "12%" },
+  { name: "Contact No", width: "18%" },
+  { name: "Role", width: "12%" },
+  { name: "Organization", width: "20%" },
+  { name: "Actions", width: "12%" },
 ];
 
 const filterOptions = [
   { key: 1, value: "Sort By NIC" },
   { key: 2, value: "Sort By First name" },
   { key: 3, value: "Sort By Last name" },
+  { key: 4, value: "Sort By Role" },
+  { key: 5, value: "Sort By Organization" },
 ];
 
 const userActivityTableHeader = [
@@ -44,24 +48,32 @@ const userTableDataSet = [
     first_name: "Alice",
     last_name: "Brown",
     contact_no: "0772909244",
+    userType: "Admin",
+    organization: "Blood Bank",
   },
   {
     nic: "956738921V",
     first_name: "Sarah",
     last_name: "Lee",
     contact_no: "0777777292",
+    userType: "User",
+    organization: "Blood Bank",
   },
   {
     nic: "123456789V",
     first_name: "John",
     last_name: "Doe",
     contact_no: "0772838093",
+    userType: "Admin",
+    organization: "Hospital",
   },
   {
     nic: "936725684V",
     first_name: "Jane ",
     last_name: "Smith",
     contact_no: "0772909244",
+    userType: "User",
+    organization: "Blood Bank",
   },
 ];
 
@@ -128,7 +140,9 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
         value.first_name.toLocaleLowerCase().includes(searchValue) ||
-        value.last_name.toLocaleLowerCase().includes(searchValue)
+        value.last_name.toLocaleLowerCase().includes(searchValue) ||
+        value.userType.toLocaleLowerCase().includes(searchValue) ||
+        value.organization.toLocaleLowerCase().includes(searchValue)
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
@@ -161,6 +175,24 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
         setFilteredData(
           [...filteredData].sort((a, b) =>
             a.last_name > b.last_name ? 1 : a.last_name < b.last_name ? -1 : 0
+          )
+        );
+        break;
+      case 4:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.userType > b.userType ? 1 : a.userType < b.userType ? -1 : 0
+          )
+        );
+        break;
+      case 5:
+        setFilteredData(
+          [...filteredData].sort((a, b) =>
+            a.organization > b.organization
+              ? 1
+              : a.organization < b.organization
+              ? -1
+              : 0
           )
         );
         break;
