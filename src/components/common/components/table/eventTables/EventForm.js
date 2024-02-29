@@ -37,8 +37,6 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
     no: event.no ?? "",
     street: event.streetName ?? "",
     city: event.city ?? "",
-    // gender: "",
-    // birthday: "",
   };
 
   const validation = (values) => {
@@ -100,6 +98,7 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
 
     setTimeout(() => {}, 400);
   };
+  console.log("isAllowedFullAccess - ", isAllowedFullAccess);
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
