@@ -16,7 +16,7 @@ import Dashboard from "./components/adminPanel/dashboard";
 import EventDetails from "./components/eventDetails/EventDetails";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <div className="App">
       <Router>
