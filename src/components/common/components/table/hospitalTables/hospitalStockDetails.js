@@ -149,6 +149,12 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
             >
+              <p>{item.qty}</p>
+            </div>
+            <div
+              className={styles.tableDataItem}
+              style={{ width: tableHeader[4].width }}
+            >
               <CustomButton
                 buttonType={"ICON"}
                 iconsLeft={<ViewMoreIcon size={18} color={"#BBB6B4"} />}
