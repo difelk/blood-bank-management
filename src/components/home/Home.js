@@ -17,14 +17,20 @@ import news1 from "../images/newsImg.png";
 import news2 from "../images/newsImg.png";
 import news3 from "../images/newsImg.png";
 import homelogo from "../../assets/img/home.jpg";
-import asiriLogo from "../../assets/img/hospitals/apollo_hospitals_logo.png";
+import asiriLogo from "../../assets/img/hospitals/asiri_medical_logo.png";
 import nawalokaLogo from "../../assets/img/hospitals/Nawaloka_Hospitals.png";
 import hemashLogo from "../../assets/img/hospitals/Hemashospital.png";
 import lankaHospitalLogo from "../../assets/img/hospitals/Lanka_Hospitals_logo.png";
 import appoloLogo from "../../assets/img/hospitals/apollo_hospitals_logo.png";
 import royalLogo from "../../assets/img/hospitals/royal_hospital.png";
+import AddIcon from "../../assets/icons/svgs/AddIcon";
+// service icons
+import service01 from "../../assets/img/services/service01.png";
+import service02 from "../../assets/img/services/service02.png";
+import service03 from "../../assets/img/services/service03.png";
+import service04 from "../../assets/img/services/service04.png";
 
-const Home = ({}) => {
+const Home = () => {
   return (
     <div>
       {/* Banner */}
@@ -67,8 +73,10 @@ const Home = ({}) => {
           </div>
         </div>
       </div>
-      {/* About us intro view */}
       <div className={`${Styles.aboutUsBox}  mt-5`}>
+        <div className={Styles.imgContent}>
+          <img className={Styles.image} src={aboutUsHomeImg} alt="aboutUs" />
+        </div>
         <div className={Styles.aboutUsContent}>
           <h2>
             WELCOME TO{" "}
@@ -86,7 +94,6 @@ const Home = ({}) => {
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
           </p>
-          {/* About us button div */}
           <div className={Styles.aboutUsBtnBox}>
             <Link to="/about">
               <button className={Styles.aboutUsBtn}>ABOUT US</button>
@@ -96,21 +103,99 @@ const Home = ({}) => {
             </Routes>
           </div>
         </div>
-        {/* About us image - right side */}
-        <div className={Styles.imgContent}>
-          <img className={Styles.image} src={aboutUsHomeImg} alt="aboutUs" />
+      </div>
+
+      <div className={Styles.servicesSectionWrapper}>
+        <div className={Styles.servicesTitle}>
+          <h3>Our Services</h3>
+          <p>
+            Explore the range of services we offer to streamline blood donation,
+            stock management, and community engagement. From donor registration
+            to event planning, discover how you can make a difference in saving
+            lives. Join us in this noble cause!
+          </p>
+        </div>
+        <div className={Styles.serviceItemsWrapper}>
+          <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}>
+              {/* <AddIcon size={"10px"} color={"#ffffff"} /> */}
+              <img src={service01} alt="service icon" />
+            </div>
+            <div className={Styles.serviceDescription}>
+              <h5>Blood Donation Drives</h5>
+              <p>
+                Organize and participate in community blood donation events to
+                ensure a stable blood supply.
+              </p>
+            </div>
+          </div>
+          <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}>
+              {" "}
+              <img src={service02} alt="service icon" />
+            </div>
+            <div className={Styles.serviceDescription}>
+              <h5>Donor Registration</h5>
+              <p>
+                Register as a blood donor to contribute to saving lives in
+                emergencies and disasters.
+              </p>
+            </div>
+          </div>
+          <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}>
+              {" "}
+              <img src={service03} alt="service icon" />
+            </div>
+            <div className={Styles.serviceDescription}>
+              <h5>Blood Stock Management</h5>
+              <p>
+                Efficiently manage and track blood stock levels to meet hospital
+                and patient needs.
+              </p>
+            </div>
+          </div>
+          <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}>
+              {" "}
+              <img src={service04} alt="service icon" />
+            </div>
+            <div className={Styles.serviceDescription}>
+              <h5>Event Planning</h5>
+              <p>
+                Plan and coordinate blood donation events to encourage and
+                facilitate donations.
+              </p>
+            </div>
+          </div>
+
+          <div className={Styles.wrapperHomeContactReady}>
+            <div>
+              <h4>Are you ready to work with us?</h4>
+            </div>
+            <div>
+              <button>Contact Us</button>
+            </div>
+          </div>
+          {/* <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}></div>
+            <div className={Styles.serviceDescription}><h5></h5></div>
+          </div>
+          <div className={Styles.serviceItem}>
+            <div className={Styles.serviceIcon}></div>
+            <div className={Styles.serviceDescription}><h5></h5></div>
+          </div> */}
         </div>
       </div>
 
-      {/* Recent events */}
-      <div className={Styles.recentEventsBox}>
+      {/* <div className={Styles.recentEventsBox}>
         <h2>
           RECENT <span className={Styles.colorTxt}>EVENTS</span>
         </h2>
 
-        {/* Event images div */}
+
         <div className={Styles.eventImgBox}>
-          {/* Left image div */}
+   
           <div className={Styles.leftEventBox}>
             <img className={Styles.image} src={event1} alt="event1" />
             <div className={Styles.topText}>
@@ -121,9 +206,9 @@ const Home = ({}) => {
             </div>
           </div>
 
-          {/* Middle image div */}
+    
           <div className={Styles.middleEventBox}>
-            {/* Top image div */}
+         
             <div className={Styles.upperImg}>
               <img className={Styles.image} src={event2} alt="event2" />
               <div className={Styles.topText}>
@@ -133,7 +218,7 @@ const Home = ({}) => {
                 </p>
               </div>
             </div>
-            {/* Bottom image div */}
+        
             <div className={Styles.bottomImg}>
               <img className={Styles.image} src={event3} alt="event3" />
               <div className={Styles.topText}>
@@ -145,7 +230,7 @@ const Home = ({}) => {
             </div>
           </div>
 
-          {/* Right image div */}
+
           <div className={Styles.rightEventBox}>
             <img className={Styles.image} src={event4} alt="event4" />
             <div className={Styles.topText}>
@@ -157,7 +242,6 @@ const Home = ({}) => {
           </div>
         </div>
 
-        {/* Events View More Button */}
         <div className={Styles.viewMoreBtnBox}>
           <Link to="/events">
             <button className={Styles.viewMoreBtn}>VIEW MORE</button>
@@ -166,10 +250,9 @@ const Home = ({}) => {
             <Route path="/events" element={<Events />} />
           </Routes>
         </div>
-      </div>
+      </div> */}
 
-      {/* Our achievments */}
-      <div className={Styles.ourAchieveBox}>
+      {/* <div className={Styles.ourAchieveBox}>
         <h2>
           <span style={{ color: "white" }}>OUR</span>{" "}
           <span className={Styles.colorTxt}>ACHIEVEMENTS</span>
@@ -232,17 +315,16 @@ const Home = ({}) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* Latest News */}
-      <div className={Styles.recentNewsBox}>
+      {/* <div className={Styles.recentNewsBox}>
         <h2>
           LATEST <span className={Styles.colorTxt}>NEWS</span>
         </h2>
 
-        {/* New images div */}
+   
         <div className={Styles.newsImgBox}>
-          {/* Left image div */}
+ 
           <div className={Styles.leftNewsBox}>
             <img className={Styles.image} src={news1} alt="news1" />
             <div className={Styles.newsTxtBox}>
@@ -259,7 +341,7 @@ const Home = ({}) => {
             </div>
           </div>
 
-          {/* Middle image div */}
+    
           <div className={Styles.middleNewsBox}>
             <img className={Styles.image} src={news2} alt="news2" />
             <div className={Styles.newsTxtBox}>
@@ -276,7 +358,7 @@ const Home = ({}) => {
             </div>
           </div>
 
-          {/* Right image div */}
+    
           <div className={Styles.rightNewsBox}>
             <img className={Styles.image} src={news3} alt="news3" />
             <div className={Styles.newsTxtBox}>
@@ -296,7 +378,7 @@ const Home = ({}) => {
           </div>
         </div>
 
-        {/* News Read More Button */}
+     
         <div className={Styles.readMoreBtnBox}>
           <Link to="/news">
             <button className={Styles.readMoreBtn}>READ MORE</button>
@@ -305,7 +387,7 @@ const Home = ({}) => {
             <Route path="/news" element={<News />} />
           </Routes>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
