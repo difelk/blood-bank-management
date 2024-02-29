@@ -90,12 +90,13 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
   const [filteredData, setFilteredData] = useState(userTableDataSet);
+  const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <UserTable
@@ -108,7 +109,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
         }
       case 2:
         if (!userActivityTableDataSet.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <UserActivitiesTable
@@ -121,7 +122,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
         }
       default:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <UserTable
@@ -136,6 +137,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   };
 
   const filterData = (searchValue) => {
+    searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
     const filteredDataSet = userTableDataSet.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||

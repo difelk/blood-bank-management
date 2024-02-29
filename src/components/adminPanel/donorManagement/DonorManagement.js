@@ -71,12 +71,13 @@ const DonorManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
   const [filteredData, setFilteredData] = useState(donorTableDataSet);
+  const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <DonorTable
@@ -89,7 +90,7 @@ const DonorManagement = ({ selectedPage }) => {
         }
       default:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <DonorTable
@@ -104,6 +105,7 @@ const DonorManagement = ({ selectedPage }) => {
   };
 
   const filterData = (searchValue) => {
+    searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
     const filteredDataSet = donorTableDataSet.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||

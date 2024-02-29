@@ -143,6 +143,7 @@ const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
   const [isLoading, setIsloading] = useState(true);
+  const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   setTimeout(() => {
     setIsloading(false);
@@ -153,7 +154,7 @@ const StockManagement = ({ selectedPage }) => {
     switch (selectedTab.key) {
       case 1:
         if (!summaryTableDataSet.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <StockSummaryTable
@@ -165,7 +166,7 @@ const StockManagement = ({ selectedPage }) => {
         }
       case 2:
         if (!filteredData.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <StockDetails
@@ -177,7 +178,7 @@ const StockManagement = ({ selectedPage }) => {
         }
       default:
         if (!summaryTableDataSet.length) {
-          return <EmptyMessage />;
+          return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <StockSummaryTable
@@ -191,6 +192,7 @@ const StockManagement = ({ selectedPage }) => {
   };
 
   const filterData = (searchValue) => {
+    searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
     const filteredDataSet = summaryDetailsTableDataSet.filter(
       (value) =>
         value.date.toLocaleLowerCase().includes(searchValue) ||
