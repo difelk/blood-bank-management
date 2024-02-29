@@ -35,7 +35,7 @@ const Footer = () => {
         <div className={Styles.rightBox}>
           <div className={Styles.loginBox}>
             <img className={Styles.image} src={userIconImg} alt="pic" />
-            <p>Login/Register</p>
+            <p>Login</p>
           </div>
           <div className={Styles.socialMediaBox}>
             <a href="https://example.com">
@@ -68,10 +68,12 @@ const Footer = () => {
           <p>SUBMIT TO NEWSLETTER</p>
           <div className={Styles.searchBox}>
             <input type="text" className={Styles.searchInput} />
-            <button type="submit" className={Styles.submitBtn}>SUBMIT</button>
+            <button type="submit" className={Styles.submitBtn}>
+              SUBMIT
+            </button>
           </div>
         </div>
-        <div style={{width: '25%'}}></div>
+        <div style={{ width: "25%" }}></div>
       </div>
       <div className={Styles.bottomLineBox}></div>
     </div>
