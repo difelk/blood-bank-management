@@ -1,38 +1,54 @@
+import axios from "axios";
+
 const BASE_URL = "http://localhost:8080/";
 
 const apiUtils = {
   get: async (url) => {
-    const response = await fetch(BASE_URL + url);
-    return response.json();
+    try {
+      const response = await axios.get(BASE_URL + url);
+      return response.data;
+    } catch (error) {
+      console.error(`error in get request ${url} - `, error);
+      throw error;
+    }
   },
 
   post: async (url, data) => {
-    const response = await fetch(BASE_URL + url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    try {
+      const response = await axios.post(BASE_URL + url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`error in post request ${url} - `, error);
+      throw error;
+    }
   },
 
   put: async (url, data) => {
-    const response = await fetch(BASE_URL + url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+    try {
+      const response = await axios.put(BASE_URL + url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`error in put request ${url} - `, error);
+      throw error;
+    }
   },
 
   delete: async (url) => {
-    const response = await fetch(BASE_URL + url, {
-      method: "DELETE",
-    });
-    return response.json();
+    try {
+      const response = await axios.delete(BASE_URL + url);
+      return response.data;
+    } catch (error) {
+      console.error(`error in delete request ${url} - `, error);
+      throw error;
+    }
   },
 };
 
