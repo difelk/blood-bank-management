@@ -229,14 +229,14 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             }}
             optionalBackgroundColor={"#5585CC"}
           />
-          <CustomButton
+          {/* <CustomButton
             buttonType={"CIRCLE_ACTIONS"}
             // buttonType={BUTTONTYPES.SQUAREICON}
             iconsLeft={<NotesIcon size={24} color={"#000000"} />}
             onClick={() => {
               setModalType("NOTE");
             }}
-          />
+          /> */}
         </div>
         <TabController
           tabs={tabs}
