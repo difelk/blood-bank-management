@@ -11,18 +11,25 @@ import Home from "./components/home/Home";
 import Events from "./components/events/Events";
 import News from "./components/news/News";
 import About from "./components/about/About";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Dashboard from "./components/adminPanel/dashboard";
 import EventDetails from "./components/eventDetails/EventDetails";
 import LoginForm from "./components/login/Login";
+import { GlobalContext } from "./contexts/ContextsProvider";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { loggedInUser, login, logout } = useContext(GlobalContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedInUser);
+
+  console.log("loggedInUser - ", loggedInUser);
   return (
     <div className="App">
       <Router>
         <div>
-          <Header isLoggedIn={isLoggedIn} isAdmin={isLoggedIn} />
+          <Header
+            isLoggedIn={loggedInUser}
+            isAdmin={isLoggedIn || loggedInUser?.role}
+          />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/events" element={<Events />} />
@@ -30,10 +37,12 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/eventDetails" element={<EventDetails />} />
             <Route path="/login" component={<LoginForm />} />
-            <Route
-              path="/admin"
-              element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
-            />
+            {loggedInUser?.role ? (
+              <Route path="/admin" element={<Dashboard />} />
+            ) : (
+              <Route path="/admin" element={<Navigate to="/" />} />
+            )}
+            <Route />
           </Routes>
           <Footer></Footer>
         </div>
