@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import CustomModal from "../components/modal/CustomModal";
 import LoginForm from "../../login/Login";
 
-const Header = ({ isAdmin }) => {
+const Header = ({ isLoggedIn, isAdmin }) => {
   const location = useLocation();
   const [isAdminPanel, setisAdminPanel] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -27,6 +27,9 @@ const Header = ({ isAdmin }) => {
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
   };
+
+  console.log("isAdmin - ", isAdmin);
+  console.log("isLoggedIn - ", isLoggedIn);
 
   return (
     <div className={Styles.header}>
@@ -49,7 +52,7 @@ const Header = ({ isAdmin }) => {
 
               {isAdmin ? (
                 <a href="/admin" className={Styles.adminUserLink}>
-                  HI JOE
+                  HI {isLoggedIn?.lastName}
                 </a>
               ) : (
                 <button
