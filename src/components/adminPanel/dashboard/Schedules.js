@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Styles from "./Dashboard.module.scss";
 import CustomeDropdown from "../../common/components/NavCustomeDropdown.js";
 import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
@@ -7,9 +7,11 @@ import NotificationIcon from "../../../assets/icons/svgs/NotificationIcon";
 import NoteIcon from "../../../assets/icons/svgs/NoteIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import ProfileInformation from "../../profileInformation/ProfileInformation";
+import { GlobalContext } from "../../../contexts/ContextsProvider.js";
 
 const Schedules = () => {
   const [selectedDropdown, setSelectedDropdown] = useState("");
+  const { loggedInUser } = useContext(GlobalContext);
 
   const getUserProfileDrodown = (value) => {
     setSelectedDropdown(value);
@@ -70,7 +72,9 @@ const Schedules = () => {
                 getDropdownValue={() => getUserProfileDrodown("PROFILE")}
                 dataset={profileData}
                 icon={<ArrowDownIcon size={12} color={"#fd4f86"} />}
-                defultTxt={"Mr. JOHN DOE"}
+                defultTxt={
+                  loggedInUser?.firstName + " " + loggedInUser?.lastName
+                }
               />
             </div>
           </div>

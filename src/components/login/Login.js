@@ -3,11 +3,10 @@ import formStyles from "../common/components/form/CustomForm.module.scss";
 import styles from "./Login.module.scss";
 import customFormStyles from "../common/components/form/CustomInput.module.scss";
 import customFormStyles2 from "../common/components/form/CustomPasswordInput.module.scss";
-import apiUtils from "../../api/apiUtils";
 import { GlobalContext } from "../../contexts/ContextsProvider";
 import AuthService from "../../api/services/authService";
 
-const LoginForm = () => {
+const LoginForm = ({ ismodalOpen }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUserNameError] = useState("");
@@ -43,6 +42,7 @@ const LoginForm = () => {
 
       if (response.token) {
         login(response.token);
+        ismodalOpen(false);
       }
     } catch (error) {
       console.error("Login failed", error);
