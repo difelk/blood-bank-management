@@ -74,7 +74,7 @@ const Header = ({ isLoggedIn, isAdmin }) => {
           title={`Login`}
           height={"350px"}
         >
-          <LoginForm />
+          <LoginForm ismodalOpen={setIsLoginModalOpen} />
         </CustomModal>
       ) : (
         ""
