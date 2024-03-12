@@ -40,7 +40,7 @@ const UserTable = ({
       </div>
       <div className={styles.tableBody}>
         {dataset.map((item, index) => (
-          <div className={styles.tableData}>
+          <div className={styles.tableData} key={index}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
