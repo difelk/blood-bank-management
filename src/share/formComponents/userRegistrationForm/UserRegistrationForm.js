@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../userRegistrationForm/UserRegistrationForm.module.scss";
 import formStyles from "../../../components/common/components/form/CustomForm.module.scss";
 import CustomButton from "../../../components/common/components/customButton";
@@ -36,13 +36,16 @@ const hospitalType = [
 ];
 
 const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
+  const [regSuccessMsg, setRegSuccessMsg] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     nic: "",
     firstName: "",
     lastName: "",
-    contact_no: "",
+    contactNo: "",
     bloodType: "",
-    no: "",
+    addressNo: "",
     street: "",
     city: "",
     birthday: "",
@@ -50,7 +53,6 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     username: "",
     temp_pw: "",
     password: "",
-    recovery_email: "",
     organization: "",
     organizationType: "",
   };
@@ -81,10 +83,10 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
       errors.lastName = "Last Name must be between 2 and 50 characters";
     }
 
-    if (!values.contact_no) {
-      errors.contact_no = "Contact Number is required";
-    } else if (!/^(0\d{9})$/.test(values.contact_no)) {
-      errors.contact_no = "Invalid Contact Number";
+    if (!values.contactNo) {
+      errors.contactNo = "Contact Number is required";
+    } else if (!/^(0\d{9})$/.test(values.contactNo)) {
+      errors.contactNo = "Invalid Contact Number";
     }
 
     if (!values.nic) {
@@ -97,10 +99,10 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
       }
     }
 
-    if (!values.no) {
-      errors.no = "Address No is required";
-    } else if (values.no.length < 1 || values.no.length > 10) {
-      errors.no = "Address No must be between 1 and 10 characters";
+    if (!values.addressNo) {
+      errors.addressNo = "Address No is required";
+    } else if (values.addressNo.length < 1 || values.addressNo.length > 10) {
+      errors.addressNo = "Address No must be between 1 and 10 characters";
     }
 
     if (!values.street) {
@@ -138,10 +140,14 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     if (!values.bloodType) {
       errors.bloodType = "Blood Type is required";
     }
-    if (!values.organization) {
+    if (!values.organizationType) {
       errors.organization = "Organization Type is required";
     }
-    if (values.organization && !values.organizationType) {
+    if (
+      values.organizationType &&
+      !values.organization &&
+      values.organizationType !== "Blood Bank"
+    ) {
       errors.organizationType = "Organization is required";
     }
 
@@ -161,9 +167,19 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     return errors;
   };
 
+  let count = 0;
   const handleSubmit = async (values) => {
-    const response = await AuthService.registration(values);
-    console.log("response - ", response);
+    setLoading(true);
+    count++;
+    try {
+      const response = await AuthService.registration(values);
+      setRegSuccessMsg(response?.message);
+    } catch (e) {
+      console.log("registration failed with : ", e);
+    } finally {
+      setLoading(false);
+    }
+    console.log("count on sumbit");
   };
 
   return (
@@ -345,18 +361,18 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"Street No"}
-                  id={"no"}
-                  name={"no"}
+                  id={"addressNo"}
+                  name={"addressNo"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("no", value);
+                    setFieldValue("addressNo", value);
                   }}
-                  default={values.no ?? ""}
-                  error={errors.no}
+                  default={values.addressNo ?? ""}
+                  error={errors.addressNo}
                   type={"text"}
-                  touched={(value) => setFieldTouched("no", value)}
+                  touched={(value) => setFieldTouched("addressNo", value)}
                 />
-                <span>{touched.no ? errors.no : ""}</span>
+                <span>{touched.addressNo ? errors.addressNo : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(
@@ -454,18 +470,18 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"Contact No"}
-                  id={"contact_no"}
-                  name={"contact_no"}
+                  id={"contactNo"}
+                  name={"contactNo"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("contact_no", value);
+                    setFieldValue("contactNo", value);
                   }}
-                  default={values.contact_no ?? ""}
-                  error={errors.contact_no}
+                  default={values.contactNo ?? ""}
+                  error={errors.contactNo}
                   type={"text"}
-                  touched={(value) => setFieldTouched("contact_no", value)}
+                  touched={(value) => setFieldTouched("contactNo", value)}
                 />
-                <span>{touched.contact_no ? errors.contact_no : ""}</span>
+                <span>{touched.contactNo ? errors.contactNo : ""}</span>
               </div>
               <div
                 className={
@@ -478,19 +494,23 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   <CustomDropdown
                     dataset={organizationTypes}
                     placeHolder={"Select Organization type"}
-                    id={"organization"}
-                    name={"organization"}
+                    id={"organizationType"}
+                    name={"organizationType"}
                     disabled={false}
                     defaultValue={initialValues.organization}
                     getValue={(value) => {
-                      setFieldValue("organization", value);
+                      setFieldValue("organizationType", value);
                     }}
-                    touched={(value) => setFieldTouched("organization", value)}
+                    touched={(value) =>
+                      setFieldTouched("organizationType", value)
+                    }
                   />
                 </div>
                 <span>{touched.organization ? errors.organization : ""}</span>
               </div>
-              {values.organization ? (
+
+              {values.organizationType &&
+              values.organizationType !== "Blood Bank" ? (
                 <div
                   className={[formStyles.groupInputs, formStyles.input30].join(
                     " "
@@ -500,19 +520,19 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                     <CustomDropdown
                       dataset={hospitalType}
                       placeHolder={"Select Organization"}
-                      id={"organizationType"}
-                      name={"organizationType"}
+                      id={"organization"}
+                      name={"organization"}
                       disabled={false}
                       defaultValue={initialValues.organization}
                       getValue={(value) => {
-                        setFieldValue("organizationType", value);
+                        setFieldValue("organization", value);
                       }}
                       touched={(value) =>
-                        setFieldTouched("organizationType", value)
+                        setFieldTouched("organization", value)
                       }
                     />
                     <span>
-                      {touched.organizationType ? errors.organizationType : ""}
+                      {touched.organization ? errors.organization : ""}
                     </span>
                   </div>
                 </div>
@@ -530,7 +550,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={Object.keys(errors).length !== 0}
+                isDisabled={Object.keys(errors).length !== 0 || loading}
                 active={true}
                 onClick={() => handleSubmit(values)}
               />

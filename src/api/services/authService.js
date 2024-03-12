@@ -6,7 +6,7 @@ const AuthService = {
   },
 
   registration: async (data) => {
-    return apiUtils.post(`/register`, data);
+    return await apiUtils.post(`/register`, data);
   },
 };
 
