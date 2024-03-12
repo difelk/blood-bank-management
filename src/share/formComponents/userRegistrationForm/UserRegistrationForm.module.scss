@@ -40,11 +40,11 @@
 
     }
 
-    .input30{
+    .input30 {
         width: 31%;
     }
 
-    .input100{
+    .input100 {
         width: 100%;
     }
 
@@ -53,6 +53,13 @@
 .mgn12 {
     // margin: 12px 0;
 }
-.dateDiv{
+
+.dateDiv {
     width: 85.5%;
+
+    span {
+        margin-top: 2px;
+        font-size: 12px;
+        color: #f84242db;
+    }
 }

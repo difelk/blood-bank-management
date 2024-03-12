@@ -2,7 +2,6 @@ import apiUtils from "../apiUtils";
 
 const AuthService = {
   login: async (data) => {
-    console.log("called auth service");
     return await apiUtils.post("/login", data);
   },
 
