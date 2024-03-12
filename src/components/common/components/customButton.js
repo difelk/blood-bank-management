@@ -73,6 +73,7 @@ const CustomButton = ({
           ? [Styles.customBtnWrapper, getBtnStyle(), Styles.active].join(" ")
           : Styles.customBtnWrapper,
         getBtnStyle(),
+        isDisabled ? Styles.disabled : "",
         Styles.deActive,
       ].join(" ")}
       onClick={(event) => onClick(event)}

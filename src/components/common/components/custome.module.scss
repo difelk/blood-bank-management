@@ -68,6 +68,11 @@
 
 }
 
+.disabled {
+    background-color: #d1d1d1;
+    cursor: not-allowed;
+}
+
 .deleteBtn {
     background-color: #DD4D56;
     min-width: 120px;

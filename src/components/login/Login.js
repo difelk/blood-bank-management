@@ -51,7 +51,7 @@ const LoginForm = ({ ismodalOpen }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
-      <div className={styles.formWrapper}>
+      <div className={formStyles.formWrapper}>
         <div
           className={
             isUsernameFocus || userName

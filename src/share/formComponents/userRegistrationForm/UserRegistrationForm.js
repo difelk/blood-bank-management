@@ -7,6 +7,7 @@ import CustomInput from "../../../components/common/components/form/CustomInput"
 import CustomDropdown from "../../../components/common/components/form/CustomDropdown";
 import CustomDatePicker from "../../../components/common/components/form/CustomDatePicker";
 import CustomPasswordInput from "../../../components/common/components/form/CustomPasswordInput";
+import AuthService from "../../../api/services/authService";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -29,37 +30,55 @@ const organizationTypes = [
   { key: 2, value: "Hospital" },
 ];
 
+const hospitalType = [
+  { key: 1, value: "Hospital1" },
+  { key: 2, value: "Hospital2" },
+];
+
 const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
   const initialValues = {
     nic: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     contact_no: "",
     bloodType: "",
     no: "",
     street: "",
     city: "",
     birthday: "",
-    userType: "",
-    user_name: "",
+    role: "",
+    username: "",
     temp_pw: "",
-    confirm_temp_pw: "",
+    password: "",
     recovery_email: "",
+    organization: "",
+    organizationType: "",
   };
 
   const validation = (values) => {
     const errors = {};
 
-    if (!values.first_name) {
-      errors.first_name = "First Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.first_name)) {
-      errors.first_name = "First Name must contain only letters and spaces";
+    if (!values.username) {
+      errors.username = "Username is required";
+    } else if (!/^[A-Za-z0-9]{3,8}$/.test(values.username)) {
+      errors.username =
+        "Username must be 3-8 characters long and contain only letters and numbers";
     }
 
-    if (!values.last_name) {
-      errors.last_name = "Last Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.last_name)) {
-      errors.last_name = "Last Name must contain only letters and spaces";
+    if (!values.firstName) {
+      errors.firstName = "First Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.firstName)) {
+      errors.firstName = "First Name must contain only letters and spaces";
+    } else if (values.firstName.length < 2 || values.firstName.length > 50) {
+      errors.firstName = "First Name must be between 2 and 50 characters";
+    }
+
+    if (!values.lastName) {
+      errors.lastName = "Last Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.lastName)) {
+      errors.lastName = "Last Name must contain only letters and spaces";
+    } else if (values.lastName.length < 2 || values.lastName.length > 50) {
+      errors.lastName = "Last Name must be between 2 and 50 characters";
     }
 
     if (!values.contact_no) {
@@ -80,30 +99,71 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
     if (!values.no) {
       errors.no = "Address No is required";
+    } else if (values.no.length < 1 || values.no.length > 10) {
+      errors.no = "Address No must be between 1 and 10 characters";
     }
 
     if (!values.street) {
       errors.street = "Street address is required";
     } else if (!/^[^\d\s]{2,}/.test(values.street)) {
       errors.street = "Street address should contain at least 2 letters";
+    } else if (values.street.length < 2 || values.street.length > 50) {
+      errors.street = "Street address must be between 2 and 50 characters";
     }
 
     if (!values.city) {
       errors.city = "City is required";
     } else if (!/^[^\d\s]{3,}/.test(values.city)) {
       errors.city = "City should contain at least 3 letters";
+    } else if (values.city.length < 3 || values.city.length > 50) {
+      errors.city = "City must be between 3 and 50 characters";
+    }
+
+    if (!values.temp_pw) {
+      errors.temp_pw = "Password is required";
+    } else if (values.temp_pw.length < 4 || values.temp_pw.length > 12) {
+      errors.temp_pw = "Password must be between 4 and 12 characters";
+    } else if (/\s/.test(values.temp_pw)) {
+      errors.temp_pw = "Password must not contain whitespaces";
+    }
+
+    if (!values.password) {
+      errors.password = "Confirmation Password is required";
+    } else if (values.password !== values.temp_pw) {
+      errors.password = "Passwords do not match";
+    }
+    if (!values.role) {
+      errors.role = "User Role is required";
+    }
+    if (!values.bloodType) {
+      errors.bloodType = "Blood Type is required";
+    }
+    if (!values.organization) {
+      errors.organization = "Organization Type is required";
+    }
+    if (values.organization && !values.organizationType) {
+      errors.organizationType = "Organization is required";
     }
 
     if (!values.birthday) {
       errors.birthday = "Birthday is required";
+    } else {
+      const birthday = new Date(values.birthday);
+      const ageDifference = Date.now() - birthday.getTime();
+      const ageDate = new Date(ageDifference);
+      const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+      if (age < 18) {
+        errors.birthday = "Age must be at least 18 years old";
+      }
     }
 
     return errors;
   };
 
-  const handleSubmit = (values) => {
-    console.log("values - ", values);
-    setTimeout(() => {}, 400);
+  const handleSubmit = async (values) => {
+    const response = await AuthService.registration(values);
+    console.log("response - ", response);
   };
 
   return (
@@ -152,18 +212,18 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"User Name"}
-                  id={"user_name"}
-                  name={"user_name"}
+                  id={"username"}
+                  name={"username"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("user_name", value);
+                    setFieldValue("username", value);
                   }}
-                  default={values.user_name ?? ""}
-                  error={errors.user_name}
+                  default={values.username ?? ""}
+                  error={errors.username}
                   type={"text"}
-                  touched={(value) => setFieldTouched("user_name", value)}
+                  touched={(value) => setFieldTouched("username", value)}
                 />
-                <span>{touched.user_name ? errors.user_name : ""}</span>
+                <span>{touched.username ? errors.username : ""}</span>
               </div>
             </div>
 
@@ -175,18 +235,18 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"First Name"}
-                  id={"first_name"}
-                  name={"first_name"}
+                  id={"firstName"}
+                  name={"firstName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("first_name", value);
+                    setFieldValue("firstName", value);
                   }}
-                  default={values.first_name ?? ""}
-                  error={errors.first_name}
+                  default={values.firstName ?? ""}
+                  error={errors.firstName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("first_name", value)}
+                  touched={(value) => setFieldTouched("firstName", value)}
                 />
-                <span>{touched.first_name ? errors.first_name : ""}</span>
+                <span>{touched.firstName ? errors.firstName : ""}</span>
               </div>
 
               <div
@@ -196,18 +256,18 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"Last Name"}
-                  id={"last_name"}
-                  name={"last_name"}
+                  id={"lastName"}
+                  name={"lastName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("last_name", value);
+                    setFieldValue("lastName", value);
                   }}
-                  default={values.last_name ?? ""}
-                  error={errors.last_name}
+                  default={values.lastName ?? ""}
+                  error={errors.lastName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("last_name", value)}
+                  touched={(value) => setFieldTouched("lastName", value)}
                 />
-                <span>{touched.last_name ? errors.last_name : ""}</span>
+                <span>{touched.lastName ? errors.lastName : ""}</span>
               </div>
             </div>
 
@@ -229,16 +289,16 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                   <CustomDropdown
                     dataset={userTypes}
                     placeHolder={"Select User Type"}
-                    id={"userType"}
-                    name={"userType"}
+                    id={"role"}
+                    name={"role"}
                     disabled={false}
-                    defaultValue={initialValues.userType}
+                    defaultValue={initialValues.role}
                     getValue={(value) => {
-                      setFieldValue("userType", value);
+                      setFieldValue("role", value);
                     }}
-                    touched={(value) => setFieldTouched("userType", value)}
+                    touched={(value) => setFieldTouched("role", value)}
                   />
-                  <span>{touched.userType ? errors.userType : ""}</span>
+                  <span>{touched.role ? errors.role : ""}</span>
                 </div>
               </div>
 
@@ -370,49 +430,27 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 <CustomPasswordInput
                   placeHolder={"Confirm Temporary Password"}
                   id={"confirm_temp_pw"}
-                  name={"confirm_temp_pw"}
+                  name={"password"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("confirm_temp_pw", value);
+                    setFieldValue("password", value);
                   }}
-                  default={values.confirm_temp_pw ?? ""}
-                  error={errors.confirm_temp_pw}
+                  default={values.password ?? ""}
+                  error={errors.password}
                   type={"password"}
-                  touched={(value) => setFieldTouched("confirm_temp_pw", value)}
+                  touched={(value) => setFieldTouched("password", value)}
                 />
-                <span>
-                  {touched.confirm_temp_pw ? errors.confirm_temp_pw : ""}
-                </span>
+                <span>{touched.password ? errors.password : ""}</span>
               </div>
             </div>
 
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Recovery Email"}
-                  id={"recovery_email"}
-                  name={"recovery_email"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("recovery_email", value);
-                  }}
-                  default={values.recovery_email ?? ""}
-                  error={errors.recovery_email}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("recovery_email", value)}
-                />
-                <span>
-                  {touched.recovery_email ? errors.recovery_email : ""}
-                </span>
-              </div>
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
+                className={
+                  !values.organization
+                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                    : [formStyles.groupInputs, formStyles.input30].join(" ")
+                }
               >
                 <CustomInput
                   placeHolder={"Contact No"}
@@ -430,14 +468,16 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 <span>{touched.contact_no ? errors.contact_no : ""}</span>
               </div>
               <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
+                className={
+                  !values.organization
+                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                    : [formStyles.groupInputs, formStyles.input30].join(" ")
+                }
               >
                 <div className={styles.dateDiv}>
                   <CustomDropdown
                     dataset={organizationTypes}
-                    placeHolder={"Select Organization"}
+                    placeHolder={"Select Organization type"}
                     id={"organization"}
                     name={"organization"}
                     disabled={false}
@@ -447,9 +487,38 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                     }}
                     touched={(value) => setFieldTouched("organization", value)}
                   />
-                  <span>{touched.organization ? errors.organization : ""}</span>
                 </div>
+                <span>{touched.organization ? errors.organization : ""}</span>
               </div>
+              {values.organization ? (
+                <div
+                  className={[formStyles.groupInputs, formStyles.input30].join(
+                    " "
+                  )}
+                >
+                  <div className={styles.dateDiv}>
+                    <CustomDropdown
+                      dataset={hospitalType}
+                      placeHolder={"Select Organization"}
+                      id={"organizationType"}
+                      name={"organizationType"}
+                      disabled={false}
+                      defaultValue={initialValues.organization}
+                      getValue={(value) => {
+                        setFieldValue("organizationType", value);
+                      }}
+                      touched={(value) =>
+                        setFieldTouched("organizationType", value)
+                      }
+                    />
+                    <span>
+                      {touched.organizationType ? errors.organizationType : ""}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div
@@ -461,7 +530,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={false}
+                isDisabled={Object.keys(errors).length !== 0}
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
