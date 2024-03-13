@@ -2,10 +2,21 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8081/bcn";
 
+const getToken = () => {
+  return sessionStorage.getItem("token");
+};
+
+console.log("token bv - ", getToken());
+
 const apiUtils = {
   get: async (url) => {
     try {
-      const response = await axios.get(BASE_URL + url);
+      const response = await axios.get(BASE_URL + url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error(`error in get request ${url} - `, error);

@@ -191,7 +191,6 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     } finally {
       setLoading(false);
     }
-    console.log("count on sumbit");
   };
 
   return (

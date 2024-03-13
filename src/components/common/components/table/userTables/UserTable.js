@@ -52,31 +52,31 @@ const UserTable = ({
               className={styles.tableDataItem}
               style={{ width: tableHeader[1].width }}
             >
-              <p>{item.first_name}</p>
+              <p>{item.firstName}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              <p>{item.last_name}</p>
+              <p>{item.lastName}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
             >
-              <p>{item.contact_no}</p>
+              <p>{item.contactNo}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[4].width }}
             >
-              <p>{item.userType}</p>
+              <p>{item.role}</p>
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[5].width }}
             >
-              <p>{item.organization}</p>
+              <p>{item.organizationType}</p>
             </div>
             <div
               className={styles.tableDataItem}

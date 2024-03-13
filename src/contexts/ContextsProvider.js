@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // Corrected import
 
 const GlobalContext = createContext();
 
@@ -7,27 +7,33 @@ const ContextProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(
     JSON.parse(sessionStorage.getItem("loggedInUser")) || null
   );
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(sessionStorage.getItem("token") || null);
 
   useEffect(() => {
     sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-  }, [loggedInUser]);
+    if (token) {
+      sessionStorage.setItem("token", token);
+    } else {
+      sessionStorage.removeItem("token");
+    }
+  }, [loggedInUser, token]);
 
   const login = (token) => {
     const decodedToken = jwtDecode(token);
-
     setLoggedInUser(decodedToken);
     setToken(token);
+    console.log(token);
   };
 
   const logout = () => {
     setLoggedInUser(null);
     setToken(null);
     sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("token");
   };
 
   return (
-    <GlobalContext.Provider value={{ loggedInUser, login, logout }}>
+    <GlobalContext.Provider value={{ loggedInUser, token, login, logout }}>
       {children}
     </GlobalContext.Provider>
   );

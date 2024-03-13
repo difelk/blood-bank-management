@@ -28,9 +28,6 @@ const Header = ({ isLoggedIn, isAdmin }) => {
     setIsLoginModalOpen(true);
   };
 
-  console.log("isAdmin - ", isAdmin);
-  console.log("isLoggedIn - ", isLoggedIn);
-
   return (
     <div className={Styles.header}>
       {!isAdminPanel ? (

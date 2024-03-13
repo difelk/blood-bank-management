@@ -53,7 +53,6 @@ const SideBar = ({ setCurrentPage }) => {
       ) : (
         ""
       )}
-      {console.log("isModalOpen - ", isModalOpen)}
       <div className={Styles.sidebarContainer}>
         <div className={Styles.sidebarWrapper}>
           <div className={Styles.logowrapper}>
