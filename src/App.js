@@ -21,7 +21,6 @@ function App() {
   const { loggedInUser, login, logout } = useContext(GlobalContext);
   const [isLoggedIn, setIsLoggedIn] = useState(loggedInUser);
 
-  console.log("loggedInUser - ", loggedInUser);
   return (
     <div className="App">
       <Router>

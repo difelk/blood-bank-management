@@ -14,6 +14,7 @@ import UserActivitiesTable from "../../common/components/table/userTables/UserAc
 import commonStyles from "../../../styles/common.module.scss";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
+import UserService from "../../../api/services/userService";
 
 const userTableHeader = [
   { name: "NIC", width: "18%" },
@@ -42,41 +43,6 @@ const userActivityTableHeader = [
 ];
 const userActivityTableDataSet = [];
 
-const userTableDataSet = [
-  {
-    nic: "975083691V",
-    first_name: "Alice",
-    last_name: "Brown",
-    contact_no: "0772909244",
-    userType: "Admin",
-    organization: "Blood Bank",
-  },
-  {
-    nic: "956738921V",
-    first_name: "Sarah",
-    last_name: "Lee",
-    contact_no: "0777777292",
-    userType: "User",
-    organization: "Blood Bank",
-  },
-  {
-    nic: "123456789V",
-    first_name: "John",
-    last_name: "Doe",
-    contact_no: "0772838093",
-    userType: "Admin",
-    organization: "Hospital",
-  },
-  {
-    nic: "936725684V",
-    first_name: "Jane ",
-    last_name: "Smith",
-    contact_no: "0772909244",
-    userType: "User",
-    organization: "Blood Bank",
-  },
-];
-
 const tabs = [
   { key: 1, value: "User Details" },
   { key: 2, value: "User Activities" },
@@ -89,8 +55,23 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
-  const [filteredData, setFilteredData] = useState(userTableDataSet);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState(data);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
+
+  const getUsers = async () => {
+    try {
+      const respond = await UserService.getAllUsers();
+      setFilteredData(respond);
+      setData(respond);
+    } catch (e) {
+      console.log("error - ", e);
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -138,7 +119,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
   const filterData = (searchValue) => {
     searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
-    const filteredDataSet = userTableDataSet.filter(
+    const filteredDataSet = data.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
         value.first_name.toLocaleLowerCase().includes(searchValue) ||
@@ -149,7 +130,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
     } else {
-      setFilteredData(userTableDataSet);
+      setFilteredData(data);
     }
   };
 
@@ -204,7 +185,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   };
 
   const tableReset = () => {
-    setFilteredData(userTableDataSet);
+    setFilteredData(data);
   };
 
   useEffect(() => {
