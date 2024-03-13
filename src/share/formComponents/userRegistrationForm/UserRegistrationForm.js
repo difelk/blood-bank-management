@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../userRegistrationForm/UserRegistrationForm.module.scss";
+import modalStyle from "../../../components/common/components/modal/CustomModal.module.scss";
 import formStyles from "../../../components/common/components/form/CustomForm.module.scss";
 import CustomButton from "../../../components/common/components/customButton";
 import { Form, Formik } from "formik";
@@ -8,6 +9,7 @@ import CustomDropdown from "../../../components/common/components/form/CustomDro
 import CustomDatePicker from "../../../components/common/components/form/CustomDatePicker";
 import CustomPasswordInput from "../../../components/common/components/form/CustomPasswordInput";
 import AuthService from "../../../api/services/authService";
+import AlertBox from "../../Alerts/AlertBox";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -38,6 +40,7 @@ const hospitalType = [
 const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
   const [regSuccessMsg, setRegSuccessMsg] = useState("");
   const [error, setError] = useState("");
+  const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
   const initialValues = {
     nic: "",
@@ -167,15 +170,24 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     return errors;
   };
 
-  let count = 0;
   const handleSubmit = async (values) => {
     setLoading(true);
-    count++;
     try {
       const response = await AuthService.registration(values);
       setRegSuccessMsg(response?.message);
+      setAlertMsg({
+        type: "SUCCESS",
+        message: "User Registration Successful",
+        display: true,
+      });
     } catch (e) {
       console.log("registration failed with : ", e);
+      setAlertMsg("User Registration Failed");
+      setAlertMsg({
+        type: "ERROR",
+        message: "User Registration Failed",
+        display: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -184,6 +196,13 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div className={modalStyle.alertBoxWrapper}>
+        <AlertBox
+          type={alertMsg.type}
+          message={alertMsg.message}
+          display={alertMsg.display}
+        />
+      </div>
       <Formik
         initialValues={initialValues}
         validate={validation}
