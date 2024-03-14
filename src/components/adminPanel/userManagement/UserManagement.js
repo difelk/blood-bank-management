@@ -123,13 +123,14 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
   const filterData = (searchValue) => {
     searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
+    console.log("data - ", data);
     const filteredDataSet = data.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
-        value.first_name.toLocaleLowerCase().includes(searchValue) ||
-        value.last_name.toLocaleLowerCase().includes(searchValue) ||
-        value.userType.toLocaleLowerCase().includes(searchValue) ||
-        value.organization.toLocaleLowerCase().includes(searchValue)
+        value.firstName.toLocaleLowerCase().includes(searchValue) ||
+        value.lastName.toLocaleLowerCase().includes(searchValue) ||
+        value.role.toLocaleLowerCase().includes(searchValue) ||
+        value.organizationType.toLocaleLowerCase().includes(searchValue)
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
