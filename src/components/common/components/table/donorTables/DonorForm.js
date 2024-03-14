@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
+import donorService from "../../../../../api/services/donorService";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -31,51 +32,54 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
   };
 
   const initialValues = {
-    nic: donor.nic ?? "",
-    first_name: donor.firstName ?? "",
-    last_name: donor.lastName ?? "",
-    contact_no: donor.contactNo ?? "",
+    donorNic: donor.nic ?? "",
+    firstName: donor.firstName ?? "",
+    lastName: donor.lastName ?? "",
+    contactNo: donor.contactNo ?? "",
     bloodType: donor.bloodType ?? "",
-    no: donor.streetNo ?? "",
+    streetNo: donor.streetNo ?? "",
     street: donor.streetName ?? "",
     city: donor.city ?? "",
-    // gender: "",
-    // birthday: "",
+    gender: "",
+    birthday: "",
+    weight: "",
+    unit: "",
+    emergencyContactNo: "",
   };
 
   const validation = (values) => {
     const errors = {};
 
-    if (!values.first_name) {
-      errors.first_name = "First Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.first_name)) {
-      errors.first_name = "First Name must contain only letters and spaces";
+    if (!values.firstName) {
+      errors.firstName = "First Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.firstName)) {
+      errors.firstName = "First Name must contain only letters and spaces";
     }
 
-    if (!values.last_name) {
-      errors.last_name = "Last Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.last_name)) {
-      errors.last_name = "Last Name must contain only letters and spaces";
+    if (!values.lastName) {
+      errors.lastName = "Last Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.lastName)) {
+      errors.lastName = "Last Name must contain only letters and spaces";
     }
 
-    if (!values.contact_no) {
-      errors.contact_no = "Contact Number is required";
-    } else if (!/^(0\d{9})$/.test(values.contact_no)) {
-      errors.contact_no = "Invalid Contact Number";
+    if (!values.contactNo) {
+      errors.contactNo = "Contact Number is required";
+    } else if (!/^(0\d{9})$/.test(values.contactNo)) {
+      errors.contactNo = "Invalid Contact Number";
     }
 
-    if (!values.nic) {
-      errors.nic = "NIC is required";
+    if (!values.donorNic) {
+      errors.donorNic = "NIC is required";
     } else {
-      if (!/^[0-9]{9}[vVxX]$/.test(values.nic.toString().toUpperCase())) {
-        if (!/^[0-9]{12}$/.test(values.nic)) {
-          errors.nic = "Invalid NIC";
+      if (!/^[0-9]{9}[vVxX]$/.test(values.donorNic.toString().toUpperCase())) {
+        if (!/^[0-9]{12}$/.test(values.donorNic)) {
+          errors.donorNic = "Invalid NIC";
         }
       }
     }
 
-    if (!values.no) {
-      errors.no = "Address No is required";
+    if (!values.streetNo) {
+      errors.streetNo = "Address No is required";
     }
 
     if (!values.street) {
@@ -97,10 +101,11 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
     return errors;
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log("values - ", values);
-
-    setTimeout(() => {}, 400);
+    const donorData = donorService.createDonor(values);
+    console.log("donorData - ", donorData);
+    
   };
 
   return (
@@ -128,18 +133,18 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               >
                 <CustomInput
                   placeHolder={"Donor Nic"}
-                  id={"nic"}
-                  name={"nic"}
+                  id={"donorNic"}
+                  name={"donorNic"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("nic", value);
+                    setFieldValue("donorNic", value);
                   }}
-                  default={values.nic ?? ""}
-                  error={errors.nic}
+                  default={values.donorNic ?? ""}
+                  error={errors.donorNic}
                   type={"text"}
-                  touched={(value) => setFieldTouched("nic", value)}
+                  touched={(value) => setFieldTouched("donorNic", value)}
                 />
-                <span>{touched.nic ? errors.nic : ""}</span>
+                <span>{touched.donorNic ? errors.donorNic : ""}</span>
               </div>
             </div>
 
@@ -151,18 +156,18 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               >
                 <CustomInput
                   placeHolder={"First Name"}
-                  id={"first_name"}
-                  name={"first_name"}
+                  id={"firstName"}
+                  name={"firstName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("first_name", value);
+                    setFieldValue("firstName", value);
                   }}
-                  default={values.first_name ?? ""}
-                  error={errors.first_name}
+                  default={values.firstName ?? ""}
+                  error={errors.firstName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("first_name", value)}
+                  touched={(value) => setFieldTouched("firstName", value)}
                 />
-                <span>{touched.first_name ? errors.first_name : ""}</span>
+                <span>{touched.firstName ? errors.firstName : ""}</span>
               </div>
 
               <div
@@ -172,18 +177,18 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               >
                 <CustomInput
                   placeHolder={"Last Name"}
-                  id={"last_name"}
-                  name={"last_name"}
+                  id={"lastName"}
+                  name={"lastName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("last_name", value);
+                    setFieldValue("lastName", value);
                   }}
-                  default={values.last_name ?? ""}
-                  error={errors.last_name}
+                  default={values.lastName ?? ""}
+                  error={errors.lastName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("last_name", value)}
+                  touched={(value) => setFieldTouched("lastName", value)}
                 />
-                <span>{touched.last_name ? errors.last_name : ""}</span>
+                <span>{touched.lastName ? errors.lastName : ""}</span>
               </div>
             </div>
 
@@ -229,18 +234,18 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               >
                 <CustomInput
                   placeHolder={"street No"}
-                  id={"no"}
-                  name={"no"}
+                  id={"streetNo"}
+                  name={"streetNo"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("no", value);
+                    setFieldValue("streetNo", value);
                   }}
-                  default={values.no ?? ""}
-                  error={errors.no}
+                  default={values.streetNo ?? ""}
+                  error={errors.streetNo}
                   type={"text"}
-                  touched={(value) => setFieldTouched("no", value)}
+                  touched={(value) => setFieldTouched("streetNo", value)}
                 />
-                <span>{touched.no ? errors.no : ""}</span>
+                <span>{touched.streetNo ? errors.streetNo : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(

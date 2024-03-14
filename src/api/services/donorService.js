@@ -1,4 +1,5 @@
-import apiUtils from "./apiUtils";
+import { SERVICETYPE } from "../../share/enums";
+import apiUtils from "../apiUtils";
 
 const donorService = {
   getAllDonors: async () => {
@@ -7,6 +8,10 @@ const donorService = {
 
   getDonorById: async (id) => {
     return apiUtils.get(`donors/${id}`);
+  },
+
+  createDonor: async (value) => {
+    return apiUtils.post(`/donors`, value, SERVICETYPE.DONOR);
   },
 };
 
