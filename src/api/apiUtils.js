@@ -6,8 +6,6 @@ const getToken = () => {
   return sessionStorage.getItem("token");
 };
 
-console.log("token bv - ", getToken());
-
 const apiUtils = {
   get: async (url) => {
     try {
@@ -53,8 +51,14 @@ const apiUtils = {
   },
 
   delete: async (url) => {
+    console.log("BASE_URL + url - ", BASE_URL + url);
     try {
-      const response = await axios.delete(BASE_URL + url);
+      const response = await axios.delete(BASE_URL + url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error(`error in delete request ${url} - `, error);

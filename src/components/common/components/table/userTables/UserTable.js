@@ -10,6 +10,7 @@ const UserTable = ({
   dataset,
   actionType,
   isAllowedFullAccess,
+  formChanged,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
@@ -100,6 +101,7 @@ const UserTable = ({
             <UserForm
               user={selectedUser}
               isAllowedFullAccess={isAllowedFullAccess}
+              formChanged={formChanged}
             />
           </div>
         </CustomModal>
