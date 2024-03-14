@@ -3,10 +3,8 @@ import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./UserManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
 import AddIcon from "../../../assets/icons/svgs/AddIcon";
-import { BUTTONTYPES } from "../../../share/enums";
 import TabController from "../../common/components/tab/TabController";
 import UserTable from "../../common/components/table/userTables/UserTable";
-import NotesIcon from "../../../assets/icons/svgs/NotesIcon";
 import CustomModal from "../../common/components/modal/CustomModal";
 import UserRegistrationForm from "../../../share/formComponents/userRegistrationForm/UserRegistrationForm";
 import EmptyMessage from "../../../share/empty/Empty";
@@ -46,7 +44,6 @@ const userActivityTableDataSet = [];
 const tabs = [
   { key: 1, value: "User Details" },
   { key: 2, value: "User Activities" },
-  // { key: 2, value: "Stock Details" },
 ];
 
 const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
@@ -73,6 +70,11 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     getUsers();
   }, []);
 
+  const formChanged = () => {
+    console.log("called the user management back");
+    getUsers();
+  };
+
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
@@ -85,6 +87,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
               tableHeader={userTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
+              formChanged={formChanged}
             />
           );
         }
@@ -111,6 +114,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
               tableHeader={userTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
+              formChanged={formChanged}
             />
           );
         }
@@ -264,6 +268,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
             <UserRegistrationForm
               User={selectedUser}
               isAllowedFullAccess={isAllowedFullAccess}
+              formChanged={formChanged}
             />
           </CustomModal>
         ) : modalType === "NOTE" ? (

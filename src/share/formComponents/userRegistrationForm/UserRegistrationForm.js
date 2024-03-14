@@ -37,7 +37,12 @@ const hospitalType = [
   { key: 2, value: "Hospital2" },
 ];
 
-const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
+const UserRegistrationForm = ({
+  user,
+  isAllowedFullAccess,
+  isCreateUser,
+  formChanged,
+}) => {
   const [regSuccessMsg, setRegSuccessMsg] = useState("");
   const [error, setError] = useState("");
   const [alertMsg, setAlertMsg] = useState({});
@@ -190,6 +195,7 @@ const UserRegistrationForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
       });
     } finally {
       setLoading(false);
+      formChanged();
     }
   };
 

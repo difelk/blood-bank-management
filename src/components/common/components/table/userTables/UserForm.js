@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styles from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
 import commonStyle from "../../../../../styles/common.module.scss";
 import formStyles from "../../form/CustomForm.module.scss";
+import modalStyle from "../../../components/modal/CustomModal.module.scss";
 import CustomButton from "../../customButton";
 import CustomInput from "../../form/CustomInput";
 import { Form, Formik } from "formik";
@@ -11,6 +12,8 @@ import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
 import CustomPasswordInput from "../../form/CustomPasswordInput";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
+import UserService from "../../../../../api/services/userService";
+import AlertBox from "../../../../../share/Alerts/AlertBox";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -28,51 +31,58 @@ const userTypes = [
   { key: 2, value: "User" },
 ];
 
+const hospitalType = [
+  { key: 1, value: "Hospital1" },
+  { key: 2, value: "Hospital2" },
+];
+
 const organizationTypes = [
   { key: 1, value: "Blood Bank" },
   { key: 2, value: "Hospital" },
 ];
 
-const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
+const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
+  const [alertMsg, setAlertMsg] = useState({});
 
   const initialValues = {
     nic: user.nic ?? "",
-    first_name: user.first_name ?? "",
-    last_name: user.last_name ?? "",
-    contact_no: user.contact_no ?? "",
+    firstName: user.firstName ?? "",
+    lastName: user.lastName ?? "",
+    contactNo: user.contactNo ?? "",
     bloodType: user.bloodType ?? "",
-    no: user.no ?? "",
+    addressNo: user.addressNo ?? "",
     street: user.street ?? "",
     city: user.city ?? "",
     birthday: user.birthday ?? "",
-    userType: user.userType ?? "",
-    user_name: user.user_name ?? "",
+    userType: user.role ?? "",
+    user_name: user.username ?? "",
     temp_pw: user.temp_pw ?? "",
     confirm_temp_pw: user.confirm_temp_pw ?? "",
     recovery_email: user.recovery_email ?? "",
     organization: user.organization ?? "",
+    organizationType: user.organizationType ?? "",
   };
 
   const validation = (values) => {
     const errors = {};
 
-    if (!values.first_name) {
-      errors.first_name = "First Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.first_name)) {
-      errors.first_name = "First Name must contain only letters and spaces";
+    if (!values.firstName) {
+      errors.firstName = "First Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.firstName)) {
+      errors.firstName = "First Name must contain only letters and spaces";
     }
 
-    if (!values.last_name) {
-      errors.last_name = "Last Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(values.last_name)) {
-      errors.last_name = "Last Name must contain only letters and spaces";
+    if (!values.lastName) {
+      errors.lastName = "Last Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(values.lastName)) {
+      errors.lastName = "Last Name must contain only letters and spaces";
     }
 
-    if (!values.contact_no) {
-      errors.contact_no = "Contact Number is required";
-    } else if (!/^(0\d{9})$/.test(values.contact_no)) {
-      errors.contact_no = "Invalid Contact Number";
+    if (!values.contactNo) {
+      errors.contactNo = "Contact Number is required";
+    } else if (!/^(0\d{9})$/.test(values.contactNo)) {
+      errors.contactNo = "Invalid Contact Number";
     }
 
     if (!values.nic) {
@@ -85,8 +95,8 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
       }
     }
 
-    if (!values.no) {
-      errors.no = "Address No is required";
+    if (!values.addressNo) {
+      errors.addressNo = "Address No is required";
     }
 
     if (!values.street) {
@@ -108,18 +118,42 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
     return errors;
   };
 
-  const handleDeleteClick = (value) => {
+  const handleDeleteClick = async (value) => {
+    try {
+      const deleteRespond = await UserService.deleteUser(value.nic);
+      if (deleteRespond.status === 200) {
+        setAlertMsg({
+          type: "SUCCESS",
+          message: "User delete Successful",
+          display: true,
+        });
+      } else {
+        setAlertMsg({
+          type: "ERROR",
+          message: "User delete failed",
+          display: true,
+        });
+      }
+    } catch (e) {
+      setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
+    }
+    formChanged();
     setshowConfirmation(false);
   };
 
   const handleSubmit = (values) => {
-    console.log("values - ", values);
-    console.log("values - ", values);
     setTimeout(() => {}, 400);
   };
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div className={modalStyle.alertBoxWrapper}>
+        <AlertBox
+          type={alertMsg.type}
+          message={alertMsg.message}
+          display={alertMsg.display}
+        />
+      </div>
       <Formik
         initialValues={initialValues}
         validate={validation}
@@ -187,18 +221,18 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"First Name"}
-                  id={"first_name"}
-                  name={"first_name"}
+                  id={"firstName"}
+                  name={"firstName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("first_name", value);
+                    setFieldValue("firstName", value);
                   }}
-                  default={values.first_name ?? ""}
-                  error={errors.first_name}
+                  default={values.firstName ?? ""}
+                  error={errors.firstName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("first_name", value)}
+                  touched={(value) => setFieldTouched("firstName", value)}
                 />
-                <span>{touched.first_name ? errors.first_name : ""}</span>
+                <span>{touched.firstName ? errors.firstName : ""}</span>
               </div>
 
               <div
@@ -208,18 +242,18 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"Last Name"}
-                  id={"last_name"}
-                  name={"last_name"}
+                  id={"lastName"}
+                  name={"lastName"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("last_name", value);
+                    setFieldValue("lastName", value);
                   }}
-                  default={values.last_name ?? ""}
-                  error={errors.last_name}
+                  default={values.lastName ?? ""}
+                  error={errors.lastName}
                   type={"text"}
-                  touched={(value) => setFieldTouched("last_name", value)}
+                  touched={(value) => setFieldTouched("lastName", value)}
                 />
-                <span>{touched.last_name ? errors.last_name : ""}</span>
+                <span>{touched.lastName ? errors.lastName : ""}</span>
               </div>
             </div>
 
@@ -283,6 +317,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                       setFieldValue("birthday", date);
                     }}
                     touched={(value) => setFieldTouched("birthday", value)}
+                    defaultDate={initialValues.birthday}
                   />
                   <span>{touched.birthday ? errors.birthday : ""}</span>
                 </div>
@@ -297,18 +332,18 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
               >
                 <CustomInput
                   placeHolder={"Street No"}
-                  id={"no"}
-                  name={"no"}
+                  id={"addressNo"}
+                  name={"addressNo"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("no", value);
+                    setFieldValue("addressNo", value);
                   }}
-                  default={values.no ?? ""}
-                  error={errors.no}
+                  default={values.addressNo ?? ""}
+                  error={errors.addressNo}
                   type={"text"}
-                  touched={(value) => setFieldTouched("no", value)}
+                  touched={(value) => setFieldTouched("addressNo", value)}
                 />
-                <span>{touched.no ? errors.no : ""}</span>
+                <span>{touched.addressNo ? errors.addressNo : ""}</span>
               </div>
               <div
                 className={[formStyles.groupInputs, formStyles.input30].join(
@@ -359,7 +394,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 )}
               >
                 <CustomPasswordInput
-                  placeHolder={"Temporary Password"}
+                  placeHolder={"Reset Password"}
                   id={"temp_pw"}
                   name={"temp_pw"}
                   disabled={false}
@@ -380,7 +415,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
                 )}
               >
                 <CustomPasswordInput
-                  placeHolder={"Confirm Temporary Password"}
+                  placeHolder={"Confirm Reset Password"}
                   id={"confirm_temp_pw"}
                   name={"confirm_temp_pw"}
                   disabled={false}
@@ -400,69 +435,83 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser }) => {
 
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Recovery Email"}
-                  id={"recovery_email"}
-                  name={"recovery_email"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("recovery_email", value);
-                  }}
-                  default={values.recovery_email ?? ""}
-                  error={errors.recovery_email}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("recovery_email", value)}
-                />
-                <span>
-                  {touched.recovery_email ? errors.recovery_email : ""}
-                </span>
-              </div>
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
+                className={
+                  !values.organization
+                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                    : [formStyles.groupInputs, formStyles.input30].join(" ")
+                }
               >
                 <CustomInput
                   placeHolder={"Contact No"}
-                  id={"contact_no"}
-                  name={"contact_no"}
+                  id={"contactNo"}
+                  name={"contactNo"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("contact_no", value);
+                    setFieldValue("contactNo", value);
                   }}
-                  default={values.contact_no ?? ""}
-                  error={errors.contact_no}
+                  default={values.contactNo ?? ""}
+                  error={errors.contactNo}
                   type={"text"}
-                  touched={(value) => setFieldTouched("contact_no", value)}
+                  touched={(value) => setFieldTouched("contactNo", value)}
                 />
-                <span>{touched.contact_no ? errors.contact_no : ""}</span>
+                <span>{touched.contactNo ? errors.contactNo : ""}</span>
               </div>
-
               <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
+                className={
+                  !values.organization
+                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                    : [formStyles.groupInputs, formStyles.input30].join(" ")
+                }
               >
                 <div className={styles.dateDiv}>
                   <CustomDropdown
                     dataset={organizationTypes}
-                    placeHolder={"Organization"}
-                    id={"organization"}
-                    name={"organization"}
+                    placeHolder={"Select Organization type"}
+                    id={"organizationType"}
+                    name={"organizationType"}
                     disabled={false}
-                    defaultValue={initialValues.organization}
+                    defaultValue={initialValues.organizationType}
                     getValue={(value) => {
-                      setFieldValue("organization", value);
+                      setFieldValue("organizationType", value);
                     }}
-                    touched={(value) => setFieldTouched("organization", value)}
+                    touched={(value) =>
+                      setFieldTouched("organizationType", value)
+                    }
                   />
-                  <span>{touched.organization ? errors.organization : ""}</span>
                 </div>
+                <span>{touched.organization ? errors.organization : ""}</span>
               </div>
+
+              {values.organizationType &&
+              values.organizationType !== "Blood Bank" ? (
+                <div
+                  className={[formStyles.groupInputs, formStyles.input30].join(
+                    " "
+                  )}
+                >
+                  <div className={styles.dateDiv}>
+                    <CustomDropdown
+                      dataset={hospitalType}
+                      placeHolder={"Select Organization"}
+                      id={"organization"}
+                      name={"organization"}
+                      disabled={false}
+                      defaultValue={initialValues.organization}
+                      getValue={(value) => {
+                        setFieldValue("organization", value);
+                      }}
+                      touched={(value) =>
+                        setFieldTouched("organization", value)
+                      }
+                    />
+                    <span>
+                      {touched.organization ? errors.organization : ""}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div

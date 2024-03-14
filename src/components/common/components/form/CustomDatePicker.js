@@ -3,7 +3,12 @@ import DatePicker from "react-datepicker";
 import styles from "./CustomDatePicker.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ placeholder, onDateChange, touched }) => {
+const CustomDatePicker = ({
+  placeholder,
+  onDateChange,
+  touched,
+  defaultDate,
+}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isBirthdaySelecting, setisBirthdaySelecting] = useState(false);
 
@@ -16,7 +21,7 @@ const CustomDatePicker = ({ placeholder, onDateChange, touched }) => {
       <div className={styles.datepicker}>
         <label
           className={
-            isBirthdaySelecting || selectedDate
+            isBirthdaySelecting || selectedDate || defaultDate
               ? [styles.placeholder, styles.onHoldPlaceHolder].join(" ")
               : styles.placeholder
           }
@@ -24,7 +29,7 @@ const CustomDatePicker = ({ placeholder, onDateChange, touched }) => {
           {placeholder}
         </label>
         <DatePicker
-          selected={selectedDate}
+          selected={selectedDate ?? defaultDate}
           onChange={(date) => setSelectedDate(date)}
           dateFormat="dd/MM/yyyy"
           onFocus={() => {
