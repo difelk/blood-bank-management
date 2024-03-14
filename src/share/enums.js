@@ -16,3 +16,11 @@ export const BUTTONTYPES = {
   PRIMARY: "primary",
   SQUAREICON: "SQicon",
 };
+
+export const SERVICETYPE = {
+  USER: "USER_SERVICE",
+  DONOR: "DONOR_SERVICE",
+  STOCK: "STOCK_SERVICE",
+  HOSPITAL: "HOSPITAL_SERVICE",
+  EVENT: "EVENT_SERVICE",
+};
