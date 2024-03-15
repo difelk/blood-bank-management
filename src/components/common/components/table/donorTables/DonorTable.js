@@ -20,6 +20,7 @@ const DonorTable = ({
   dataset,
   actionType,
   isAllowedFullAccess,
+  formChanged,
 }) => {
   const [modalType, setModalType] = useState("");
   const [selectedDonor, setSelectedDonor] = useState({});
@@ -108,6 +109,7 @@ const DonorTable = ({
             <DonorForm
               donor={selectedDonor}
               isAllowedFullAccess={isAllowedFullAccess}
+              formChanged={formChanged}
             />
           </div>
         </CustomModal>
