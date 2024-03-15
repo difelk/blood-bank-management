@@ -11,6 +11,7 @@ import Filter from "../../common/components/Filters/Filter/Filter";
 import CustomModal from "../../common/components/modal/CustomModal";
 import DonorForm from "../../common/components/table/donorTables/DonorForm";
 import EmptyMessage from "../../../share/empty/Empty";
+import donorService from "../../../api/services/donorService";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -70,8 +71,29 @@ const DonorManagement = ({ selectedPage }) => {
   const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
-  const [filteredData, setFilteredData] = useState(donorTableDataSet);
+  const [selectedDonor, setSelectedDonor] = useState({});
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState(data);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
+
+  const getDonors = async () => {
+    try {
+      const respond = await donorService.getAllDonors();
+      setFilteredData(respond);
+      setData(respond);
+    } catch (e) {
+      console.log("error - ", e);
+    }
+  };
+
+  useEffect(() => {
+    getDonors();
+  }, []);
+
+  const formChanged = () => {
+    console.log("called the donor management back");
+    getDonors();
+  };
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -85,6 +107,7 @@ const DonorManagement = ({ selectedPage }) => {
               tableHeader={donorTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
+              formChanged={formChanged}
             />
           );
         }
@@ -98,6 +121,7 @@ const DonorManagement = ({ selectedPage }) => {
               tableHeader={donorTableHeader}
               actionType={"VIEW"}
               isAllowedFullAccess={true}
+              formChanged={formChanged}
             />
           );
         }
@@ -106,7 +130,8 @@ const DonorManagement = ({ selectedPage }) => {
 
   const filterData = (searchValue) => {
     searchValue ? setSearchHasValue(true) : setSearchHasValue(false);
-    const filteredDataSet = donorTableDataSet.filter(
+    console.log("data - ", data);
+    const filteredDataSet = data.filter(
       (value) =>
         value.nic.toLocaleLowerCase().includes(searchValue) ||
         value.firstName.toLocaleLowerCase().includes(searchValue) ||
@@ -116,7 +141,7 @@ const DonorManagement = ({ selectedPage }) => {
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
     } else {
-      setFilteredData(donorTableDataSet);
+      setFilteredData(data);
     }
   };
 
@@ -156,7 +181,7 @@ const DonorManagement = ({ selectedPage }) => {
   };
 
   const tableReset = () => {
-    setFilteredData(donorTableDataSet);
+    setFilteredData(data);
   };
 
   useEffect(() => {
@@ -220,9 +245,10 @@ const DonorManagement = ({ selectedPage }) => {
         <CustomModal open={setIsDonorFormOpen} title={`Add New Donor`}>
           <div className={styles.hospitalData}>
             <DonorForm
-              donor={[]}
+              donor={selectedDonor}
               isAllowedFullAccess={false}
               isCreateDonor={true}
+              formChanged={formChanged}
             />
           </div>
         </CustomModal>

@@ -57,7 +57,7 @@ const DonorTable = ({
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
             >
-              <p>{item.nic}</p>
+              <p>{item.donorNic}</p>
             </div>
             <div
               className={styles.tableDataItem}
