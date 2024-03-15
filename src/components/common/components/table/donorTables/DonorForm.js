@@ -9,6 +9,7 @@ import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
 import donorService from "../../../../../api/services/donorService";
+import style from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -19,6 +20,11 @@ const bloodTypes = [
   { key: "AB-", value: "AB -" },
   { key: "O+", value: "O +" },
   { key: "O-", value: "O -" },
+];
+
+const gender = [
+  { key: 1, value: "Male" },
+  { key: 2, value: "Female" },
 ];
 
 const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
@@ -32,19 +38,19 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
   };
 
   const initialValues = {
-    donorNic: donor.nic ?? "",
+    donorNic: donor.donorNic ?? "",
     firstName: donor.firstName ?? "",
     lastName: donor.lastName ?? "",
     contactNo: donor.contactNo ?? "",
     bloodType: donor.bloodType ?? "",
     streetNo: donor.streetNo ?? "",
-    street: donor.streetName ?? "",
+    street: donor.street ?? "",
     city: donor.city ?? "",
-    gender: "",
-    birthday: "",
-    weight: "",
-    unit: "",
-    emergencyContactNo: "",
+    gender: donor.gender ?? "",
+    birthday: donor.birthday ??  "",
+    weight: donor.weight ?? "",
+    unit: donor.unit ?? "",
+    emergencyContactNo: donor.emergencyContactNo ?? "",
   };
 
   const validation = (values) => {
@@ -105,7 +111,6 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
     console.log("values - ", values);
     const donorData = donorService.createDonor(values);
     console.log("donorData - ", donorData);
-    
   };
 
   return (
@@ -127,7 +132,7 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
           <Form>
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input100].join(
+                className={[formStyles.groupInputs, formStyles.input50].join(
                   " "
                 )}
               >
@@ -145,6 +150,28 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
                   touched={(value) => setFieldTouched("donorNic", value)}
                 />
                 <span>{touched.donorNic ? errors.donorNic : ""}</span>
+              </div>
+              <div
+                className={
+                  !values.organization
+                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                    : [formStyles.groupInputs, formStyles.input30].join(" ")
+                }
+              >
+                <CustomInput
+                  placeHolder={"Contact No"}
+                  id={"contactNo"}
+                  name={"contactNo"}
+                  disabled={false}
+                  getValue={(value) => {
+                    setFieldValue("contactNo", value);
+                  }}
+                  default={values.contactNo ?? ""}
+                  error={errors.contactNo}
+                  type={"text"}
+                  touched={(value) => setFieldTouched("contactNo", value)}
+                />
+                <span>{touched.contactNo ? errors.contactNo : ""}</span>
               </div>
             </div>
 
@@ -201,28 +228,63 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
                   formStyles.mtb_5,
                 ].join(" ")}
               >
-                <CustomDropdown
-                  dataset={bloodTypes}
-                  placeHolder={"Select Blood Type"}
-                  id={"bloodType"}
-                  name={"bloodType"}
-                  disabled={false}
-                  defaultValue={initialValues.bloodType}
-                  getValue={(value) => {
-                    setFieldValue("bloodType", value);
-                  }}
-                  touched={(value) => setFieldTouched("bloodType", value)}
-                />
-                <span>{touched.bloodType ? errors.bloodType : ""}</span>
+                <div className={[style.groupInputs, style.input30].join(" ")}>
+                  <div className={style.dateDiv}>
+                    <CustomDropdown
+                      dataset={gender}
+                      placeHolder={"Select Gender"}
+                      id={"gender"}
+                      name={"gender"}
+                      disabled={false}
+                      defaultValue={initialValues.gender}
+                      getValue={(value) => {
+                        setFieldValue("gender", value);
+                      }}
+                      touched={(value) => setFieldTouched("gender", value)}
+                    />
+                    <span>{touched.gender ? errors.gender : ""}</span>
+                  </div>
+                </div>
 
-                <CustomDatePicker
+                <div className={[style.groupInputs, style.input30].join(" ")}>
+                  <div className={style.dateDiv}>
+                    <CustomDropdown
+                      dataset={bloodTypes}
+                      placeHolder={"Select Blood Type"}
+                      id={"bloodType"}
+                      name={"bloodType"}
+                      disabled={false}
+                      defaultValue={initialValues.bloodType}
+                      getValue={(value) => {
+                        setFieldValue("bloodType", value);
+                      }}
+                      touched={(value) => setFieldTouched("bloodType", value)}
+                    />
+                    <span>{touched.bloodType ? errors.bloodType : ""}</span>
+                  </div>
+                </div>
+                <div className={[style.groupInputs, style.input30].join(" ")}>
+                  <div className={style.dateDiv}>
+                    <CustomDatePicker
+                      placeholder={"Birthday"}
+                      onDateChange={(date) => {
+                        setFieldValue("birthday", date);
+                      }}
+                      touched={(value) => setFieldTouched("birthday", value)}
+                      defaultDate={initialValues.birthday}
+                    />
+                    <span>{touched.birthday ? errors.birthday : ""}</span>
+                  </div>
+                </div>
+                {/* <CustomDatePicker
                   placeholder={"Birthday"}
                   onDateChange={(date) => {
                     setFieldValue("birthday", date);
                   }}
                   touched={(value) => setFieldTouched("birthday", value)}
+                  defaultDate={initialValues.birthday}
                 />
-                <span>{touched.birthday ? errors.birthday : ""}</span>
+                <span>{touched.birthday ? errors.birthday : ""}</span> */}
               </div>
             </div>
 

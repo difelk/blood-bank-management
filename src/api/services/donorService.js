@@ -3,7 +3,11 @@ import apiUtils from "../apiUtils";
 
 const donorService = {
   getAllDonors: async () => {
-    return apiUtils.get("donors");
+    try {
+      return await apiUtils.get("/donors", SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in get all donors : ", e);
+    }
   },
 
   getDonorById: async (id) => {
