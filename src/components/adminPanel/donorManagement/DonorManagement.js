@@ -91,7 +91,6 @@ const DonorManagement = ({ selectedPage }) => {
   }, []);
 
   const formChanged = () => {
-    console.log("called the donor management back");
     getDonors();
   };
 
@@ -133,7 +132,7 @@ const DonorManagement = ({ selectedPage }) => {
     console.log("data - ", data);
     const filteredDataSet = data.filter(
       (value) =>
-        value.nic.toLocaleLowerCase().includes(searchValue) ||
+        value.donorNic.toLocaleLowerCase().includes(searchValue) ||
         value.firstName.toLocaleLowerCase().includes(searchValue) ||
         value.lastName.toLocaleLowerCase().includes(searchValue) ||
         value.bloodType.toLocaleLowerCase().includes(searchValue)
@@ -150,7 +149,7 @@ const DonorManagement = ({ selectedPage }) => {
       case 1:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.nic > b.nic ? 1 : a.nic < b.nic ? -1 : 0
+            a.donorNic > b.donorNic ? 1 : a.donorNic < b.donorNic ? -1 : 0
           )
         );
         break;
