@@ -46,7 +46,7 @@ const DonorForm = ({
   const handleDeleteClick = async (value) => {
     try {
       const deleteRespond = await donorService.deleteDonorById(value.donorNic);
-      console.log("deleteRespond - ", deleteRespond);
+      // console.log("deleteRespond - ", deleteRespond);
       if (deleteRespond.status === 200) {
         setAlertMsg({
           type: "SUCCESS",
@@ -146,25 +146,50 @@ const DonorForm = ({
       setLoading(true);
       try {
         const donorData = await donorService.createDonor(values);
-        setAlertMsg({
-          type: "SUCCESS",
-          message: "Donor Registration Successful",
-          display: true,
-        });
+        if (donorData.status === 200) {
+          setAlertMsg({
+            type: "SUCCESS",
+            message: donorData.statusMsg,
+            display: true,
+          });
+        } else {
+          setAlertMsg({
+            type: "ERROR",
+            message: donorData.statusMsg,
+            display: true,
+          });
+        }
       } catch (e) {
-        setAlertMsg("Donor Registration Failed");
-        setAlertMsg({
-          type: "ERROR",
-          message: "Donor Registration Failed",
-          display: true,
-        });
+        setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
       } finally {
         setLoading(false);
         formChanged();
       }
-    }
-    else{
-      console.log("handle update");
+    } else {
+      // UPDATE DONOR
+      // NOTE: set birthday again. if not failing
+      setLoading(true);
+      try {
+        const updatedDonor = await donorService.updateDonor(values);
+        if (updatedDonor.status === 200) {
+          setAlertMsg({
+            type: "SUCCESS",
+            message: updatedDonor.statusMsg,
+            display: true,
+          });
+        } else {
+          setAlertMsg({
+            type: "ERROR",
+            message: updatedDonor.statusMsg,
+            display: true,
+          });
+        }
+      } catch (e) {
+        setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
+      } finally {
+        setLoading(false);
+        formChanged();
+      }
     }
   };
 

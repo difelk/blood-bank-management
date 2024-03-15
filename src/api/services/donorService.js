@@ -16,7 +16,6 @@ const donorService = {
 
   createDonor: async (value) => {
     try {
-      console.log("create donor value - ", value);
       return apiUtils.post(`/donors`, value, SERVICETYPE.DONOR);
     } catch (e) {
       console.log("error in create donor : ", e);
@@ -30,6 +29,16 @@ const donorService = {
       console.log("error in delete donor : ", e);
     }
   },
+
+  updateDonor: async (value) => {
+    try {
+      console.log("update donor value - ", value);
+      return apiUtils.put(`/donors`, value, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in update donor : ", e);
+    }
+  },
+
 };
 
 export default donorService;
