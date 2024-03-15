@@ -46,8 +46,6 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
 
-  console.log("user - ", user);
-
   const initialValues = {
     username: user.username,
     nic: user.nic ?? "",
@@ -553,8 +551,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={false}
-                // isDisabled={Object.keys(errors).length !== 0 || loading}
+                isDisabled={Object.keys(errors).length !== 0 || loading}
                 active={true}
                 onClick={() => handleSubmit(values)}
               />

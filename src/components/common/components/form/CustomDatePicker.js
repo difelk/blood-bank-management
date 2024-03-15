@@ -9,7 +9,9 @@ const CustomDatePicker = ({
   touched,
   defaultDate,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(
+    defaultDate ? new Date(defaultDate) : null
+  );
   const [isBirthdaySelecting, setisBirthdaySelecting] = useState(false);
 
   useEffect(() => {

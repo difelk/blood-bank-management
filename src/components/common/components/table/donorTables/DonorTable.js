@@ -6,6 +6,7 @@ import CustomModal from "../../modal/CustomModal";
 import DonorForm from "./DonorForm";
 import HistoryIcon from "../../../../../assets/icons/svgs/HistoryIcon";
 import ClassicTable from "../classicTable/ClassicTable";
+import AddDonorIcon from "../../../../../assets/icons/svgs/AddDonorIcon";
 
 const donorHistorytableHeader = [
   { name: "Stock ID", width: "20%" },
@@ -99,6 +100,15 @@ const DonorTable = ({
                   setSelectedDonor(item);
                 }}
               />
+              <div />
+              <CustomButton
+                buttonType={"ICON"}
+                iconsLeft={<AddDonorIcon size={20} color={"#BBB6B4"} />}
+                onClick={() => {
+                  setModalType("DONATION");
+                  setSelectedDonor(item);
+                }}
+              />
             </div>
           </div>
         ))}
@@ -114,6 +124,20 @@ const DonorTable = ({
           </div>
         </CustomModal>
       ) : modalType === "HISTORY" ? (
+        <CustomModal
+          open={setModalType}
+          title={selectedDonor.firstName + " " + selectedDonor.lastName}
+          width={600}
+        >
+          <div className={styles.hospitalData}>
+            <ClassicTable
+              tableHeader={donorHistorytableHeader}
+              dataset={[]}
+              getSelected={() => {}}
+            />
+          </div>
+        </CustomModal>
+      ) : modalType === "DONATION" ? (
         <CustomModal
           open={setModalType}
           title={selectedDonor.firstName + " " + selectedDonor.lastName}
