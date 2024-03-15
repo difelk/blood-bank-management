@@ -43,10 +43,12 @@ const apiUtils = {
   },
 
   put: async (url, data, serviceType) => {
+    console.log("data :", data);
     try {
       const response = await axios.put(BASE_URLS[serviceType] + url, data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
         },
       });
       return response.data;

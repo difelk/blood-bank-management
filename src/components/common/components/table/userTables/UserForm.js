@@ -44,8 +44,12 @@ const organizationTypes = [
 const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  console.log("user - ", user);
 
   const initialValues = {
+    username: user.username,
     nic: user.nic ?? "",
     firstName: user.firstName ?? "",
     lastName: user.lastName ?? "",
@@ -55,10 +59,11 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     street: user.street ?? "",
     city: user.city ?? "",
     birthday: user.birthday ?? "",
-    userType: user.role ?? "",
+    role: user.role ?? "",
     user_name: user.username ?? "",
     temp_pw: user.temp_pw ?? "",
-    confirm_temp_pw: user.confirm_temp_pw ?? "",
+    // confirm_temp_pw: user.confirm_temp_pw ?? "",
+    password: "",
     recovery_email: user.recovery_email ?? "",
     organization: user.organization ?? "",
     organizationType: user.organizationType ?? "",
@@ -141,8 +146,35 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     setshowConfirmation(false);
   };
 
-  const handleSubmit = (values) => {
-    setTimeout(() => {}, 400);
+  const handleSubmit = async (values) => {
+    let data = values;
+    if (!values.password) {
+      data = { ...data, password: user.password };
+    }
+    if (values.organizationType === "Blood Bank") {
+      data = { ...data, organization: "" };
+    }
+    setLoading(true);
+    try {
+      const response = await UserService.updateUser(data);
+      console.log("response - ", response);
+      setAlertMsg({
+        type: "SUCCESS",
+        message: "User Update Successful",
+        display: true,
+      });
+    } catch (e) {
+      console.log("registration failed with : ", e);
+      setAlertMsg("User Registration Failed");
+      setAlertMsg({
+        type: "ERROR",
+        message: "User Registration Failed",
+        display: true,
+      });
+    } finally {
+      setLoading(false);
+      formChanged();
+    }
   };
 
   return (
@@ -275,16 +307,16 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   <CustomDropdown
                     dataset={userTypes}
                     placeHolder={"Select User Type"}
-                    id={"userType"}
-                    name={"userType"}
+                    id={"role"}
+                    name={"role"}
                     disabled={false}
-                    defaultValue={initialValues.userType}
+                    defaultValue={initialValues.role}
                     getValue={(value) => {
-                      setFieldValue("userType", value);
+                      setFieldValue("role", value);
                     }}
-                    touched={(value) => setFieldTouched("userType", value)}
+                    touched={(value) => setFieldTouched("role", value)}
                   />
-                  <span>{touched.userType ? errors.userType : ""}</span>
+                  <span>{touched.role ? errors.role : ""}</span>
                 </div>
               </div>
 
@@ -416,20 +448,18 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
               >
                 <CustomPasswordInput
                   placeHolder={"Confirm Reset Password"}
-                  id={"confirm_temp_pw"}
-                  name={"confirm_temp_pw"}
+                  id={"password"}
+                  name={"password"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("confirm_temp_pw", value);
+                    setFieldValue("password", value);
                   }}
-                  default={values.confirm_temp_pw ?? ""}
-                  error={errors.confirm_temp_pw}
+                  default={values.password ?? ""}
+                  error={errors.password}
                   type={"password"}
-                  touched={(value) => setFieldTouched("confirm_temp_pw", value)}
+                  touched={(value) => setFieldTouched("password", value)}
                 />
-                <span>
-                  {touched.confirm_temp_pw ? errors.confirm_temp_pw : ""}
-                </span>
+                <span>{touched.password ? errors.password : ""}</span>
               </div>
             </div>
 
@@ -524,6 +554,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                 buttonText={"Save"}
                 buttonType={"submit"}
                 isDisabled={false}
+                // isDisabled={Object.keys(errors).length !== 0 || loading}
                 active={true}
                 onClick={() => handleSubmit(values)}
               />

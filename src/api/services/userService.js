@@ -9,6 +9,13 @@ const UserService = {
       console.log("error in get all users : ", e);
     }
   },
+  updateUser: async (data) => {
+    try {
+      return await apiUtils.put(`/api/users/`, data, SERVICETYPE.USER);
+    } catch (e) {
+      console.log("error in put  users : ", e);
+    }
+  },
   deleteUser: async (nic) => {
     try {
       return await apiUtils.delete(`/api/users/${nic}`, SERVICETYPE.USER);
