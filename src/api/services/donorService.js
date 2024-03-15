@@ -15,7 +15,20 @@ const donorService = {
   },
 
   createDonor: async (value) => {
-    return apiUtils.post(`/donors`, value, SERVICETYPE.DONOR);
+    try {
+      console.log("create donor value - ", value);
+      return apiUtils.post(`/donors`, value, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in create donor : ", e);
+    }
+  },
+
+  deleteDonorById: async (donorNic) => {
+    try {
+      return await apiUtils.delete(`/donors/${donorNic}`, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in delete donor : ", e);
+    }
   },
 };
 

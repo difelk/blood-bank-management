@@ -10,6 +10,8 @@ import CustomDatePicker from "../../form/CustomDatePicker";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
 import donorService from "../../../../../api/services/donorService";
 import style from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
+import AlertBox from "../../../../../share/Alerts/AlertBox";
+import modalStyle from "../../../components/modal/CustomModal.module.scss";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -27,13 +29,41 @@ const gender = [
   { key: 2, value: "Female" },
 ];
 
-const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
+const DonorForm = ({
+  donor,
+  isAllowedFullAccess,
+  isCreateDonor,
+  formChanged,
+}) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
+  const [alertMsg, setAlertMsg] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const handleRemoveClick = (value) => {
     setshowConfirmation(false);
   };
 
-  const handleDeleteClick = (value) => {
+  const handleDeleteClick = async (value) => {
+    try {
+      const deleteRespond = await donorService.deleteDonorById(value.donorNic);
+      console.log("deleteRespond - ", deleteRespond);
+      if (deleteRespond.status === 200) {
+        setAlertMsg({
+          type: "SUCCESS",
+          message: deleteRespond.statusMsg,
+          display: true,
+        });
+      } else {
+        setAlertMsg({
+          type: "ERROR",
+          message: deleteRespond.statusMsg,
+          display: true,
+        });
+      }
+    } catch (e) {
+      setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
+    }
+    formChanged();
     setshowConfirmation(false);
   };
 
@@ -41,13 +71,17 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
     donorNic: donor.donorNic ?? "",
     firstName: donor.firstName ?? "",
     lastName: donor.lastName ?? "",
-    contactNo: donor.contactNo ?? "",
+    contactNo: donor.contactNo
+      ? donor.contactNo.toString().length < 10
+        ? "0" + donor.contactNo ?? ""
+        : donor.contactNo ?? ""
+      : "",
     bloodType: donor.bloodType ?? "",
     streetNo: donor.streetNo ?? "",
     street: donor.street ?? "",
     city: donor.city ?? "",
     gender: donor.gender ?? "",
-    birthday: donor.birthday ??  "",
+    birthday: donor.birthday ?? "",
     weight: donor.weight ?? "",
     unit: donor.unit ?? "",
     emergencyContactNo: donor.emergencyContactNo ?? "",
@@ -100,21 +134,49 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
       errors.city = "City should contain at least 3 letters";
     }
 
-    if (!values.birthday) {
-      errors.birthday = "Birthday is required";
-    }
+    // if (!values.birthday) {
+    //   errors.birthday = "Birthday is required";
+    // }
 
     return errors;
   };
 
   const handleSubmit = async (values) => {
-    console.log("values - ", values);
-    const donorData = donorService.createDonor(values);
-    console.log("donorData - ", donorData);
+    if (isCreateDonor) {
+      setLoading(true);
+      try {
+        const donorData = await donorService.createDonor(values);
+        setAlertMsg({
+          type: "SUCCESS",
+          message: "Donor Registration Successful",
+          display: true,
+        });
+      } catch (e) {
+        setAlertMsg("Donor Registration Failed");
+        setAlertMsg({
+          type: "ERROR",
+          message: "Donor Registration Failed",
+          display: true,
+        });
+      } finally {
+        setLoading(false);
+        formChanged();
+      }
+    }
+    else{
+      console.log("handle update");
+    }
   };
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div className={modalStyle.alertBoxWrapper}>
+        <AlertBox
+          type={alertMsg.type}
+          message={alertMsg.message}
+          display={alertMsg.display}
+        />
+      </div>
       <Formik
         initialValues={initialValues}
         validate={validation}
@@ -174,7 +236,7 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
                 <span>{touched.contactNo ? errors.contactNo : ""}</span>
               </div>
             </div>
-
+            {/* {JSON.stringify(errors)} */}
             <div className={formStyles.inputWrapper}>
               <div
                 className={[formStyles.groupInputs, formStyles.input50].join(
@@ -276,15 +338,6 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
                     <span>{touched.birthday ? errors.birthday : ""}</span>
                   </div>
                 </div>
-                {/* <CustomDatePicker
-                  placeholder={"Birthday"}
-                  onDateChange={(date) => {
-                    setFieldValue("birthday", date);
-                  }}
-                  touched={(value) => setFieldTouched("birthday", value)}
-                  defaultDate={initialValues.birthday}
-                />
-                <span>{touched.birthday ? errors.birthday : ""}</span> */}
               </div>
             </div>
 
@@ -360,10 +413,11 @@ const DonorForm = ({ donor, isAllowedFullAccess, isCreateDonor }) => {
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={false}
+                isDisabled={Object.keys(errors).length !== 0 || loading}
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
+
               {!isCreateDonor ? (
                 <>
                   {isAllowedFullAccess ? (
