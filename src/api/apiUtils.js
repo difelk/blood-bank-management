@@ -38,7 +38,8 @@ const apiUtils = {
       return response.data;
     } catch (error) {
       console.error(`error in post request ${url} - `, error);
-      throw error;
+      return { message: error.message };
+      // throw error;
     }
   },
 

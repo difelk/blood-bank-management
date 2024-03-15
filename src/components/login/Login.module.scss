@@ -35,6 +35,16 @@
     color: #ffffff;
 }
 
+.btnDisabled {
+    border: 2px solid #b4b4b4;
+    color: #626262;
+}
+
+.btnDisabled:hover {
+    background-color: #d1d1d1;
+    color: #626262;
+}
+
 .forgetPassword {
     width: 100%;
     border: none;
@@ -67,4 +77,15 @@
         margin: 8px 0;
         justify-content: space-around;
     }
+}
+
+.loginError {
+    font-size: 12px;
+    color: #FD5086;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-left: 16px;
 }
