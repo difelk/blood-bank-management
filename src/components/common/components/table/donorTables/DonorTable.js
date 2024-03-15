@@ -110,6 +110,7 @@ const DonorTable = ({
               donor={selectedDonor}
               isAllowedFullAccess={isAllowedFullAccess}
               formChanged={formChanged}
+              isCreateDonor={false}
             />
           </div>
         </CustomModal>
