@@ -55,7 +55,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     street: user.street ?? "",
     city: user.city ?? "",
     birthday: user.birthday ?? "",
-    userType: user.role ?? "",
+    role: user.role ?? "",
     user_name: user.username ?? "",
     temp_pw: user.temp_pw ?? "",
     confirm_temp_pw: user.confirm_temp_pw ?? "",
@@ -275,16 +275,16 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   <CustomDropdown
                     dataset={userTypes}
                     placeHolder={"Select User Type"}
-                    id={"userType"}
-                    name={"userType"}
+                    id={"role"}
+                    name={"role"}
                     disabled={false}
-                    defaultValue={initialValues.userType}
+                    defaultValue={initialValues.role}
                     getValue={(value) => {
-                      setFieldValue("userType", value);
+                      setFieldValue("role", value);
                     }}
-                    touched={(value) => setFieldTouched("userType", value)}
+                    touched={(value) => setFieldTouched("role", value)}
                   />
-                  <span>{touched.userType ? errors.userType : ""}</span>
+                  <span>{touched.role ? errors.role : ""}</span>
                 </div>
               </div>
 

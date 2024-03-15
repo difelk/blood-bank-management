@@ -126,11 +126,15 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     console.log("data - ", data);
     const filteredDataSet = data.filter(
       (value) =>
-        value.nic.toLocaleLowerCase().includes(searchValue) ||
-        value.firstName.toLocaleLowerCase().includes(searchValue) ||
-        value.lastName.toLocaleLowerCase().includes(searchValue) ||
-        value.role.toLocaleLowerCase().includes(searchValue) ||
-        value.organizationType.toLocaleLowerCase().includes(searchValue)
+      (value.nic && value.nic.toLocaleLowerCase().includes(searchValue)) ||
+      (value.firstName &&
+        value.firstName.toLocaleLowerCase().includes(searchValue)) ||
+      (value.lastName &&
+        value.lastName.toLocaleLowerCase().includes(searchValue)) ||
+      (value.role && value.role.toLocaleLowerCase().includes(searchValue)) ||
+      (value.organizationType &&
+        value.organizationType.toLocaleLowerCase().includes(searchValue))
+       
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
@@ -151,34 +155,30 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
       case 2:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.first_name > b.first_name
-              ? 1
-              : a.first_name < b.first_name
-              ? -1
-              : 0
+            a.firstName > b.firstName ? 1 : a.firstName < b.firstName ? -1 : 0
           )
         );
         break;
       case 3:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.last_name > b.last_name ? 1 : a.last_name < b.last_name ? -1 : 0
+            a.lastName > b.lastName ? 1 : a.lastName < b.lastName ? -1 : 0
           )
         );
         break;
       case 4:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.userType > b.userType ? 1 : a.userType < b.userType ? -1 : 0
+            a.role > b.role ? 1 : a.role < b.role ? -1 : 0
           )
         );
         break;
       case 5:
         setFilteredData(
           [...filteredData].sort((a, b) =>
-            a.organization > b.organization
+            a.organizationType > b.organizationType
               ? 1
-              : a.organization < b.organization
+              : a.organizationType < b.organizationType
               ? -1
               : 0
           )
