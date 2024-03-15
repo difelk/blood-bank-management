@@ -8,10 +8,11 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [filteredDataSet, setFilteredDataSet] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [dropdownBlur, setDropdownBlur] = useState(false);
   const [selectedDropdownItem, setSelectedDropdownItem] = useState("");
 
   const filterData = () => {
-    if (!searchValue) {
+    if (!searchValue || !dropdownBlur) {
       setFilteredDataSet(dataset);
     } else {
       setFilteredDataSet(
@@ -46,18 +47,28 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
             : styles.dropdown
         }
       >
-        <label className={styles.dropdownPlaceHolder}>{placeHolder}</label>
+        <label className={styles.dropdownPlaceHolder} htmlFor={name ?? "input"}>
+          {placeHolder}
+        </label>
         <input
-          onFocus={() => setIsDropdownVisible(true)}
+          id={name}
+          onFocus={() => {
+            setIsDropdownVisible(true);
+            setDropdownBlur(false);
+          }}
           onBlur={() => {
             setIsDropdownVisible(false);
             setFieldTouched(name, true);
+            setDropdownBlur(true);
           }}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            setDropdownBlur(true);
+          }}
           value={searchValue}
           defaultValue={defaultValue ?? ""}
         />
-        <label className={styles.dropdownArrow}>
+        <label className={styles.dropdownArrow} htmlFor={name ?? "input"}>
           <ArrowIcon size={12} color={"#909090"} />
         </label>
 

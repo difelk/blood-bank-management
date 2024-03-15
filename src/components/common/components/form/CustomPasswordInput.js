@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./CustomPasswordInput.module.scss";
+import EyeIcon from "../../../../assets/icons/svgs/EyeIcon";
 
 const CustomPasswordInput = (props) => {
   const { setFieldValue } = useFormikContext();
@@ -29,11 +30,11 @@ const CustomPasswordInput = (props) => {
           : styles.inputWrapper
       }
     >
-      <label>{props.placeHolder}</label>
+      <label htmlFor={props.id ?? "input"}>{props.placeHolder}</label>
       <input
         id={props.id ?? "input"}
         name={props.name ?? "input"}
-        type={props.type ?? (showPassword ? "text" : "password")}
+        type={showPassword ? "text" : "password"}
         {...field}
         onChange={(e) => {
           handleInputChange(e);
@@ -48,6 +49,16 @@ const CustomPasswordInput = (props) => {
         disabled={props.disabled}
         className={meta.touched && meta.error ? styles.error : ""}
       />
+      <label
+        htmlFor={props.id ?? "input"}
+        className={styles.eyeIcond}
+        onClick={() => {
+          setShowPassword(!showPassword);
+          console.log("clicking");
+        }}
+      >
+        <EyeIcon size={20} color={"#a2a2a2"} />
+      </label>
     </div>
   );
 };

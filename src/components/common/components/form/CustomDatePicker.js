@@ -18,17 +18,25 @@ const CustomDatePicker = ({
 
   return (
     <div className={styles.customDatePickerWrapper}>
-      <div className={styles.datepicker}>
+      <div
+        className={
+          isBirthdaySelecting || selectedDate || defaultDate
+            ? [styles.datepicker, styles.datepickerFocus].join(" ")
+            : styles.datepicker
+        }
+      >
         <label
           className={
             isBirthdaySelecting || selectedDate || defaultDate
               ? [styles.placeholder, styles.onHoldPlaceHolder].join(" ")
               : styles.placeholder
           }
+          htmlFor={"birthday"}
         >
           {placeholder}
         </label>
         <DatePicker
+          id="birthday"
           selected={selectedDate ?? defaultDate}
           onChange={(date) => setSelectedDate(date)}
           dateFormat="dd/MM/yyyy"

@@ -251,7 +251,7 @@ const UserRegistrationForm = ({
                 )}
               >
                 <CustomInput
-                  placeHolder={"User Name"}
+                  placeHolder={"Username"}
                   id={"username"}
                   name={"username"}
                   disabled={false}
