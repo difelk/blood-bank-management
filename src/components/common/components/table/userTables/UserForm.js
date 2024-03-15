@@ -229,7 +229,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                 )}
               >
                 <CustomInput
-                  placeHolder={"User Name"}
+                  placeHolder={"Username"}
                   id={"user_name"}
                   name={"user_name"}
                   disabled={false}

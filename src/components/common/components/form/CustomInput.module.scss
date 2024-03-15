@@ -7,16 +7,20 @@
         top: 15px;
         left: 12px;
         font-size: 12px;
-        color: #d4cfcf;
+        color: #c0c0c0;
+        font-weight: 500;
         transition: all 500ms ease-in-out;
+        cursor: text;
 
     }
 
     input {
-        border: 2px solid #cfcfcf45;
+        border: 2px solid #aeadad45;
         border-radius: 4px;
         padding: 20px 16px 4px 12px;
-        font-size: 14px;
+        font-size: 12px;
+        color: #7f7f7f;
+        font-weight: 600;
         transition: all 500ms ease-in-out;
     }
 
@@ -28,9 +32,13 @@
         color: #a1a0a0;
     }
 
+    input {
+        border: 2px solid #5d5c5c45;
+    }
+
     input:focus {
         outline: none !important;
-        border-color: #ababab45;
+        border: 2px solid #5d5c5c45;
     }
 }
 

@@ -27,7 +27,7 @@ const CustomInput = (props) => {
           : styles.inputWrapper
       }
     >
-      <label>{props.placeHolder}</label>
+      <label htmlFor={props.id ?? "input"}>{props.placeHolder}</label>
       <input
         id={props.id ?? "input"}
         name={props.name ?? "input"}
