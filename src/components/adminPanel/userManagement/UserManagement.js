@@ -55,14 +55,18 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(data);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
 
   const getUsers = async () => {
+    setIsloading(true);
     try {
       const respond = await UserService.getAllUsers();
       setFilteredData(respond);
       setData(respond);
     } catch (e) {
       console.log("error - ", e);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -78,7 +82,7 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!filteredData.length) {
+        if (!filteredData || !filteredData.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
@@ -126,15 +130,14 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
     console.log("data - ", data);
     const filteredDataSet = data.filter(
       (value) =>
-      (value.nic && value.nic.toLocaleLowerCase().includes(searchValue)) ||
-      (value.firstName &&
-        value.firstName.toLocaleLowerCase().includes(searchValue)) ||
-      (value.lastName &&
-        value.lastName.toLocaleLowerCase().includes(searchValue)) ||
-      (value.role && value.role.toLocaleLowerCase().includes(searchValue)) ||
-      (value.organizationType &&
-        value.organizationType.toLocaleLowerCase().includes(searchValue))
-       
+        (value.nic && value.nic.toLocaleLowerCase().includes(searchValue)) ||
+        (value.firstName &&
+          value.firstName.toLocaleLowerCase().includes(searchValue)) ||
+        (value.lastName &&
+          value.lastName.toLocaleLowerCase().includes(searchValue)) ||
+        (value.role && value.role.toLocaleLowerCase().includes(searchValue)) ||
+        (value.organizationType &&
+          value.organizationType.toLocaleLowerCase().includes(searchValue))
     );
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
@@ -245,19 +248,23 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
                 // placeholder={""}
                 getOnChangeSearchValue={(value) => filterData(value)}
                 getOnClickedSearchValue={(value) => filterData(value)}
+                disabledSearch={!filteredData || isLoading}
               />
             }
           </div>
-          <div>
-            {" "}
-            {
-              <Filter
-                ref={resetFilters}
-                filterOptions={filterOptions}
-                getFilterOption={getFilterOption}
-              />
-            }
-          </div>
+          {filteredData && !isLoading ? (
+            <div>
+              {
+                <Filter
+                  ref={resetFilters}
+                  filterOptions={filterOptions}
+                  getFilterOption={getFilterOption}
+                />
+              }
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>

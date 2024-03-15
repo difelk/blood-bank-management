@@ -40,7 +40,7 @@ const SearchTableData = forwardRef(
           />
           <button
             onClick={sendBackSearchValueOnClick}
-            disabled={disabledButton}
+            disabled={disabledSearch}
           >
             Search
           </button>

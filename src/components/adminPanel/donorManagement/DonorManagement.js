@@ -28,39 +28,6 @@ const filterOptions = [
   { key: 4, value: "Sort By Blood Group" },
 ];
 
-const donorTableDataSet = [
-  {
-    nic: "123456789V",
-    firstName: "John",
-    lastName: "Doe",
-    bloodType: "A+",
-  },
-  {
-    nic: "987654321V",
-    firstName: "Jane",
-    lastName: "Smith",
-    bloodType: "B-",
-  },
-  {
-    nic: "456789123V",
-    firstName: "Alice",
-    lastName: "Johnson",
-    bloodType: "AB+",
-  },
-  {
-    nic: "654321987V",
-    firstName: "Bob",
-    lastName: "Brown",
-    bloodType: "O-",
-  },
-  {
-    nic: "789123456V",
-    firstName: "Sarah",
-    lastName: "Lee",
-    bloodType: "A-",
-  },
-];
-
 const tabs = [
   { key: 1, value: "Donor Details" },
   // { key: 2, value: "Stock Details" },
@@ -74,15 +41,19 @@ const DonorManagement = ({ selectedPage }) => {
   const [selectedDonor, setSelectedDonor] = useState({});
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(data);
+  const [isLoading, setIsloading] = useState(false);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   const getDonors = async () => {
+    setIsloading(true);
     try {
       const respond = await donorService.getAllDonors();
       setFilteredData(respond);
       setData(respond);
     } catch (e) {
       console.log("error - ", e);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -97,7 +68,7 @@ const DonorManagement = ({ selectedPage }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!filteredData.length) {
+        if (!filteredData || !filteredData.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
@@ -224,18 +195,22 @@ const DonorManagement = ({ selectedPage }) => {
                 // placeholder={""}
                 getOnChangeSearchValue={(value) => filterData(value)}
                 getOnClickedSearchValue={(value) => filterData(value)}
+                disabledSearch={!filteredData || isLoading}
               />
             }
           </div>
-          <div>
-            {" "}
-            {
-              <Filter
-                filterOptions={filterOptions}
-                getFilterOption={getFilterOption}
-              />
-            }
-          </div>
+          {filteredData && !isLoading ? (
+            <div>
+              {
+                <Filter
+                  filterOptions={filterOptions}
+                  getFilterOption={getFilterOption}
+                />
+              }
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
