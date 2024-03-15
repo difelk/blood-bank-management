@@ -13,6 +13,8 @@ const LoginForm = ({ ismodalOpen }) => {
   const [passwordError, setPasswordError] = useState("");
   const [isUsernameFocus, setIsUsernameFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [displayMsg, setDisplayMsg] = useState("");
   const { login } = useContext(GlobalContext);
 
   const handleUserName = (value) => {
@@ -34,18 +36,24 @@ const LoginForm = ({ ismodalOpen }) => {
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
+    setDisplayMsg("");
     try {
       const response = await AuthService.login({
         username: userName,
         password: password,
       });
-
+      console.log("response - ", response);
       if (response.token) {
         login(response.token);
         ismodalOpen(false);
+      } else {
+        setDisplayMsg(response.message);
       }
     } catch (error) {
       console.error("Login failed", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -111,13 +119,26 @@ const LoginForm = ({ ismodalOpen }) => {
           />
           <label className={styles.error}>{passwordError}</label>
         </div>
-        <button className={styles.forgetPassword}>
+        {displayMsg ? (
+          <div className={styles.loginError}>{displayMsg}</div>
+        ) : (
+          ""
+        )}
+        {/* <button className={styles.forgetPassword}>
           {" "}
           Forgot your password?
-        </button>
+        </button> */}
       </div>
 
-      <button className={styles.submitBtn} onClick={handleSubmit}>
+      <button
+        className={
+          isLoading
+            ? [styles.submitBtn, styles.btnDisabled].join(" ")
+            : styles.submitBtn
+        }
+        onClick={handleSubmit}
+        disabled={isLoading}
+      >
         Login
       </button>
     </div>
