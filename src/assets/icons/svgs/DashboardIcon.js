@@ -1,8 +1,8 @@
 import * as React from "react";
-const DashboardIcon = ({ size = "800px", color }) => (
+const DashboardIcon = ({ size, color }) => (
   <svg
-    width={size}
-    height={size}
+    width={size ?? "800px"}
+    height={size ?? "800px"}
     viewBox="0 0 24 24"
     id="meteor-icon-kit__regular-dashboard"
     fill="none"

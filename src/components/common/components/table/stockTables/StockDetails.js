@@ -104,10 +104,11 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
-        {tableHeader.map((header) => (
+        {tableHeader.map((header, index) => (
           <div
             className={styles.tableHeaderItem}
             style={{ width: header.width }}
+            key={index}
           >
             <p>{header.name}</p>
           </div>
@@ -138,6 +139,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     styles.groupdataItem,
                     getStatusColor(item.stock[bloodGroup]),
                   ].join(" ")}
+                  key={subIndex}
                 >
                   {getBloodType(bloodGroup)} {item.stock[bloodGroup]}
                 </p>

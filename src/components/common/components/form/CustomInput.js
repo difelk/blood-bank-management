@@ -45,6 +45,7 @@ const CustomInput = (props) => {
         value={field.value ?? ""}
         disabled={props.disabled}
         className={meta.touched && meta.error ? styles.error : ""}
+        autoComplete={props.name.includes("Username") ? "username" : ""}
       />
     </div>
   );

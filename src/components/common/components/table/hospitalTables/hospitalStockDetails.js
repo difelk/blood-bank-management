@@ -141,6 +141,7 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                     styles.groupdataItem,
                     getStatusColor(item.stock[bloodGroup]),
                   ].join(" ")}
+                  key={subIndex}
                 >
                   {getBloodType(bloodGroup)} {item.stock[bloodGroup]}
                 </p>

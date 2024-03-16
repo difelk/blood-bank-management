@@ -52,6 +52,7 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
         </label>
         <input
           id={name}
+          type="input"
           onFocus={() => {
             setIsDropdownVisible(true);
             setDropdownBlur(false);

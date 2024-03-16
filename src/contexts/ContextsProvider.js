@@ -22,7 +22,6 @@ const ContextProvider = ({ children }) => {
     const decodedToken = jwtDecode(token);
     setLoggedInUser(decodedToken);
     setToken(token);
-    console.log(token);
   };
 
   const logout = () => {

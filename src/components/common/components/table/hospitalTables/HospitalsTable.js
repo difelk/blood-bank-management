@@ -102,6 +102,7 @@ const HospitalsTable = ({ tableHeader, dataset, actions }) => {
                     styles.groupdataItem,
                     getStatusColor(item.stock[bloodGroup]),
                   ].join(" ")}
+                  key={subIndex}
                 >
                   {getBloodType(bloodGroup)} {item.stock[bloodGroup]}
                 </p>
@@ -144,7 +145,7 @@ const HospitalsTable = ({ tableHeader, dataset, actions }) => {
             <div className={styles.hospitalBasicData}>
               {Object.keys(selectedHospital.stock).map(
                 (bloodGroup, subIndex) => (
-                  <div className={styles.dflexRow}>
+                  <div className={styles.dflexRow} key={subIndex}>
                     <p>Blood Group {getBloodType(bloodGroup)}</p>
                     <p>{selectedHospital.stock[bloodGroup]}</p>
                   </div>

@@ -256,7 +256,7 @@ const SideBar = ({ setCurrentPage }) => {
           <CustomButton
             buttonType={BUTTONTYPES.SQUAREICON}
             buttonText={""}
-            iconsLeft={<HomeIcon size={25} color={"#4A49B9"} />}
+            iconsLeft={<HomeIcon size={30} color={"#4A49B9"} />}
             iconsRight={""}
             isDisabled={false}
             active={activeTab === TAB.SETTINGS ? true : false}
