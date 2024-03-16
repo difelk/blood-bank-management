@@ -155,7 +155,6 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     setLoading(true);
     try {
       const response = await UserService.updateUser(data);
-      console.log("response - ", response);
       setAlertMsg({
         type: "SUCCESS",
         message: "User Update Successful",

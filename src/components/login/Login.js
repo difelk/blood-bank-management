@@ -43,7 +43,6 @@ const LoginForm = ({ ismodalOpen }) => {
         username: userName,
         password: password,
       });
-      console.log("response - ", response);
       if (response.token) {
         login(response.token);
         ismodalOpen(false);

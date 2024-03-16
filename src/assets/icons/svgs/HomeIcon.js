@@ -1,9 +1,9 @@
 import * as React from "react";
-const HomeIcon = (size, color) => (
+const HomeIcon = ({ size, color }) => (
   <svg
     fill={color ?? "#000000"}
-    width={size ?? "800px"}
-    height={size ?? "800px"}
+    // width={size ?? "800px"}
+    // height={size ?? "800px"}
     viewBox="-2 -2 24 24"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMinYMin"

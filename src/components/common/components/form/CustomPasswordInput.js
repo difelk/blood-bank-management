@@ -48,6 +48,7 @@ const CustomPasswordInput = (props) => {
         value={field.value ?? ""}
         disabled={props.disabled}
         className={meta.touched && meta.error ? styles.error : ""}
+        autoComplete="new-password"
       />
       <label
         htmlFor={props.id ?? "input"}

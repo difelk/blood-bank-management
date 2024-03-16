@@ -4,10 +4,9 @@ import apiUtils from "../apiUtils";
 const AuthService = {
   login: async (data) => {
     try {
-      console.log("login try");
       return await apiUtils.post("/login", data, SERVICETYPE.USER);
     } catch (e) {
-      console.log("login catch");
+      console.log("login catch: ", e);
       return { message: e };
     }
   },
