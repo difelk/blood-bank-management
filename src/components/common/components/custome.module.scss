@@ -265,7 +265,9 @@
 }
 
 .linkBtn {
-    border: none;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     background-color: transparent;
     color: #3353F5;
 

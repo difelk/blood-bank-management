@@ -9,7 +9,11 @@ const BASE_URLS = {
 };
 
 const getToken = () => {
-  return sessionStorage.getItem("token");
+  try {
+    return sessionStorage.getItem("token");
+  } catch (error) {
+    console.error(`error in get get Token- `, error);
+  }
 };
 
 const apiUtils = {

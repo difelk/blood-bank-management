@@ -12,7 +12,11 @@ const AuthService = {
   },
 
   registration: async (data) => {
-    return await apiUtils.post(`/register`, data, SERVICETYPE.USER);
+    try {
+      return await apiUtils.post(`/register`, data, SERVICETYPE.USER);
+    } catch (e) {
+      return e;
+    }
   },
 };
 

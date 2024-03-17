@@ -14,6 +14,8 @@ import CustomPasswordInput from "../../form/CustomPasswordInput";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
 import UserService from "../../../../../api/services/userService";
 import AlertBox from "../../../../../share/Alerts/AlertBox";
+import CustomModal from "../../modal/CustomModal";
+import PasswordReset from "../../form/passwordReset/PasswordReset";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -45,6 +47,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
   const initialValues = {
     username: user.username,
@@ -172,6 +175,10 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
       setLoading(false);
       formChanged();
     }
+  };
+
+  const handleResetPasswordModal = (userData) => {
+    setIsResetModalOpen(true);
   };
 
   return (
@@ -418,50 +425,6 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
 
             <div className={formStyles.inputWrapper}>
               <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomPasswordInput
-                  placeHolder={"Reset Password"}
-                  id={"temp_pw"}
-                  name={"temp_pw"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("temp_pw", value);
-                  }}
-                  default={values.temp_pw ?? ""}
-                  error={errors.temp_pw}
-                  type={"password"}
-                  touched={(value) => setFieldTouched("temp_pw", value)}
-                />
-                <span>{touched.temp_pw ? errors.temp_pw : ""}</span>
-              </div>
-
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomPasswordInput
-                  placeHolder={"Confirm Reset Password"}
-                  id={"password"}
-                  name={"password"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("password", value);
-                  }}
-                  default={values.password ?? ""}
-                  error={errors.password}
-                  type={"password"}
-                  touched={(value) => setFieldTouched("password", value)}
-                />
-                <span>{touched.password ? errors.password : ""}</span>
-              </div>
-            </div>
-
-            <div className={formStyles.inputWrapper}>
-              <div
                 className={
                   !values.organization
                     ? [formStyles.groupInputs, formStyles.input50].join(" ")
@@ -541,6 +504,62 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
               )}
             </div>
 
+            <div className={formStyles.inputWrapper}>
+              {isCreateUser ? (
+                <>
+                  {" "}
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomPasswordInput
+                      placeHolder={"Reset Password"}
+                      id={"temp_pw"}
+                      name={"temp_pw"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("temp_pw", value);
+                      }}
+                      default={values.temp_pw ?? ""}
+                      error={errors.temp_pw}
+                      type={"password"}
+                      touched={(value) => setFieldTouched("temp_pw", value)}
+                    />
+                    <span>{touched.temp_pw ? errors.temp_pw : ""}</span>
+                  </div>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomPasswordInput
+                      placeHolder={"Confirm Reset Password"}
+                      id={"password"}
+                      name={"password"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("password", value);
+                      }}
+                      default={values.password ?? ""}
+                      error={errors.password}
+                      type={"password"}
+                      touched={(value) => setFieldTouched("password", value)}
+                    />
+                    <span>{touched.password ? errors.password : ""}</span>
+                  </div>{" "}
+                </>
+              ) : (
+                <CustomButton
+                  buttonType={"LINK"}
+                  buttonText={"Reset Password ?"}
+                  onClick={() => handleResetPasswordModal(user)}
+                />
+              )}
+            </div>
+
             <div
               className={[
                 formStyles.submitBtnWrapper,
@@ -584,6 +603,16 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
           </Form>
         )}
       </Formik>
+
+      {isResetModalOpen ? (
+        <CustomModal open={setIsResetModalOpen} title={`Reset Password`}>
+          <div className={styles.hospitalData}>
+            <PasswordReset user={user} />
+          </div>
+        </CustomModal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
