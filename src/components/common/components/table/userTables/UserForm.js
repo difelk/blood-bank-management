@@ -63,7 +63,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     role: user.role ?? "",
     temp_pw: user.temp_pw ?? "",
     // confirm_temp_pw: user.confirm_temp_pw ?? "",
-    password: "",
+    password: user.password,
     recovery_email: user.recovery_email ?? "",
     organization: user.organization ?? "",
     organizationType: user.organizationType ?? "",

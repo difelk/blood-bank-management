@@ -6,14 +6,15 @@ import CustomPasswordInput from "../CustomPasswordInput";
 import { Form, Formik } from "formik";
 import AlertBox from "../../../../../share/Alerts/AlertBox";
 import CustomButton from "../../customButton";
+import UserService from "../../../../../api/services/userService";
 
-const PasswordReset = (user) => {
+const PasswordReset = (data) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
-    nic: user.nic ?? "",
-    temp_pw: user.temp_pw ?? "",
+    nic: data.user.nic ?? "",
+    temp_pw: data.user.temp_pw ?? "",
     password: "",
   };
 
@@ -42,27 +43,33 @@ const PasswordReset = (user) => {
   };
 
   const handleSubmit = async (values) => {
-    let data = values;
-    if (!values.password) {
-      data = { ...data, password: user.password };
-    }
-    if (values.organizationType === "Blood Bank") {
-      data = { ...data, organization: "" };
-    }
     setLoading(true);
+    let response;
     try {
-      //   const response = await UserService.updateUser(data);
-      setAlertMsg({
-        type: "SUCCESS",
-        message: "User Update Successful",
-        display: true,
+      console.log("values - ", values);
+      response = await UserService.resetPassword({
+        nic: data.user.nic,
+        newPassword: values.password,
       });
+      if (response.status === 200) {
+        setAlertMsg({
+          type: "SUCCESS",
+          message: response.message,
+          display: true,
+        });
+      } else {
+        setAlertMsg({
+          type: "ERROR",
+          message: response.message,
+          display: true,
+        });
+      }
     } catch (e) {
       console.log("registration failed with : ", e);
       setAlertMsg("User Registration Failed");
       setAlertMsg({
         type: "ERROR",
-        message: "User Registration Failed",
+        message: response.message,
         display: true,
       });
     } finally {

@@ -23,6 +23,14 @@ const UserService = {
       console.log("error in delete user : ", e);
     }
   },
+
+  resetPassword: async (data) => {
+    try {
+      return await apiUtils.put(`/api/users/password`, data, SERVICETYPE.USER);
+    } catch (e) {
+      console.log("error in delete user : ", e);
+    }
+  },
 };
 
 export default UserService;
