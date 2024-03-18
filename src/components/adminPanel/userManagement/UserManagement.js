@@ -33,11 +33,11 @@ const filterOptions = [
 ];
 
 const userActivityTableHeader = [
-  { name: "NIC", width: "25%" },
-  { name: "UserName", width: "25%" },
-  { name: "UserRole", width: "25%" },
-  { name: "Organization", width: "25%" },
-  { name: "Actions", width: "25%" },
+  { name: "NIC", width: "20%" },
+  { name: "UserName", width: "20%" },
+  { name: "UserRole", width: "20%" },
+  { name: "Organization", width: "20%" },
+  { name: "Actions", width: "20%" },
 ];
 const userActivityTableDataSet = [];
 
