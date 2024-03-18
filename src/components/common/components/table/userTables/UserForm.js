@@ -61,7 +61,6 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     city: user.city ?? "",
     birthday: user.birthday ?? "",
     role: user.role ?? "",
-    user_name: user.username ?? "",
     temp_pw: user.temp_pw ?? "",
     // confirm_temp_pw: user.confirm_temp_pw ?? "",
     password: "",
@@ -99,6 +98,15 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
           errors.nic = "Invalid NIC";
         }
       }
+    }
+    if (!values.username) {
+      errors.username = "Username is required";
+    } else if (values.username.includes(" ")) {
+      errors.username = "Username cannot contain spaces";
+    } else if (values.username.length < 3) {
+      errors.username = "Username must be at least 3 characters long";
+    } else if (values.username.length > 12) {
+      errors.username = "Username must be at most 12 characters long";
     }
 
     if (!values.addressNo) {
@@ -234,18 +242,18 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
               >
                 <CustomInput
                   placeHolder={"Username"}
-                  id={"user_name"}
-                  name={"user_name"}
+                  id={"username"}
+                  name={"username"}
                   disabled={false}
                   getValue={(value) => {
-                    setFieldValue("user_name", value);
+                    setFieldValue("username", value);
                   }}
-                  default={values.user_name ?? ""}
-                  error={errors.user_name}
+                  default={values.username ?? ""}
+                  error={errors.username}
                   type={"text"}
-                  touched={(value) => setFieldTouched("user_name", value)}
+                  touched={(value) => setFieldTouched("username", value)}
                 />
-                <span>{touched.user_name ? errors.user_name : ""}</span>
+                <span>{touched.username ? errors.username : ""}</span>
               </div>
             </div>
 

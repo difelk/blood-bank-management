@@ -67,7 +67,6 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
             setDropdownBlur(true);
           }}
           value={searchValue}
-          defaultValue={defaultValue ?? ""}
         />
         <label className={styles.dropdownArrow} htmlFor={name ?? "input"}>
           <ArrowIcon size={12} color={"#909090"} />
