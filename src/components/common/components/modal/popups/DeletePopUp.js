@@ -10,12 +10,14 @@ const DeletePopUp = ({ popupMessage, subMessage, isActionProceed }) => {
       </span>
       <div className={styles.confirmationBtnsWrapper}>
         <button
+          type="button"
           className={styles.btnTypeNo}
           onClick={() => isActionProceed(false)}
         >
           No
         </button>
         <button
+          type="button"
           className={styles.btnTypeYes}
           onClick={() => isActionProceed(true)}
         >

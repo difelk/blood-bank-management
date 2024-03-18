@@ -12,6 +12,7 @@ import donorService from "../../../../../api/services/donorService";
 import style from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
 import AlertBox from "../../../../../share/Alerts/AlertBox";
 import modalStyle from "../../../components/modal/CustomModal.module.scss";
+import donationHistoryService from "../../../../../api/services/donationHistoryServic";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -38,6 +39,7 @@ const DonorForm = ({
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isDonated, setIsDonated] = useState(false);
 
   const handleRemoveClick = (value) => {
     setshowConfirmation(false);
@@ -85,6 +87,7 @@ const DonorForm = ({
     weight: donor.weight ?? "",
     unit: donor.unit ?? "",
     emergencyContactNo: donor.emergencyContactNo ?? "",
+    donated: donor.donated ?? false,
   };
 
   const validation = (values) => {
@@ -142,16 +145,43 @@ const DonorForm = ({
   };
 
   const handleSubmit = async (values) => {
+    let donationData;
     if (isCreateDonor) {
       setLoading(true);
       try {
         const donorData = await donorService.createDonor(values);
+        console.log("values.donated - ", values.donated);
         if (donorData.status === 200) {
           setAlertMsg({
             type: "SUCCESS",
             message: donorData.statusMsg,
             display: true,
           });
+          if (values.donated) {
+            donationData = await donationHistoryService.createDonation({donorNic: values.donorNic, donationDate: new Date().toISOString(), quantity: 1});
+            if (donationData.status === 200) {
+              // donationData.quantity = 1;
+              console.log("donationData - ", donationData);
+  
+              setAlertMsg({
+                type: "SUCCESS",
+                message: donationData.statusMsg,
+                display: true,
+              });
+            } else {
+              setAlertMsg({
+                type: "ERROR",
+                message: donationData.statusMsg,
+                display: true,
+              });
+            }
+          } else {
+            setAlertMsg({
+              type: "ERROR",
+              message: donationData.statusMsg,
+              display: true,
+            });
+          }
         } else {
           setAlertMsg({
             type: "ERROR",
@@ -167,7 +197,6 @@ const DonorForm = ({
       }
     } else {
       // UPDATE DONOR
-      // NOTE: set birthday again. if not failing
       setLoading(true);
       try {
         const updatedDonor = await donorService.updateDonor(values);
@@ -428,7 +457,28 @@ const DonorForm = ({
                 <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
-
+            {/* {JSON.stringify(values.donated)} */}
+            {isCreateDonor ? (
+              <div className={formStyles.inputWrapper}>
+                <div
+                  className={[formStyles.groupInputs, formStyles.input50].join(
+                    " "
+                  )}
+                >
+                  <div className={styles.checkboxWrapper}>
+                    <input
+                      type="checkbox"
+                      id="donated"
+                      checked={values.donated}
+                      onChange={(e) =>
+                        setFieldValue("donated", e.target.checked)
+                      }
+                    />
+                    <label className={styles.checkboxLabel}>Donated</label>
+                  </div>
+                </div>
+              </div>
+            ) : null}
             <div
               className={[
                 formStyles.submitBtnWrapper,

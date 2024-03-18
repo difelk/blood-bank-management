@@ -128,3 +128,18 @@
         }
     }
 }
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    
+    input{
+        width: auto;
+        margin-right: 12px;
+    }
+  }
+  
+  .checkboxLabel {
+    font-size: 12px; 
+  }
+  
