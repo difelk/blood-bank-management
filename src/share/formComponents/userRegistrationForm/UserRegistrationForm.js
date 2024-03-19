@@ -10,6 +10,7 @@ import CustomDatePicker from "../../../components/common/components/form/CustomD
 import CustomPasswordInput from "../../../components/common/components/form/CustomPasswordInput";
 import AuthService from "../../../api/services/authService";
 import AlertBox from "../../Alerts/AlertBox";
+import UserService from "../../../api/services/userService";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -47,6 +48,9 @@ const UserRegistrationForm = ({
   const [error, setError] = useState("");
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isUsernameAlreadyExisting, setIsUsernameAlreadyExisting] =
+    useState(false);
+  const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
   const initialValues = {
     nic: "",
     firstName: "",
@@ -199,6 +203,38 @@ const UserRegistrationForm = ({
     }
   };
 
+  const handleUsernameValidation = async (value) => {
+    try {
+      if (value) {
+        const response = await UserService.getUserByUsername(value);
+
+        if (Object.keys(response).length > 0) {
+          setIsUsernameAlreadyExisting(true);
+        } else {
+          setIsUsernameAlreadyExisting(false);
+        }
+      }
+    } catch (e) {
+      console.log("response of user by username error");
+    }
+  };
+
+  const handleNICValidation = async (value) => {
+    try {
+      if (value) {
+        const response = await UserService.getUserByNic(value);
+
+        if (Object.keys(response).length > 0) {
+          setIsNICAlreadyExisting(true);
+        } else {
+          setIsNICAlreadyExisting(false);
+        }
+      }
+    } catch (e) {
+      console.log("response of user by username error");
+    }
+  };
+
   return (
     <div className={formStyles.basicDataFormWrapper}>
       <div className={modalStyle.alertBoxWrapper}>
@@ -241,8 +277,14 @@ const UserRegistrationForm = ({
                   error={errors.nic}
                   type={"text"}
                   touched={(value) => setFieldTouched("nic", value)}
+                  inputValueChnaged={(value) => handleNICValidation(value)}
                 />
                 <span>{touched.nic ? errors.nic : ""}</span>
+                <span>
+                  {!errors.nic && isNICAlreadyExisting
+                    ? "NIC already exists"
+                    : ""}
+                </span>
               </div>
 
               <div
@@ -262,8 +304,14 @@ const UserRegistrationForm = ({
                   error={errors.username}
                   type={"text"}
                   touched={(value) => setFieldTouched("username", value)}
+                  inputValueChnaged={(value) => handleUsernameValidation(value)}
                 />
                 <span>{touched.username ? errors.username : ""}</span>
+                <span>
+                  {!errors.username && isUsernameAlreadyExisting
+                    ? "Username already exists"
+                    : ""}
+                </span>
               </div>
             </div>
 
@@ -574,7 +622,12 @@ const UserRegistrationForm = ({
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={Object.keys(errors).length !== 0 || loading}
+                isDisabled={
+                  Object.keys(errors).length !== 0 ||
+                  loading ||
+                  isUsernameAlreadyExisting ||
+                  isNICAlreadyExisting
+                }
                 active={true}
                 onClick={() => handleSubmit(values)}
               />

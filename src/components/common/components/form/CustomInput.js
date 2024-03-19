@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./CustomInput.module.scss";
 
-const CustomInput = ({ name, id, placeHolder, type, touched, disabled }) => {
+const CustomInput = ({
+  name,
+  id,
+  placeHolder,
+  type,
+  touched,
+  disabled,
+  inputValueChnaged,
+}) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
   const [inputFocus, setInputFocus] = useState(false);
@@ -10,6 +18,7 @@ const CustomInput = ({ name, id, placeHolder, type, touched, disabled }) => {
 
   const handleInputChange = (e) => {
     setFieldValue(name, e.target.value);
+
     // field.onChange(e);
   };
 
@@ -40,6 +49,7 @@ const CustomInput = ({ name, id, placeHolder, type, touched, disabled }) => {
         onChange={(e) => {
           handleInputChange(e);
           setInputValue(e.target.value);
+          inputValueChnaged && inputValueChnaged(e.target.value);
         }}
         onFocus={() => {
           setInputFocus(true);
