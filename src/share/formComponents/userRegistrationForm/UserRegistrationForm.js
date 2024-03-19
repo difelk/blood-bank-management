@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../userRegistrationForm/UserRegistrationForm.module.scss";
 import modalStyle from "../../../components/common/components/modal/CustomModal.module.scss";
 import formStyles from "../../../components/common/components/form/CustomForm.module.scss";
@@ -11,6 +11,7 @@ import CustomPasswordInput from "../../../components/common/components/form/Cust
 import AuthService from "../../../api/services/authService";
 import AlertBox from "../../Alerts/AlertBox";
 import UserService from "../../../api/services/userService";
+import ContentLoader from "react-content-loader";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -235,132 +236,168 @@ const UserRegistrationForm = ({
     }
   };
 
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <div className={formStyles.basicDataFormWrapper}>
-      <div className={modalStyle.alertBoxWrapper}>
-        <AlertBox
-          type={alertMsg.type}
-          message={alertMsg.message}
-          display={alertMsg.display}
-        />
-      </div>
-      <Formik
-        initialValues={initialValues}
-        validate={validation}
-        onSubmit={handleSubmit}
-        validateOnBlur
-      >
-        {({
-          isSubmitting,
-          values,
-          errors,
-          touched,
-          setFieldValue,
-          setFieldTouched,
-        }) => (
-          <Form>
-            <div className={formStyles.inputWrapper}>
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"User NIC"}
-                  id={"nic"}
-                  name={"nic"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("nic", value);
-                  }}
-                  default={values.nic ?? ""}
-                  error={errors.nic}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("nic", value)}
-                  inputValueChnaged={(value) => handleNICValidation(value)}
-                />
-                <span>{touched.nic ? errors.nic : ""}</span>
-                <span>
-                  {!errors.nic && isNICAlreadyExisting
-                    ? "NIC already exists"
-                    : ""}
-                </span>
-              </div>
+      {loading ? (
+        <ContentLoader viewBox="0 0 500 550">
+          <rect x="0" y="40" rx="4" ry="4" width="240" height="60" />
+          <rect x="260" y="40" rx="4" ry="4" width="240" height="60" />
+          <rect x="0" y="130" rx="4" ry="4" width="240" height="60" />
+          <rect x="260" y="130" rx="4" ry="4" width="240" height="60" />
 
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Username"}
-                  id={"username"}
-                  name={"username"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("username", value);
-                  }}
-                  default={values.username ?? ""}
-                  error={errors.username}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("username", value)}
-                  inputValueChnaged={(value) => handleUsernameValidation(value)}
-                />
-                <span>{touched.username ? errors.username : ""}</span>
-                <span>
-                  {!errors.username && isUsernameAlreadyExisting
-                    ? "Username already exists"
-                    : ""}
-                </span>
-              </div>
-            </div>
+          <rect x="0" y="220" rx="4" ry="4" width="160" height="60" />
+          <rect x="170" y="220" rx="4" ry="4" width="160" height="60" />
+          <rect x="340" y="220" rx="4" ry="4" width="160" height="60" />
 
-            <div className={formStyles.inputWrapper}>
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"First Name"}
-                  id={"firstName"}
-                  name={"firstName"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("firstName", value);
-                  }}
-                  default={values.firstName ?? ""}
-                  error={errors.firstName}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("firstName", value)}
-                />
-                <span>{touched.firstName ? errors.firstName : ""}</span>
-              </div>
+          <rect x="0" y="310" rx="4" ry="4" width="160" height="60" />
+          <rect x="170" y="310" rx="4" ry="4" width="160" height="60" />
+          <rect x="340" y="310" rx="4" ry="4" width="160" height="60" />
 
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Last Name"}
-                  id={"lastName"}
-                  name={"lastName"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("lastName", value);
-                  }}
-                  default={values.lastName ?? ""}
-                  error={errors.lastName}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("lastName", value)}
-                />
-                <span>{touched.lastName ? errors.lastName : ""}</span>
-              </div>
-            </div>
+          <rect x="0" y="400" rx="4" ry="4" width="240" height="60" />
+          <rect x="260" y="400" rx="4" ry="4" width="240" height="60" />
 
-            <div className={styles.inputWrapper}>
-              {/* <div
+          <rect x="0" y="490" rx="4" ry="4" width="240" height="60" />
+          <rect x="260" y="490" rx="4" ry="4" width="240" height="60" />
+        </ContentLoader>
+      ) : (
+        <>
+          <div className={modalStyle.alertBoxWrapper}>
+            <AlertBox
+              type={alertMsg.type}
+              message={alertMsg.message}
+              display={alertMsg.display}
+            />
+          </div>
+          <Formik
+            initialValues={initialValues}
+            validate={validation}
+            onSubmit={handleSubmit}
+            validateOnBlur
+          >
+            {({
+              isSubmitting,
+              values,
+              errors,
+              touched,
+              setFieldValue,
+              setFieldTouched,
+            }) => (
+              <Form>
+                <div className={formStyles.inputWrapper}>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"User NIC"}
+                      id={"nic"}
+                      name={"nic"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("nic", value);
+                      }}
+                      default={values.nic ?? ""}
+                      error={errors.nic}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("nic", value)}
+                      inputValueChnaged={(value) => handleNICValidation(value)}
+                    />
+                    <span>{touched.nic ? errors.nic : ""}</span>
+                    <span>
+                      {!errors.nic && isNICAlreadyExisting
+                        ? "NIC already exists"
+                        : ""}
+                    </span>
+                  </div>
+
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"Username"}
+                      id={"username"}
+                      name={"username"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("username", value);
+                      }}
+                      default={values.username ?? ""}
+                      error={errors.username}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("username", value)}
+                      inputValueChnaged={(value) =>
+                        handleUsernameValidation(value)
+                      }
+                    />
+                    <span>{touched.username ? errors.username : ""}</span>
+                    <span>
+                      {!errors.username && isUsernameAlreadyExisting
+                        ? "Username already exists"
+                        : ""}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={formStyles.inputWrapper}>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"First Name"}
+                      id={"firstName"}
+                      name={"firstName"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("firstName", value);
+                      }}
+                      default={values.firstName ?? ""}
+                      error={errors.firstName}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("firstName", value)}
+                    />
+                    <span>{touched.firstName ? errors.firstName : ""}</span>
+                  </div>
+
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"Last Name"}
+                      id={"lastName"}
+                      name={"lastName"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("lastName", value);
+                      }}
+                      default={values.lastName ?? ""}
+                      error={errors.lastName}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("lastName", value)}
+                    />
+                    <span>{touched.lastName ? errors.lastName : ""}</span>
+                  </div>
+                </div>
+
+                <div className={styles.inputWrapper}>
+                  {/* <div
                 className={[
                   formStyles.d_flex,
                   formStyles.align_items_center,
@@ -368,290 +405,304 @@ const UserRegistrationForm = ({
                   formStyles.mtb_5,
                 ].join(" ")}
               > */}
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <div className={styles.dateDiv}>
-                  <CustomDropdown
-                    dataset={userTypes}
-                    placeHolder={"Select User Type"}
-                    id={"role"}
-                    name={"role"}
-                    disabled={false}
-                    defaultValue={initialValues.role}
-                    getValue={(value) => {
-                      setFieldValue("role", value);
-                    }}
-                    touched={(value) => setFieldTouched("role", value)}
-                  />
-                  <span>{touched.role ? errors.role : ""}</span>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input30,
+                    ].join(" ")}
+                  >
+                    <div className={styles.dateDiv}>
+                      <CustomDropdown
+                        dataset={userTypes}
+                        placeHolder={"Select User Type"}
+                        id={"role"}
+                        name={"role"}
+                        disabled={false}
+                        defaultValue={initialValues.role}
+                        getValue={(value) => {
+                          setFieldValue("role", value);
+                        }}
+                        touched={(value) => setFieldTouched("role", value)}
+                      />
+                      <span>{touched.role ? errors.role : ""}</span>
+                    </div>
+                  </div>
+
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input30,
+                    ].join(" ")}
+                  >
+                    <div className={styles.dateDiv}>
+                      <CustomDropdown
+                        dataset={bloodTypes}
+                        placeHolder={"Select Blood Type"}
+                        id={"bloodType"}
+                        name={"bloodType"}
+                        disabled={false}
+                        defaultValue={initialValues.bloodType}
+                        getValue={(value) => {
+                          setFieldValue("bloodType", value);
+                        }}
+                        touched={(value) => setFieldTouched("bloodType", value)}
+                      />
+                      <span>{touched.bloodType ? errors.bloodType : ""}</span>
+                    </div>
+                  </div>
+                  <div
+                    className={[styles.groupInputs, styles.input30].join(" ")}
+                  >
+                    <div className={styles.dateDiv}>
+                      <CustomDatePicker
+                        placeholder={"Birthday"}
+                        onDateChange={(date) => {
+                          setFieldValue("birthday", date);
+                        }}
+                        touched={(value) => setFieldTouched("birthday", value)}
+                      />
+                      <span>{touched.birthday ? errors.birthday : ""}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <div className={styles.dateDiv}>
-                  <CustomDropdown
-                    dataset={bloodTypes}
-                    placeHolder={"Select Blood Type"}
-                    id={"bloodType"}
-                    name={"bloodType"}
-                    disabled={false}
-                    defaultValue={initialValues.bloodType}
-                    getValue={(value) => {
-                      setFieldValue("bloodType", value);
-                    }}
-                    touched={(value) => setFieldTouched("bloodType", value)}
-                  />
-                  <span>{touched.bloodType ? errors.bloodType : ""}</span>
-                </div>
-              </div>
-              <div className={[styles.groupInputs, styles.input30].join(" ")}>
-                <div className={styles.dateDiv}>
-                  <CustomDatePicker
-                    placeholder={"Birthday"}
-                    onDateChange={(date) => {
-                      setFieldValue("birthday", date);
-                    }}
-                    touched={(value) => setFieldTouched("birthday", value)}
-                  />
-                  <span>{touched.birthday ? errors.birthday : ""}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className={formStyles.inputWrapper}>
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Street No"}
-                  id={"addressNo"}
-                  name={"addressNo"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("addressNo", value);
-                  }}
-                  default={values.addressNo ?? ""}
-                  error={errors.addressNo}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("addressNo", value)}
-                />
-                <span>{touched.addressNo ? errors.addressNo : ""}</span>
-              </div>
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"Street"}
-                  id={"street"}
-                  name={"street"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("street", value);
-                  }}
-                  default={values.street ?? ""}
-                  error={errors.street}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("street", value)}
-                />
-                <span>{touched.street ? errors.street : ""}</span>
-              </div>
-              <div
-                className={[formStyles.groupInputs, formStyles.input30].join(
-                  " "
-                )}
-              >
-                <CustomInput
-                  placeHolder={"City"}
-                  id={"city"}
-                  name={"city"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("city", value);
-                  }}
-                  default={values.city ?? ""}
-                  error={errors.city}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("city", value)}
-                />
-                <span>{touched.city ? errors.city : ""}</span>
-              </div>
-            </div>
-
-            <div className={formStyles.inputWrapper}>
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomPasswordInput
-                  placeHolder={"Temporary Password"}
-                  id={"temp_pw"}
-                  name={"temp_pw"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("temp_pw", value);
-                  }}
-                  default={values.temp_pw ?? ""}
-                  error={errors.temp_pw}
-                  type={"password"}
-                  touched={(value) => setFieldTouched("temp_pw", value)}
-                />
-                <span>{touched.temp_pw ? errors.temp_pw : ""}</span>
-              </div>
-
-              <div
-                className={[formStyles.groupInputs, formStyles.input50].join(
-                  " "
-                )}
-              >
-                <CustomPasswordInput
-                  placeHolder={"Confirm Temporary Password"}
-                  id={"confirm_temp_pw"}
-                  name={"password"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("password", value);
-                  }}
-                  default={values.password ?? ""}
-                  error={errors.password}
-                  type={"password"}
-                  touched={(value) => setFieldTouched("password", value)}
-                />
-                <span>{touched.password ? errors.password : ""}</span>
-              </div>
-            </div>
-
-            <div className={formStyles.inputWrapper}>
-              <div
-                className={
-                  !values.organization
-                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
-                    : [formStyles.groupInputs, formStyles.input30].join(" ")
-                }
-              >
-                <CustomInput
-                  placeHolder={"Contact No"}
-                  id={"contactNo"}
-                  name={"contactNo"}
-                  disabled={false}
-                  getValue={(value) => {
-                    setFieldValue("contactNo", value);
-                  }}
-                  default={values.contactNo ?? ""}
-                  error={errors.contactNo}
-                  type={"text"}
-                  touched={(value) => setFieldTouched("contactNo", value)}
-                />
-                <span>{touched.contactNo ? errors.contactNo : ""}</span>
-              </div>
-              <div
-                className={
-                  !values.organization
-                    ? [formStyles.groupInputs, formStyles.input50].join(" ")
-                    : [formStyles.groupInputs, formStyles.input30].join(" ")
-                }
-              >
-                <div className={styles.dateDiv}>
-                  <CustomDropdown
-                    dataset={organizationTypes}
-                    placeHolder={"Select Organization type"}
-                    id={"organizationType"}
-                    name={"organizationType"}
-                    disabled={false}
-                    defaultValue={initialValues.organization}
-                    getValue={(value) => {
-                      setFieldValue("organizationType", value);
-                    }}
-                    touched={(value) =>
-                      setFieldTouched("organizationType", value)
-                    }
-                  />
-                </div>
-                <span>{touched.organization ? errors.organization : ""}</span>
-              </div>
-
-              {values.organizationType &&
-              values.organizationType !== "Blood Bank" ? (
-                <div
-                  className={[formStyles.groupInputs, formStyles.input30].join(
-                    " "
-                  )}
-                >
-                  <div className={styles.dateDiv}>
-                    <CustomDropdown
-                      dataset={hospitalType}
-                      placeHolder={"Select Organization"}
-                      id={"organization"}
-                      name={"organization"}
+                <div className={formStyles.inputWrapper}>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input30,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"Street No"}
+                      id={"addressNo"}
+                      name={"addressNo"}
                       disabled={false}
-                      defaultValue={initialValues.organization}
                       getValue={(value) => {
-                        setFieldValue("organization", value);
+                        setFieldValue("addressNo", value);
                       }}
-                      touched={(value) =>
-                        setFieldTouched("organization", value)
-                      }
+                      default={values.addressNo ?? ""}
+                      error={errors.addressNo}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("addressNo", value)}
                     />
+                    <span>{touched.addressNo ? errors.addressNo : ""}</span>
+                  </div>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input30,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"Street"}
+                      id={"street"}
+                      name={"street"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("street", value);
+                      }}
+                      default={values.street ?? ""}
+                      error={errors.street}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("street", value)}
+                    />
+                    <span>{touched.street ? errors.street : ""}</span>
+                  </div>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input30,
+                    ].join(" ")}
+                  >
+                    <CustomInput
+                      placeHolder={"City"}
+                      id={"city"}
+                      name={"city"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("city", value);
+                      }}
+                      default={values.city ?? ""}
+                      error={errors.city}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("city", value)}
+                    />
+                    <span>{touched.city ? errors.city : ""}</span>
+                  </div>
+                </div>
+
+                <div className={formStyles.inputWrapper}>
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomPasswordInput
+                      placeHolder={"Temporary Password"}
+                      id={"temp_pw"}
+                      name={"temp_pw"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("temp_pw", value);
+                      }}
+                      default={values.temp_pw ?? ""}
+                      error={errors.temp_pw}
+                      type={"password"}
+                      touched={(value) => setFieldTouched("temp_pw", value)}
+                    />
+                    <span>{touched.temp_pw ? errors.temp_pw : ""}</span>
+                  </div>
+
+                  <div
+                    className={[
+                      formStyles.groupInputs,
+                      formStyles.input50,
+                    ].join(" ")}
+                  >
+                    <CustomPasswordInput
+                      placeHolder={"Confirm Temporary Password"}
+                      id={"confirm_temp_pw"}
+                      name={"password"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("password", value);
+                      }}
+                      default={values.password ?? ""}
+                      error={errors.password}
+                      type={"password"}
+                      touched={(value) => setFieldTouched("password", value)}
+                    />
+                    <span>{touched.password ? errors.password : ""}</span>
+                  </div>
+                </div>
+
+                <div className={formStyles.inputWrapper}>
+                  <div
+                    className={
+                      !values.organization
+                        ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                        : [formStyles.groupInputs, formStyles.input30].join(" ")
+                    }
+                  >
+                    <CustomInput
+                      placeHolder={"Contact No"}
+                      id={"contactNo"}
+                      name={"contactNo"}
+                      disabled={false}
+                      getValue={(value) => {
+                        setFieldValue("contactNo", value);
+                      }}
+                      default={values.contactNo ?? ""}
+                      error={errors.contactNo}
+                      type={"text"}
+                      touched={(value) => setFieldTouched("contactNo", value)}
+                    />
+                    <span>{touched.contactNo ? errors.contactNo : ""}</span>
+                  </div>
+                  <div
+                    className={
+                      !values.organization
+                        ? [formStyles.groupInputs, formStyles.input50].join(" ")
+                        : [formStyles.groupInputs, formStyles.input30].join(" ")
+                    }
+                  >
+                    <div className={styles.dateDiv}>
+                      <CustomDropdown
+                        dataset={organizationTypes}
+                        placeHolder={"Select Organization type"}
+                        id={"organizationType"}
+                        name={"organizationType"}
+                        disabled={false}
+                        defaultValue={initialValues.organization}
+                        getValue={(value) => {
+                          setFieldValue("organizationType", value);
+                        }}
+                        touched={(value) =>
+                          setFieldTouched("organizationType", value)
+                        }
+                      />
+                    </div>
                     <span>
                       {touched.organization ? errors.organization : ""}
                     </span>
                   </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
 
-            <div
-              className={[
-                formStyles.submitBtnWrapper,
-                formStyles.groupBtnsWrapper,
-              ].join(" ")}
-            >
-              <CustomButton
-                buttonText={"Save"}
-                buttonType={"submit"}
-                isDisabled={
-                  Object.keys(errors).length !== 0 ||
-                  loading ||
-                  isUsernameAlreadyExisting ||
-                  isNICAlreadyExisting
-                }
-                active={true}
-                onClick={() => handleSubmit(values)}
-              />
-              {!isCreateUser ? (
-                <>
-                  {isAllowedFullAccess ? (
-                    <CustomButton
-                      buttonText={"Delete"}
-                      buttonType={"DELETE"}
-                      isDisabled={false}
-                      active={true}
-                      onClick={() => handleSubmit(values)}
-                    />
+                  {values.organizationType &&
+                  values.organizationType !== "Blood Bank" ? (
+                    <div
+                      className={[
+                        formStyles.groupInputs,
+                        formStyles.input30,
+                      ].join(" ")}
+                    >
+                      <div className={styles.dateDiv}>
+                        <CustomDropdown
+                          dataset={hospitalType}
+                          placeHolder={"Select Organization"}
+                          id={"organization"}
+                          name={"organization"}
+                          disabled={false}
+                          defaultValue={initialValues.organization}
+                          getValue={(value) => {
+                            setFieldValue("organization", value);
+                          }}
+                          touched={(value) =>
+                            setFieldTouched("organization", value)
+                          }
+                        />
+                        <span>
+                          {touched.organization ? errors.organization : ""}
+                        </span>
+                      </div>
+                    </div>
                   ) : (
                     ""
                   )}
-                </>
-              ) : (
-                ""
-              )}
-            </div>
-          </Form>
-        )}
-      </Formik>
+                </div>
+
+                <div
+                  className={[
+                    formStyles.submitBtnWrapper,
+                    formStyles.groupBtnsWrapper,
+                  ].join(" ")}
+                >
+                  <CustomButton
+                    buttonText={"Save"}
+                    buttonType={"submit"}
+                    isDisabled={
+                      Object.keys(errors).length !== 0 ||
+                      loading ||
+                      isUsernameAlreadyExisting ||
+                      isNICAlreadyExisting
+                    }
+                    active={true}
+                    onClick={() => handleSubmit(values)}
+                  />
+                  {!isCreateUser ? (
+                    <>
+                      {isAllowedFullAccess ? (
+                        <CustomButton
+                          buttonText={"Delete"}
+                          buttonType={"DELETE"}
+                          isDisabled={false}
+                          active={true}
+                          onClick={() => handleSubmit(values)}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </>
+      )}
     </div>
   );
 };
