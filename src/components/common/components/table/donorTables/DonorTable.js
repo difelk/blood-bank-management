@@ -7,6 +7,7 @@ import DonorForm from "./DonorForm";
 import HistoryIcon from "../../../../../assets/icons/svgs/HistoryIcon";
 import ClassicTable from "../classicTable/ClassicTable";
 import AddDonorIcon from "../../../../../assets/icons/svgs/AddDonorIcon";
+import DonationForm from "./DonationForm";
 
 const donorHistorytableHeader = [
   { name: "Stock ID", width: "20%" },
@@ -142,14 +143,11 @@ const DonorTable = ({
         <CustomModal
           open={setModalType}
           title={selectedDonor.firstName + " " + selectedDonor.lastName}
-          width={600}
+          width={300}
+          height={430}
         >
           <div className={styles.hospitalData}>
-            <ClassicTable
-              tableHeader={donorHistorytableHeader}
-              dataset={[]}
-              getSelected={() => {}}
-            />
+            <DonationForm data={selectedDonor} />
           </div>
         </CustomModal>
       ) : (
