@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useField, useFormikContext } from "formik";
 import styles from "./CustomInput.module.scss";
 
-const CustomInput = (props) => {
+const CustomInput = ({ name, id, placeHolder, type, touched, disabled }) => {
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(props.name);
+  const [field, meta] = useField(name);
   const [inputFocus, setInputFocus] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
-    setFieldValue(props.name, e.target.value);
+    setFieldValue(name, e.target.value);
     // field.onChange(e);
   };
 
@@ -19,6 +19,10 @@ const CustomInput = (props) => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   props.onInputChange(inputValue);
+  // }, [inputValue]);
+
   return (
     <div
       className={
@@ -27,11 +31,11 @@ const CustomInput = (props) => {
           : styles.inputWrapper
       }
     >
-      <label htmlFor={props.id ?? "input"}>{props.placeHolder}</label>
+      <label htmlFor={id ?? "input"}>{placeHolder}</label>
       <input
-        id={props.id ?? "input"}
-        name={props.name ?? "input"}
-        type={props.type ?? "text"}
+        id={id ?? "input"}
+        name={name ?? "input"}
+        type={type ?? "text"}
         {...field}
         onChange={(e) => {
           handleInputChange(e);
@@ -39,13 +43,13 @@ const CustomInput = (props) => {
         }}
         onFocus={() => {
           setInputFocus(true);
-          props.touched(true);
+          touched(true);
         }}
         onBlur={() => setInputFocus(false)}
         value={field.value ?? ""}
-        disabled={props.disabled}
+        disabled={disabled}
         className={meta.touched && meta.error ? styles.error : ""}
-        autoComplete={props.name.includes("Username") ? "username" : ""}
+        autoComplete={name.includes("Username") ? "username" : ""}
       />
     </div>
   );
