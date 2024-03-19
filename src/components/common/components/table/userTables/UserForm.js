@@ -47,10 +47,13 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isUsernameAlreadyExisting, setIsUsernameAlreadyExisting] =
+    useState(false);
+  const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
   const initialValues = {
-    username: user.username,
+    username: user.username ?? "",
     nic: user.nic ?? "",
     firstName: user.firstName ?? "",
     lastName: user.lastName ?? "",
@@ -163,7 +166,44 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     if (values.organizationType === "Blood Bank") {
       data = { ...data, organization: "" };
     }
+
+    let nicRes;
+    let usernameHasRes;
+
+    if (values.username !== user.username || values.nic !== user.nic) {
+      if (values.username !== user.username) {
+        try {
+          nicRes = await UserService.getUserByUsername(values.username);
+
+          if (Object.keys(nicRes).length > 0) {
+            setIsUsernameAlreadyExisting(true);
+          }
+        } catch (e) {
+          console.log("response of user by username error");
+        }
+      }
+      if (values.nic !== user.nic) {
+        try {
+          usernameHasRes = await UserService.getUserByNic(values.nic);
+
+          if (Object.keys(usernameHasRes).length > 0) {
+            setIsNICAlreadyExisting(true);
+          }
+        } catch (e) {
+          console.log("response of user by nic error");
+        }
+      }
+    }
+    if (
+      (typeof nicRes === "object" && Object.keys(nicRes).length > 0) ||
+      (typeof usernameHasRes === "object" &&
+        Object.keys(usernameHasRes).length > 0)
+    ) {
+      return;
+    }
     setLoading(true);
+    setIsUsernameAlreadyExisting(false);
+    setIsNICAlreadyExisting(false);
     try {
       const response = await UserService.updateUser(data);
       setAlertMsg({
@@ -233,6 +273,11 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   touched={(value) => setFieldTouched("nic", value)}
                 />
                 <span>{touched.nic ? errors.nic : ""}</span>
+                <span>
+                  {!errors.nic && isNICAlreadyExisting
+                    ? "NIC Already Exists"
+                    : ""}
+                </span>
               </div>
 
               <div
@@ -251,9 +296,16 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   default={values.username ?? ""}
                   error={errors.username}
                   type={"text"}
-                  touched={(value) => setFieldTouched("username", value)}
+                  touched={(value) => {
+                    setFieldTouched("username", value);
+                  }}
                 />
                 <span>{touched.username ? errors.username : ""}</span>
+                <span>
+                  {!errors.username && isUsernameAlreadyExisting
+                    ? "Username Already Exists"
+                    : ""}
+                </span>
               </div>
             </div>
 

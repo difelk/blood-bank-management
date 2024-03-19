@@ -31,6 +31,25 @@ const UserService = {
       console.log("error in delete user : ", e);
     }
   },
+
+  getUserByUsername: async (username) => {
+    try {
+      return await apiUtils.get(
+        `/api/users/username/${username}`,
+        SERVICETYPE.USER
+      );
+    } catch (e) {
+      console.log("error in et username user : ", e);
+    }
+  },
+
+  getUserByNic: async (nic) => {
+    try {
+      return await apiUtils.get(`/api/users/nic/${nic}`, SERVICETYPE.USER);
+    } catch (e) {
+      console.log("error in get nic user : ", e);
+    }
+  },
 };
 
 export default UserService;
