@@ -132,14 +132,28 @@
 .checkboxWrapper {
     display: flex;
     align-items: center;
-    
-    input{
+
+    input {
         width: auto;
         margin-right: 12px;
     }
-  }
-  
-  .checkboxLabel {
-    font-size: 12px; 
-  }
-  
+}
+
+.checkboxLabel {
+    font-size: 12px;
+}
+
+
+.displayCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .saveBtnWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+}
