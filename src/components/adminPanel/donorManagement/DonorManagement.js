@@ -12,6 +12,8 @@ import CustomModal from "../../common/components/modal/CustomModal";
 import DonorForm from "../../common/components/table/donorTables/DonorForm";
 import EmptyMessage from "../../../share/empty/Empty";
 import donorService from "../../../api/services/donorService";
+import Lottie from "react-lottie";
+import { defaultOptions } from "../userManagement/UserManagement";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -68,7 +70,16 @@ const DonorManagement = ({ selectedPage }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!filteredData || !filteredData.length) {
+        if (isLoading) {
+          return (
+            <Lottie
+              options={defaultOptions}
+              height={150}
+              width={150}
+              speed={2}
+            />
+          );
+        } else if (!filteredData || !filteredData.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (

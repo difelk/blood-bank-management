@@ -74,7 +74,7 @@ const CustomDropdown = ({ placeHolder, dataset, name, defaultValue }) => {
 
         <div
           className={
-            filteredDataSet && isDropdownVisible
+            filteredDataSet.length && isDropdownVisible
               ? styles.dropdownItems
               : [styles.dropdownItems, styles.dropdownItemsHide].join(" ")
           }
