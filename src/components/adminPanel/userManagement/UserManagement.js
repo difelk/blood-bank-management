@@ -13,6 +13,9 @@ import commonStyles from "../../../styles/common.module.scss";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
 import UserService from "../../../api/services/userService";
+import ContentLoader from "react-content-loader";
+import Lottie from "react-lottie";
+import animationData from "../../../assets/animations/animationData.json";
 
 const userTableHeader = [
   { name: "NIC", width: "18%" },
@@ -45,6 +48,15 @@ const tabs = [
   { key: 1, value: "User Details" },
   { key: 2, value: "User Activities" },
 ];
+
+export const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: animationData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 
 const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const resetSearchField = useRef(null);
@@ -82,7 +94,70 @@ const UserManagement = ({ selectedPage, isAllowedFullAccess }) => {
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!filteredData || !filteredData.length) {
+        if (isLoading) {
+          return (
+            <Lottie
+              options={defaultOptions}
+              height={150}
+              width={150}
+              speed={2}
+            />
+            // <ContentLoader
+            //   viewBox="0 0 1000 500"
+            //   speed={1}
+            //   backgroundColor="#ffffff"
+            //   foregroundColor="#212121"
+            //   animate={true}
+            //   active
+            // >
+            //   <rect
+            //     x="0"
+            //     y="40"
+            //     rx="4"
+            //     ry="4"
+            //     width="1000"
+            //     height="60"
+            //     fill="#ADD8E6"
+            //   />
+            //   <rect
+            //     x="0"
+            //     y="120"
+            //     rx="4"
+            //     ry="4"
+            //     width="1000"
+            //     height="60"
+            //     fill="#ADD8E6"
+            //   />
+            //   <rect
+            //     x="0"
+            //     y="200"
+            //     rx="4"
+            //     ry="4"
+            //     width="1000"
+            //     height="60"
+            //     fill="#ADD8E6"
+            //   />
+            //   <rect
+            //     x="0"
+            //     y="280"
+            //     rx="4"
+            //     ry="4"
+            //     width="1000"
+            //     height="60"
+            //     fill="#ADD8E6"
+            //   />
+            //   <rect
+            //     x="0"
+            //     y="360"
+            //     rx="4"
+            //     ry="4"
+            //     width="1000"
+            //     height="60"
+            //     fill="#ffffff"
+            //   />
+            // </ContentLoader>
+          );
+        } else if ((!filteredData || !filteredData.length) && !isLoading) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
