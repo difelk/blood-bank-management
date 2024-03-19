@@ -167,40 +167,6 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
       data = { ...data, organization: "" };
     }
 
-    let nicRes;
-    let usernameHasRes;
-
-    if (values.username !== user.username || values.nic !== user.nic) {
-      if (values.username !== user.username) {
-        try {
-          nicRes = await UserService.getUserByUsername(values.username);
-
-          if (Object.keys(nicRes).length > 0) {
-            setIsUsernameAlreadyExisting(true);
-          }
-        } catch (e) {
-          console.log("response of user by username error");
-        }
-      }
-      if (values.nic !== user.nic) {
-        try {
-          usernameHasRes = await UserService.getUserByNic(values.nic);
-
-          if (Object.keys(usernameHasRes).length > 0) {
-            setIsNICAlreadyExisting(true);
-          }
-        } catch (e) {
-          console.log("response of user by nic error");
-        }
-      }
-    }
-    if (
-      (typeof nicRes === "object" && Object.keys(nicRes).length > 0) ||
-      (typeof usernameHasRes === "object" &&
-        Object.keys(usernameHasRes).length > 0)
-    ) {
-      return;
-    }
     setLoading(true);
     setIsUsernameAlreadyExisting(false);
     setIsNICAlreadyExisting(false);
@@ -222,6 +188,38 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     } finally {
       setLoading(false);
       formChanged();
+    }
+  };
+
+  const handleUsernameValidation = async (value) => {
+    try {
+      if (value && value !== user.username) {
+        const response = await UserService.getUserByUsername(value);
+
+        if (Object.keys(response).length > 0) {
+          setIsUsernameAlreadyExisting(true);
+        } else {
+          setIsUsernameAlreadyExisting(false);
+        }
+      }
+    } catch (e) {
+      console.log("response of user by username error");
+    }
+  };
+
+  const handleNICValidation = async (value) => {
+    try {
+      if (value && value !== user.nic) {
+        const response = await UserService.getUserByNic(value);
+
+        if (Object.keys(response).length > 0) {
+          setIsNICAlreadyExisting(true);
+        } else {
+          setIsNICAlreadyExisting(false);
+        }
+      }
+    } catch (e) {
+      console.log("response of user by username error");
     }
   };
 
@@ -271,6 +269,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   error={errors.nic}
                   type={"text"}
                   touched={(value) => setFieldTouched("nic", value)}
+                  inputValueChnaged={(value) => handleNICValidation(value)}
                 />
                 <span>{touched.nic ? errors.nic : ""}</span>
                 <span>
@@ -299,6 +298,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
                   touched={(value) => {
                     setFieldTouched("username", value);
                   }}
+                  inputValueChnaged={(value) => handleUsernameValidation(value)}
                 />
                 <span>{touched.username ? errors.username : ""}</span>
                 <span>
@@ -629,7 +629,12 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={Object.keys(errors).length !== 0 || loading}
+                isDisabled={
+                  Object.keys(errors).length !== 0 ||
+                  loading ||
+                  isNICAlreadyExisting ||
+                  isUsernameAlreadyExisting
+                }
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
