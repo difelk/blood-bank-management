@@ -48,7 +48,7 @@ const organizationTypes = [
 const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isUsernameAlreadyExisting, setIsUsernameAlreadyExisting] =
     useState(false);
   const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
@@ -132,6 +132,9 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
 
     if (!values.birthday) {
       errors.birthday = "Birthday is required";
+    }
+    if (!values.bloodType) {
+      errors.bloodType = "Blood type is required";
     }
 
     return errors;
