@@ -232,16 +232,9 @@ const UserRegistrationForm = ({
         }
       }
     } catch (e) {
-      console.log("response of user by username error");
+      console.log("response of user by nic error");
     }
   };
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
