@@ -11,7 +11,7 @@ const donorService = {
   },
 
   getDonorById: async (id) => {
-    return apiUtils.get(`donors/${id}`);
+    return apiUtils.get(`donors/${id}`, SERVICETYPE.DONOR);
   },
 
   createDonor: async (value) => {
@@ -39,6 +39,13 @@ const donorService = {
     }
   },
 
+  getDonorByNic: async (nic) => {
+    try {
+      return await apiUtils.get(`/donors/nic/${nic}`, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in get nic user : ", e);
+    }
+  },
 };
 
 export default donorService;

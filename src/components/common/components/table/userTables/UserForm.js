@@ -221,19 +221,13 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
         }
       }
     } catch (e) {
-      console.log("response of user by username error");
+      console.log("response of user by nic error");
     }
   };
 
   const handleResetPasswordModal = (userData) => {
     setIsResetModalOpen(true);
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
 
   return (
     <div className={formStyles.basicDataFormWrapper}>

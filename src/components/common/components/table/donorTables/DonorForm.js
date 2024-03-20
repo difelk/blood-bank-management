@@ -13,6 +13,7 @@ import style from "../../../../../share/formComponents/userRegistrationForm/User
 import AlertBox from "../../../../../share/Alerts/AlertBox";
 import modalStyle from "../../../components/modal/CustomModal.module.scss";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
+import UserService from "../../../../../api/services/userService";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -39,6 +40,7 @@ const DonorForm = ({
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
   const [isDonated, setIsDonated] = useState(false);
 
   const handleRemoveClick = (value) => {
@@ -158,11 +160,15 @@ const DonorForm = ({
             display: true,
           });
           if (values.donated) {
-            donationData = await donationHistoryService.createDonation({donorNic: values.donorNic, donationDate: new Date().toISOString(), quantity: 1});
+            donationData = await donationHistoryService.createDonation({
+              donorNic: values.donorNic,
+              donationDate: new Date().toISOString(),
+              quantity: 1,
+            });
             if (donationData.status === 200) {
               // donationData.quantity = 1;
               console.log("donationData - ", donationData);
-  
+
               setAlertMsg({
                 type: "SUCCESS",
                 message: donationData.statusMsg,
@@ -222,6 +228,22 @@ const DonorForm = ({
     }
   };
 
+  const handleNICValidation = async (value) => {
+    try {
+      if (value && value !== donor.donorNic) {
+        const response = await donorService.getDonorByNic(value);
+
+        if (Object.keys(response).length > 0) {
+          setIsNICAlreadyExisting(true);
+        } else {
+          setIsNICAlreadyExisting(false);
+        }
+      }
+    } catch (e) {
+      console.log("response of donor by nic error");
+    }
+  };
+
   return (
     <div className={formStyles.basicDataFormWrapper}>
       <div className={modalStyle.alertBoxWrapper}>
@@ -264,8 +286,14 @@ const DonorForm = ({
                   error={errors.donorNic}
                   type={"text"}
                   touched={(value) => setFieldTouched("donorNic", value)}
+                  inputValueChnaged={(value) => handleNICValidation(value)}
                 />
                 <span>{touched.donorNic ? errors.donorNic : ""}</span>
+                <span>
+                  {!errors.donorNic && isNICAlreadyExisting
+                    ? "NIC already exists"
+                    : ""}
+                </span>
               </div>
               <div
                 className={
@@ -488,7 +516,11 @@ const DonorForm = ({
               <CustomButton
                 buttonText={"Save"}
                 buttonType={"submit"}
-                isDisabled={Object.keys(errors).length !== 0 || loading}
+                isDisabled={
+                  Object.keys(errors).length !== 0 ||
+                  loading ||
+                  isNICAlreadyExisting
+                }
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
