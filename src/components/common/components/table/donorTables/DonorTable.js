@@ -160,16 +160,13 @@ const DonorTable = ({
           open={setModalType}
           title={selectedDonor.firstName + " " + selectedDonor.lastName}
           width={300}
-          // height={430}
+          height={430}
         >
           {/* <div className={styles.hospitalData}>
             <DonationForm data={selectedDonor}/>
           </div> */}
 
-          <DonationUnits
-            donor={selectedDonor}
-            formChanged={formChanged}
-          />
+          <DonationUnits donor={selectedDonor} formChanged={formChanged} />
           {/* <div className={styles.hospitalData}>
             <ClassicTable
               tableHeader={donorHistorytableHeader}

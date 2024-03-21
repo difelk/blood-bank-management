@@ -79,6 +79,21 @@ const apiUtils = {
       throw error;
     }
   },
+
+  postLoginReg: async (url, data, serviceType) => {
+    try {
+      const response = await axios.post(BASE_URLS[serviceType] + url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`error in post request ${url} - `, error);
+      return { message: error.message };
+      // throw error;
+    }
+  },
 };
 
 export default apiUtils;
