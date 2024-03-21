@@ -15,7 +15,7 @@ const DonationForm = (data) => {
 
   const initialValues = {
     donorNic: data.donorNic ?? "",
-    donationDate: "",
+    donationDate: data.donationDate ?? "",
   };
 
   const validation = (values) => {

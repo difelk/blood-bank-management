@@ -37,6 +37,7 @@ const apiUtils = {
       const response = await axios.post(BASE_URLS[serviceType] + url, data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
         },
       });
       return response.data;

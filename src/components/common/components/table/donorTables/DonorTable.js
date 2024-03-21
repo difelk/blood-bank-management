@@ -5,16 +5,27 @@ import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import DonorForm from "./DonorForm";
 import HistoryIcon from "../../../../../assets/icons/svgs/HistoryIcon";
-import ClassicTable from "../classicTable/ClassicTable";
+// import ClassicTable from "../classicTable/ClassicTable";
 import AddDonorIcon from "../../../../../assets/icons/svgs/AddDonorIcon";
 import DonationForm from "./DonationForm";
+// import DonationUnits from "../../form/donatedUnits/DonationUnits";
+import DonorHistoryTable from "./DonorHistoryTable";
+import DonationUnits from "../../form/donatedUnits/DonationUnits";
+
+// const donorHistorytableHeader = [
+//   { name: "Stock ID", width: "20%" },
+//   { name: "Donation Type", width: "20%" },
+//   { name: "Event Name", width: "20%" },
+//   { name: "Date", width: "20%" },
+//   { name: "Qty", width: "20%" },
+// ];
 
 const donorHistorytableHeader = [
-  { name: "Stock ID", width: "20%" },
-  { name: "Donation Type", width: "20%" },
-  { name: "Event Name", width: "20%" },
-  { name: "Date", width: "20%" },
-  { name: "Qty", width: "20%" },
+  { name: "Donor NIC", width: "20%" },
+  { name: "First Name", width: "20%" },
+  { name: "Last Name", width: "20%" },
+  { name: "Blood Type", width: "20%" },
+  { name: "Quantity", width: "20%" },
 ];
 
 const DonorTable = ({
@@ -131,24 +142,41 @@ const DonorTable = ({
           title={selectedDonor.firstName + " " + selectedDonor.lastName}
           width={600}
         >
-          <div className={styles.hospitalData}>
+          <DonorHistoryTable
+            tableHeader={donorHistorytableHeader}
+            donor={selectedDonor}
+          />
+
+          {/* <div className={styles.hospitalData}>
             <ClassicTable
               tableHeader={donorHistorytableHeader}
               dataset={[]}
               getSelected={() => {}}
             />
-          </div>
+          </div> */}
         </CustomModal>
       ) : modalType === "DONATION" ? (
         <CustomModal
           open={setModalType}
           title={selectedDonor.firstName + " " + selectedDonor.lastName}
           width={300}
-          height={430}
+          // height={430}
         >
-          <div className={styles.hospitalData}>
-            <DonationForm data={selectedDonor} />
-          </div>
+          {/* <div className={styles.hospitalData}>
+            <DonationForm data={selectedDonor}/>
+          </div> */}
+
+          <DonationUnits
+            donor={selectedDonor}
+            formChanged={formChanged}
+          />
+          {/* <div className={styles.hospitalData}>
+            <ClassicTable
+              tableHeader={donorHistorytableHeader}
+              dataset={[]}
+              getSelected={() => {}}
+            />
+          </div> */}
         </CustomModal>
       ) : (
         ""

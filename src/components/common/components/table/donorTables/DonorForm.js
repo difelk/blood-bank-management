@@ -139,6 +139,12 @@ const DonorForm = ({
       errors.city = "City should contain at least 3 letters";
     }
 
+    if (!values.unit && values.donated) {
+      errors.unit = "Units are required";
+    } else if (values.donated && (values.unit < 50 || values.unit > 1000)) {
+      errors.unit = "Units should be between 50 to 1000";
+    }
+
     // if (!values.birthday) {
     //   errors.birthday = "Birthday is required";
     // }
@@ -163,10 +169,9 @@ const DonorForm = ({
             donationData = await donationHistoryService.createDonation({
               donorNic: values.donorNic,
               donationDate: new Date().toISOString(),
-              quantity: 1,
+              quantity: values.unit,
             });
             if (donationData.status === 200) {
-              // donationData.quantity = 1;
               console.log("donationData - ", donationData);
 
               setAlertMsg({
@@ -487,7 +492,10 @@ const DonorForm = ({
             </div>
             {/* {JSON.stringify(values.donated)} */}
             {isCreateDonor ? (
-              <div className={formStyles.inputWrapper}>
+              <div
+                className={formStyles.inputWrapper}
+                style={{ marginBottom: "12px" }}
+              >
                 <div
                   className={[formStyles.groupInputs, formStyles.input50].join(
                     " "
@@ -504,6 +512,30 @@ const DonorForm = ({
                     />
                     <label className={styles.checkboxLabel}>Donated</label>
                   </div>
+                </div>
+              </div>
+            ) : null}
+            {values.donated ? (
+              <div className={formStyles.inputWrapper}>
+                <div
+                  className={[formStyles.groupInputs, formStyles.input30].join(
+                    " "
+                  )}
+                >
+                  <CustomInput
+                    placeHolder={"Units : ml"}
+                    id={"unit"}
+                    name={"unit"}
+                    disabled={false}
+                    getValue={(value) => {
+                      setFieldValue("unit", value);
+                    }}
+                    default={values.unit ?? ""}
+                    error={errors.unit}
+                    type={"text"}
+                    touched={(value) => setFieldTouched("unit", value)}
+                  />
+                  <span>{touched.unit ? errors.unit : ""}</span>
                 </div>
               </div>
             ) : null}
