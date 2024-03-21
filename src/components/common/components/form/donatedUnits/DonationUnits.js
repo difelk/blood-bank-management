@@ -38,7 +38,7 @@ const DonationUnits = ({ donor, formChanged }) => {
       const findByNic = await donationHistoryService.findDonationByNic(
         donor.donorNic
       );
-      console.log("donor.donorNic - ",donor.donorNic);
+      console.log("donor.donorNic - ", donor.donorNic);
       console.log("findByNic - ", findByNic);
       if (findByNic.length) {
         const donation = await donationHistoryService.createDonation({
@@ -106,7 +106,7 @@ const DonationUnits = ({ donor, formChanged }) => {
               >
                 <div className={styles.dateDiv}>
                   <CustomDatePicker
-                    placeholder={"Date"}
+                    placeholder={"Donation Date"}
                     onDateChange={(donationDate) => {
                       setFieldValue("donationDate", donationDate);
                     }}
@@ -126,7 +126,7 @@ const DonationUnits = ({ donor, formChanged }) => {
                 )}
               >
                 <CustomInput
-                  placeHolder={"Units: ml"}
+                  placeHolder={"Units (ML)"}
                   id={"quantity"}
                   name={"quantity"}
                   disabled={false}

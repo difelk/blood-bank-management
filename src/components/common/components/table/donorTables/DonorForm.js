@@ -510,7 +510,9 @@ const DonorForm = ({
                         setFieldValue("donated", e.target.checked)
                       }
                     />
-                    <label className={styles.checkboxLabel}>Donated</label>
+                    <label className={styles.checkboxLabel}>
+                      Make a Donation
+                    </label>
                   </div>
                 </div>
               </div>
@@ -523,7 +525,7 @@ const DonorForm = ({
                   )}
                 >
                   <CustomInput
-                    placeHolder={"Units : ml"}
+                    placeHolder={"Units (ML)"}
                     id={"unit"}
                     name={"unit"}
                     disabled={false}

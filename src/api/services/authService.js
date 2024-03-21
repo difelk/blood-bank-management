@@ -4,7 +4,7 @@ import apiUtils from "../apiUtils";
 const AuthService = {
   login: async (data) => {
     try {
-      return await apiUtils.post("/login", data, SERVICETYPE.USER);
+      return await apiUtils.postLoginReg("/login", data, SERVICETYPE.USER);
     } catch (e) {
       console.log("login catch: ", e);
       return { message: e };
@@ -13,7 +13,7 @@ const AuthService = {
 
   registration: async (data) => {
     try {
-      return await apiUtils.post(`/register`, data, SERVICETYPE.USER);
+      return await apiUtils.postLoginReg(`/register`, data, SERVICETYPE.USER);
     } catch (e) {
       return e;
     }
