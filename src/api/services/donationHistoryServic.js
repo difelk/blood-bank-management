@@ -34,6 +34,21 @@ const donationHistoryService = {
     }
   },
 
+  findLatestDonation: async (donorNic) => {
+    try {
+      return apiUtils.get(`/donation-history/${donorNic}/latest`, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in finding latest donation : ", e);
+    }
+  },
+
+  findDonationByNic: async (donorNic) => {
+    try {
+      return apiUtils.get(`/donation-history/${donorNic}`, SERVICETYPE.DONOR);
+    } catch (e) {
+      console.log("error in finding donation by nic : ", e);
+    }
+  },
 };
 
 export default donationHistoryService;
