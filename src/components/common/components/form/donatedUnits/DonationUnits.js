@@ -11,7 +11,7 @@ import CustomDatePicker from "../CustomDatePicker";
 import CustomInput from "../CustomInput";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
 
-const DonationUnits = ({ donor, formChanged }) => {
+const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -34,37 +34,42 @@ const DonationUnits = ({ donor, formChanged }) => {
 
   const handleSubmit = async (values) => {
     setLoading(true);
+
     try {
-      const findByNic = await donationHistoryService.findDonationByNic(
-        donor.donorNic
-      );
-      console.log("donor.donorNic - ", donor.donorNic);
-      console.log("findByNic - ", findByNic);
-      if (findByNic.length) {
-        const donation = await donationHistoryService.createDonation({
-          donorNic: donor.donorNic,
-          donationDate: values.donationDate,
-          quantity: values.quantity,
-        });
-        if (donation.status === 200) {
-          setAlertMsg({
-            type: "SUCCESS",
-            message: donation.statusMsg,
-            display: true,
+      if (!isUpdateform) {
+        const findByNic = await donationHistoryService.findDonationByNic(
+          donor.donorNic
+        );
+        console.log("donor.donorNic - ", donor.donorNic);
+        console.log("findByNic - ", findByNic);
+        if (findByNic.length) {
+          const donation = await donationHistoryService.createDonation({
+            donorNic: donor.donorNic,
+            donationDate: values.donationDate,
+            quantity: values.quantity,
           });
+          if (donation.status === 200) {
+            setAlertMsg({
+              type: "SUCCESS",
+              message: donation.statusMsg,
+              display: true,
+            });
+          } else {
+            setAlertMsg({
+              type: "ERROR",
+              message: donation.statusMsg,
+              display: true,
+            });
+          }
         } else {
           setAlertMsg({
             type: "ERROR",
-            message: donation.statusMsg,
+            message: "Donor not found",
             display: true,
           });
         }
       } else {
-        setAlertMsg({
-          type: "ERROR",
-          message: "Donor not found",
-          display: true,
-        });
+        // update donation
       }
     } catch (e) {
       setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
