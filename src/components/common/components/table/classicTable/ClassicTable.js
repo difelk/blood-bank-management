@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ClassicTable.module.scss";
 import EmptyMessage from "../../../../../share/empty/Empty";
-const ClassicTable = ({ tableHeader, dataset, actions, getSelected }) => {
+const ClassicTable = ({ tableHeader, dataset, actions, getSelected, form }) => {
   return (
     <>
       {dataset.length ? (

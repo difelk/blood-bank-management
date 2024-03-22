@@ -12,20 +12,13 @@ import DonationForm from "./DonationForm";
 import DonorHistoryTable from "./DonorHistoryTable";
 import DonationUnits from "../../form/donatedUnits/DonationUnits";
 
-// const donorHistorytableHeader = [
-//   { name: "Stock ID", width: "20%" },
-//   { name: "Donation Type", width: "20%" },
-//   { name: "Event Name", width: "20%" },
-//   { name: "Date", width: "20%" },
-//   { name: "Qty", width: "20%" },
-// ];
 
 const donorHistorytableHeader = [
-  { name: "Donor NIC", width: "20%" },
-  { name: "First Name", width: "20%" },
-  { name: "Last Name", width: "20%" },
-  { name: "Blood Type", width: "20%" },
-  { name: "Quantity", width: "20%" },
+  // { name: "Donor NIC", width: "20%" },
+  // { name: "First Name", width: "20%" },
+  // { name: "Last Name", width: "20%" },
+  { name: "Donation Date", width: "50%" },
+  { name: "Quantity (ML)", width: "50%" },
 ];
 
 const DonorTable = ({
