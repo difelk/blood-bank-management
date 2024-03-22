@@ -10,72 +10,53 @@ const Footer = () => {
   return (
     // Full Footer
     <div className={Styles.footer}>
-      {/* Upper div with logo, page links, login and social media */}
-      <div className={Styles.pagesLinkHeader}>
-        {/* Left div - logo */}
-        <div className={Styles.leftLogoBox}>
-          <img className={Styles.logoImage} src={logo} alt="Logo" />
+      <div className={Styles.footerItemsWrapper}>
+        <div className={Styles.footerMainLogo}>
+          <img src={logo} alt="logo" />
           <p>BloodCentral Network</p>
         </div>
-
-        {/* Middle div - Links */}
-        <div className={Styles.middleLinkBox}>
+        <div className={Styles.linksList}>
           <ul>
-            <a href="/">Home</a>
-
-            <a href="/events">Events</a>
-
-            <a href="/news">News</a>
-
-            <a href="/about">About</a>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href="#">Contact</a>
+            </li>
           </ul>
+          <div>
+            <p>All rights reserved</p>
+          </div>
         </div>
-
-        {/* Right div - with login/register and social media links images */}
-        <div className={Styles.rightBox}>
-          <div className={Styles.loginBox}>
-            <img className={Styles.image} src={userIconImg} alt="pic" />
-            <p>Login</p>
+        <div className={Styles.linksList}>
+          <div>
+            <ul>
+              <li>
+                <a href="#">
+                  {" "}
+                  <img src={twitterIconImg} alt="twitter" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  {" "}
+                  <img src={instaIconImg} alt="insta" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  {" "}
+                  <img src={fbIconImg} alt="facebook" />
+                </a>
+              </li>
+            </ul>
           </div>
-          <div className={Styles.socialMediaBox}>
-            <a href="https://example.com">
-              <img
-                className={Styles.image}
-                src={twitterIconImg}
-                alt="twitter"
-              />
-            </a>
-            <a href="https://example.com">
-              <img className={Styles.image} src={instaIconImg} alt="insta" />
-            </a>
-            <a href="https://example.com">
-              <img className={Styles.image} src={fbIconImg} alt="fb" />
-            </a>
-          </div>
+          <div></div>
         </div>
       </div>
-
-      {/* Bottom div with contact details and news letter submission */}
-      <div className={Styles.bottomBox}>
-        <div className={Styles.contactDetailsBox}>
-          <p>Address</p>
-          <p>Contact Number</p>
-          <p>0777777123</p>
-          <p>Email: email@gmail.com</p>
-        </div>
-
-        <div className={Styles.newsLetterBox}>
-          <p>SUBMIT TO NEWSLETTER</p>
-          <div className={Styles.searchBox}>
-            <input type="text" className={Styles.searchInput} />
-            <button type="submit" className={Styles.submitBtn}>
-              SUBMIT
-            </button>
-          </div>
-        </div>
-        <div style={{ width: "25%" }}></div>
-      </div>
-      <div className={Styles.bottomLineBox}></div>
     </div>
   );
 };

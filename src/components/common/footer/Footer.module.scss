@@ -2,13 +2,77 @@
 
 .footer {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    background-color: #032E42;
+    background-color: #232323;
     position: relative;
+    padding: 12px;
+
     // width: 100%;
     // margin: 4px;
     // padding: 8px;
+    p {
+        margin: 0;
+    }
+
+    .footerItemsWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 87%;
+        margin: 0 auto;
+
+        .footerMainLogo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+
+            img {
+                width: 60px;
+            }
+
+            p {
+                white-space: nowrap;
+                color: #FD5586;
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+
+        .linksList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            ul {
+                display: flex;
+                align-items: center;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+
+                li {
+                    margin: 0;
+                    padding: 0;
+                    margin-right: 12px;
+
+
+                    a {
+                        text-decoration: none;
+                        color: #ffffff;
+                    }
+                }
+            }
+
+            p {
+                color: #ffffff;
+                font-size: 12px;
+                margin-top: 8px;
+            }
+        }
+    }
+
 }
 
 // Upper div with logo, page links, login and social media
