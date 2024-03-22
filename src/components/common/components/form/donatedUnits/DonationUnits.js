@@ -32,6 +32,7 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
     return errors;
   };
 
+  console.log("DONORRRRR - ", donor);
   const handleSubmit = async (values) => {
     setLoading(true);
 
@@ -40,8 +41,8 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
         const findByNic = await donationHistoryService.findDonationByNic(
           donor.donorNic
         );
-        console.log("donor.donorNic - ", donor.donorNic);
-        console.log("findByNic - ", findByNic);
+        // console.log("donor.donorNic - ", donor.donorNic);
+        // console.log("findByNic - ", findByNic);
         if (findByNic.length) {
           const donation = await donationHistoryService.createDonation({
             donorNic: donor.donorNic,
@@ -70,6 +71,27 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
         }
       } else {
         // update donation
+        const updateDonation = await donationHistoryService.updateDonation({
+          id: donor.id,
+          donorNic: donor.donorNic,
+          donationDate: values.donationDate,
+          quantity: values.quantity,
+        });
+
+        if(updateDonation.status === 200){
+          setAlertMsg({
+            type: "SUCCESS",
+            message: updateDonation.statusMsg,
+            display: true,
+          });
+        }
+        else {
+          setAlertMsg({
+            type: "ERROR",
+            message: updateDonation.statusMsg,
+            display: true,
+          });
+        }
       }
     } catch (e) {
       setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });

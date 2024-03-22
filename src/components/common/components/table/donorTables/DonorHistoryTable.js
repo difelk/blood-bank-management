@@ -16,7 +16,7 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
   const [selectedDonor, setSelectedDonor] = useState([]);
-  const [isModalOpen, setIsmodalOpen] = useState([]);
+  const [donorHistoryData, setDonorHistoryData] = useState([]);
 
   // console.log("donorDataSet - ", donorDataSet);
   useEffect(() => {
@@ -27,11 +27,12 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
           const donorData = await donationHistoryService.findDonationByNic(
             donor.donorNic
           );
-          // console.log("donorData - ", donorData);
+          console.log("donorData - ", donorData);
+          setDonorHistoryData(donorData)
           // console.log("donorData.donorNic - ", donorData.donorNic);
           const newDonorDataSet = donorData.map((item) => {
             return {
-              // donorNic: donorData.donorNic,
+              // donorNic: item.donorNic,
               // firstName: item.firstName,
               // lastName: item.lastName,
               // bloodType: item.bloodType,
@@ -63,7 +64,7 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   // ];
 
   // console.log("donor - ", donor);
-  console.log("selectedDonor - ", selectedDonor);
+  // console.log("selectedDonor - ", selectedDonor);
   return (
     <div className={styles.tableWrapper}>
       {!selectedDonor.length ? (
@@ -73,7 +74,7 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
           getSelected={(value) => setSelectedDonor([value])}
         />
       ) : (
-        <DonationUnits donor={selectedDonor} 
+        <DonationUnits donor={{...selectedDonor[0], id: donorHistoryData[0].id, donorNic: donor.donorNic}} 
         isUpdateform={true}/>
       )}
     </div>
@@ -81,3 +82,4 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
 };
 
 export default DonorHistoryTable;
+// {donationDate: selectedDonor[0].donationDate, quantity: selectedDonor[0].quantity, donorNic: donor.donorNic}
