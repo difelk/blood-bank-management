@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./DonationUnits.module.scss";
 import formStyles from "../../form/CustomForm.module.scss";
 import modalStyle from "../../../components/modal/CustomModal.module.scss";
+import commonStyle from "../../../../../styles/common.module.scss";
 import CustomPasswordInput from "../CustomPasswordInput";
 import { Form, Formik } from "formik";
 import AlertBox from "../../../../../share/Alerts/AlertBox";
@@ -10,13 +11,41 @@ import UserService from "../../../../../api/services/userService";
 import CustomDatePicker from "../CustomDatePicker";
 import CustomInput from "../CustomInput";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
+import DeletePopUp from "../../modal/popups/DeletePopUp";
 
 const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showConfirmation, setshowConfirmation] = useState(false);
+
+  const handleRemoveClick = async (value) => {
+    if (value) {
+      try {
+        const respond =
+          await donationHistoryService.deleteDonationHistoryByDate({
+            donorNic: donor.donorNic,
+            donationDate: donor.donationDate,
+          });
+        if (respond.status === 200) {
+          setAlertMsg({
+            type: "SUCCESS",
+            message: respond.statusMsg,
+            display: true,
+          });
+        } else {
+          setAlertMsg({
+            type: "ERROR",
+            message: respond.statusMsg,
+            display: true,
+          });
+        }
+      } catch (e) {}
+    }
+    setshowConfirmation(false);
+  };
 
   const initialValues = {
-    donationDate: new Date() ?? "",
+    donationDate: isUpdateform ? donor.donationDate : new Date(),
     quantity: donor.quantity ?? "",
   };
 
@@ -78,14 +107,13 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
           quantity: values.quantity,
         });
 
-        if(updateDonation.status === 200){
+        if (updateDonation.status === 200) {
           setAlertMsg({
             type: "SUCCESS",
             message: updateDonation.statusMsg,
             display: true,
           });
-        }
-        else {
+        } else {
           setAlertMsg({
             type: "ERROR",
             message: updateDonation.statusMsg,
@@ -177,6 +205,40 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
                 active={true}
                 onClick={() => handleSubmit(values)}
               />
+              {isUpdateform ? (
+                <>
+                  <div style={{ margin: "0 8px" }} />
+                  <div
+                    className={[
+                      commonStyle.deletRemoveBtnsWrapper,
+                      styles.boxwrapper,
+                    ].join(" ")}
+                  >
+                    {showConfirmation ? (
+                      <DeletePopUp
+                        popupMessage={
+                          "Are you sure you want to remove this event from stock? "
+                        }
+                        subMessage={
+                          "You can re-add the event by going back to the previous step and clicking the 'Add event' button."
+                        }
+                        isActionProceed={(values) => handleRemoveClick(values)}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <CustomButton
+                      buttonText={"Delete"}
+                      buttonType={"DELETE"}
+                      isDisabled={false}
+                      active={true}
+                      onClick={() => setshowConfirmation(true)}
+                    />
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </Form>
         )}
