@@ -46,6 +46,19 @@ const donorService = {
       console.log("error in get nic user : ", e);
     }
   },
+
+  sendCSVDonors: async (file) => {
+    try {
+      return await apiUtils.post(
+        `/donors/csv`,
+        file,
+        SERVICETYPE.DONOR,
+        "multipart/form-data"
+      );
+    } catch (e) {
+      console.log("error in create csv donor : ", e);
+    }
+  },
 };
 
 export default donorService;

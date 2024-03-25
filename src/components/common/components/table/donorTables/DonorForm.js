@@ -13,7 +13,6 @@ import style from "../../../../../share/formComponents/userRegistrationForm/User
 import AlertBox from "../../../../../share/Alerts/AlertBox";
 import modalStyle from "../../../components/modal/CustomModal.module.scss";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
-import UserService from "../../../../../api/services/userService";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
