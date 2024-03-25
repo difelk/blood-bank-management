@@ -32,11 +32,11 @@ const apiUtils = {
     }
   },
 
-  post: async (url, data, serviceType) => {
+  post: async (url, data, serviceType, contentType = "application/json") => {
     try {
       const response = await axios.post(BASE_URLS[serviceType] + url, data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": contentType ? contentType : "application/json",
           Authorization: `Bearer ${getToken()}`,
         },
       });

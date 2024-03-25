@@ -1,0 +1,40 @@
+.wrapFileUploader {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .erroronUpload {
+        font-size: 10px;
+        color: red;
+    }
+
+    .fileUploadLabl {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #D7E7F5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 8px 0;
+    }
+
+    input {
+        border: none !important;
+        background-color: transparent;
+        display: none;
+    }
+
+    p {
+        font-size: 12px;
+        color: #5e5e5e;
+        margin-top: 4PX;
+
+    }
+
+    span {
+        margin: 8px 0;
+    }
+}

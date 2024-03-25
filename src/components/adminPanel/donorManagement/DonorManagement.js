@@ -14,6 +14,8 @@ import EmptyMessage from "../../../share/empty/Empty";
 import donorService from "../../../api/services/donorService";
 import Lottie from "react-lottie";
 import { defaultOptions } from "../userManagement/UserManagement";
+import CsvIcon from "../../../assets/icons/svgs/CsvIcon";
+import DonorUploadCSV from "./DonorUploadCSV";
 
 const donorTableHeader = [
   { name: "NIC", width: "20%" },
@@ -39,7 +41,7 @@ const DonorManagement = ({ selectedPage }) => {
   const resetSearchField = useRef(null);
   const resetFilters = useRef(null);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const [isDonorFormOpen, setIsDonorFormOpen] = useState(false);
+  const [modalType, setmodalType] = useState("");
   const [selectedDonor, setSelectedDonor] = useState({});
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(data);
@@ -178,14 +180,24 @@ const DonorManagement = ({ selectedPage }) => {
       </div>
       <div className={styles.stockMngWrapper}>
         <div className={commonStyles.controllPanel}>
-          <CustomButton
-            buttonType={"CIRCLE_ACTIONS"}
-            iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
-            onClick={() => setIsDonorFormOpen(true)}
-            optionalBackgroundColor={"#5585CC"}
-          />
-        </div>
+          <div className={styles.btnWrapper}>
+            <CustomButton
+              buttonType={"CIRCLE_ACTIONS"}
+              iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
+              onClick={() => setmodalType("ADD_DONOR")}
+              optionalBackgroundColor={"#5585CC"}
+            />
+          </div>
 
+          <div className={commonStyles.controllPanel}>
+            <CustomButton
+              buttonType={"CIRCLE_ACTIONS"}
+              iconsLeft={<CsvIcon size={25} color={"#292929"} />}
+              onClick={() => setmodalType("ADD_CSV")}
+              optionalBackgroundColor={"#5585CC"}
+            />
+          </div>
+        </div>
         <TabController
           tabs={tabs}
           getActiveTab={(tab) => setSelectedTab(tab)}
@@ -226,15 +238,22 @@ const DonorManagement = ({ selectedPage }) => {
         <div className={styles.summeryTable}>{loadComponent()}</div>
         <div className={styles.stockTable}></div>
       </div>
-      {isDonorFormOpen ? (
-        <CustomModal open={setIsDonorFormOpen} title={`Add New Donor`}>
+      {modalType ? (
+        <CustomModal
+          open={setmodalType}
+          title={modalType === "ADD_DONOR" ? `Add New Donor` : "Upload CSV"}
+        >
           <div className={styles.hospitalData}>
-            <DonorForm
-              donor={selectedDonor}
-              isAllowedFullAccess={false}
-              isCreateDonor={true}
-              formChanged={formChanged}
-            />
+            {modalType === "ADD_DONOR" ? (
+              <DonorForm
+                donor={selectedDonor}
+                isAllowedFullAccess={false}
+                isCreateDonor={true}
+                formChanged={formChanged}
+              />
+            ) : (
+              <DonorUploadCSV formChanged={formChanged} />
+            )}
           </div>
         </CustomModal>
       ) : (
