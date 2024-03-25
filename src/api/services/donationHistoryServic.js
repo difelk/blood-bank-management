@@ -9,7 +9,7 @@ const donationHistoryService = {
       console.log("error in get all donations : ", e);
     }
   },
-  
+
   createDonation: async (value) => {
     try {
       return apiUtils.post(`/donation-history`, value, SERVICETYPE.DONOR);
@@ -20,7 +20,21 @@ const donationHistoryService = {
 
   deleteDonationById: async (id) => {
     try {
-      return await apiUtils.delete(`/donation-history/${id}`, SERVICETYPE.DONOR);
+      return await apiUtils.delete(
+        `/donation-history/${id}`,
+        SERVICETYPE.DONOR
+      );
+    } catch (e) {
+      console.log("error in delete donation : ", e);
+    }
+  },
+
+  deleteDonationHistoryByDate: async (values) => {
+    try {
+      return await apiUtils.delete(
+        `/donation-history?donorNic=${values.donorNic}&donationDate=${values.donationDate}`,
+        SERVICETYPE.DONOR
+      );
     } catch (e) {
       console.log("error in delete donation : ", e);
     }
@@ -36,7 +50,10 @@ const donationHistoryService = {
 
   findLatestDonation: async (donorNic) => {
     try {
-      return apiUtils.get(`/donation-history/${donorNic}/latest`, SERVICETYPE.DONOR);
+      return apiUtils.get(
+        `/donation-history/${donorNic}/latest`,
+        SERVICETYPE.DONOR
+      );
     } catch (e) {
       console.log("error in finding latest donation : ", e);
     }
