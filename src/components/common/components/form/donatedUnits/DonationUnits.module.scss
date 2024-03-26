@@ -26,3 +26,12 @@
     position: relative !important;
     left: 15px;
 }
+
+.goBackIcon {
+    position: relative;
+
+    button {
+        position: absolute;
+        top: -40px;
+    }
+}

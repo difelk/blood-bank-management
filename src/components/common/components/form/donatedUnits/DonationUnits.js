@@ -12,8 +12,14 @@ import CustomDatePicker from "../CustomDatePicker";
 import CustomInput from "../CustomInput";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
+import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 
-const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
+const DonationUnits = ({
+  donor,
+  formChanged,
+  isUpdateform,
+  setSelectedDonor,
+}) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setshowConfirmation] = useState(false);
@@ -61,7 +67,6 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
     return errors;
   };
 
-  console.log("DONORRRRR - ", donor);
   const handleSubmit = async (values) => {
     setLoading(true);
 
@@ -131,6 +136,13 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div className={styles.goBackIcon}>
+        <CustomButton
+          buttonType={"ICON"}
+          iconsLeft={<BackArrowIcon size={15} color={"#696969"} />}
+          onClick={() => setSelectedDonor([])}
+        />
+      </div>
       <div className={modalStyle.alertBoxWrapper}>
         <AlertBox
           type={alertMsg.type}
