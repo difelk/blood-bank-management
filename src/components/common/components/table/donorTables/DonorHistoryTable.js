@@ -64,7 +64,8 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   // ];
 
   // console.log("donor - ", donor);
-  // console.log("selectedDonor - ", selectedDonor);
+  console.log("selectedDonor - ", selectedDonor);
+  console.log("donorHistoryData - ", donorHistoryData);
 
   return (
     <div className={styles.tableWrapper}>
@@ -78,7 +79,9 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
         <DonationUnits
           donor={{
             ...selectedDonor[0],
-            id: donorHistoryData[0].id,
+            id: donorHistoryData.find(
+              (item) => item.donationDate === selectedDonor[0].donationDate
+            ).id,
             donorNic: donor.donorNic,
           }}
           isUpdateform={true}

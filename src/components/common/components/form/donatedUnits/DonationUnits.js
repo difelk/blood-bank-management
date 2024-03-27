@@ -72,37 +72,37 @@ const DonationUnits = ({
 
     try {
       if (!isUpdateform) {
-        const findByNic = await donationHistoryService.findDonationByNic(
-          donor.donorNic
-        );
+        // const findByNic = await donationHistoryService.findDonationByNic(
+        //   donor.donorNic
+        // );
         // console.log("donor.donorNic - ", donor.donorNic);
         // console.log("findByNic - ", findByNic);
-        if (findByNic.length) {
-          const donation = await donationHistoryService.createDonation({
-            donorNic: donor.donorNic,
-            donationDate: values.donationDate,
-            quantity: values.quantity,
+        // if (findByNic.length) {
+        const donation = await donationHistoryService.createDonation({
+          donorNic: donor.donorNic,
+          donationDate: values.donationDate,
+          quantity: values.quantity,
+        });
+        if (donation.status === 200) {
+          setAlertMsg({
+            type: "SUCCESS",
+            message: donation.statusMsg,
+            display: true,
           });
-          if (donation.status === 200) {
-            setAlertMsg({
-              type: "SUCCESS",
-              message: donation.statusMsg,
-              display: true,
-            });
-          } else {
-            setAlertMsg({
-              type: "ERROR",
-              message: donation.statusMsg,
-              display: true,
-            });
-          }
         } else {
           setAlertMsg({
             type: "ERROR",
-            message: "Donor not found",
+            message: donation.statusMsg,
             display: true,
           });
         }
+        // } else {
+        //   setAlertMsg({
+        //     type: "ERROR",
+        //     message: "Donor not found",
+        //     display: true,
+        //   });
+        // }
       } else {
         // update donation
         const updateDonation = await donationHistoryService.updateDonation({
