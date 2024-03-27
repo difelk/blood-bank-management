@@ -98,7 +98,6 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
 
     setTimeout(() => {}, 400);
   };
-  console.log("isAllowedFullAccess - ", isAllowedFullAccess);
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
@@ -157,9 +156,13 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
                   default={values.organization_name ?? ""}
                   error={errors.organization_name}
                   type={"text"}
-                  touched={(value) => setFieldTouched("organization_name", value)}
+                  touched={(value) =>
+                    setFieldTouched("organization_name", value)
+                  }
                 />
-                <span>{touched.organization_name ? errors.organization_name : ""}</span>
+                <span>
+                  {touched.organization_name ? errors.organization_name : ""}
+                </span>
               </div>
 
               <div
@@ -185,7 +188,7 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
             </div>
 
             <div className={styles.inputWrapper}>
-            <div
+              <div
                 className={[
                   formStyles.d_flex,
                   formStyles.align_items_center,
@@ -194,37 +197,37 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
                   styles.clearMargin,
                 ].join(" ")}
               >
-                 <div className={[styles.dateDiv]}>
-                <CustomDropdown
-                  dataset={status}
-                  placeHolder={"Select Status"}
-                  id={"status"}
-                  name={"status"}
-                  disabled={false}
-                  defaultValue={initialValues.status}
-                  getValue={(value) => {
-                    setFieldValue("status", value);
-                  }}
-                  touched={(value) => setFieldTouched("status", value)}
-                />
-                <span>{touched.status ? errors.status : ""}</span>
+                <div className={[styles.dateDiv]}>
+                  <CustomDropdown
+                    dataset={status}
+                    placeHolder={"Select Status"}
+                    id={"status"}
+                    name={"status"}
+                    disabled={false}
+                    defaultValue={initialValues.status}
+                    getValue={(value) => {
+                      setFieldValue("status", value);
+                    }}
+                    touched={(value) => setFieldTouched("status", value)}
+                  />
+                  <span>{touched.status ? errors.status : ""}</span>
                 </div>
               </div>
-            
+
               <div
                 className={[formStyles.groupInputs, formStyles.input50].join(
                   " "
                 )}
               >
-                 <div className={styles.dateDiv}>
-                <CustomDatePicker
-                  placeholder={"Start Date"}
-                  onDateChange={(date) => {
-                    setFieldValue("start_date", date);
-                  }}
-                  touched={(value) => setFieldTouched("start_date", value)}
-                />
-                <span>{touched.start_date ? errors.start_date : ""}</span>
+                <div className={styles.dateDiv}>
+                  <CustomDatePicker
+                    placeholder={"Start Date"}
+                    onDateChange={(date) => {
+                      setFieldValue("start_date", date);
+                    }}
+                    touched={(value) => setFieldTouched("start_date", value)}
+                  />
+                  <span>{touched.start_date ? errors.start_date : ""}</span>
                 </div>
               </div>
               <div
@@ -232,21 +235,21 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
                   " "
                 )}
               >
-                 <div className={styles.dateDiv}>
-               <CustomDatePicker
-                  placeholder={"End Date"}
-                  onDateChange={(date) => {
-                    setFieldValue("end_date", date);
-                  }}
-                  touched={(value) => setFieldTouched("end_date", value)}
-                />
-                <span>{touched.end_date ? errors.end_date : ""}</span>
+                <div className={styles.dateDiv}>
+                  <CustomDatePicker
+                    placeholder={"End Date"}
+                    onDateChange={(date) => {
+                      setFieldValue("end_date", date);
+                    }}
+                    touched={(value) => setFieldTouched("end_date", value)}
+                  />
+                  <span>{touched.end_date ? errors.end_date : ""}</span>
                 </div>
               </div>
             </div>
 
             <div className={formStyles.inputWrapper}>
-            <div
+              <div
                 className={[formStyles.groupInputs, formStyles.input100].join(
                   " "
                 )}
@@ -330,8 +333,6 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
                 <span>{touched.city ? errors.city : ""}</span>
               </div>
             </div>
-
-            
 
             <div
               className={[

@@ -12,8 +12,14 @@ import CustomDatePicker from "../CustomDatePicker";
 import CustomInput from "../CustomInput";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
+import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 
-const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
+const DonationUnits = ({
+  donor,
+  formChanged,
+  isUpdateform,
+  setSelectedDonor,
+}) => {
   const [alertMsg, setAlertMsg] = useState({});
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setshowConfirmation] = useState(false);
@@ -61,43 +67,42 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
     return errors;
   };
 
-  console.log("DONORRRRR - ", donor);
   const handleSubmit = async (values) => {
     setLoading(true);
 
     try {
       if (!isUpdateform) {
-        const findByNic = await donationHistoryService.findDonationByNic(
-          donor.donorNic
-        );
+        // const findByNic = await donationHistoryService.findDonationByNic(
+        //   donor.donorNic
+        // );
         // console.log("donor.donorNic - ", donor.donorNic);
         // console.log("findByNic - ", findByNic);
-        if (findByNic.length) {
-          const donation = await donationHistoryService.createDonation({
-            donorNic: donor.donorNic,
-            donationDate: values.donationDate,
-            quantity: values.quantity,
+        // if (findByNic.length) {
+        const donation = await donationHistoryService.createDonation({
+          donorNic: donor.donorNic,
+          donationDate: values.donationDate,
+          quantity: values.quantity,
+        });
+        if (donation.status === 200) {
+          setAlertMsg({
+            type: "SUCCESS",
+            message: donation.statusMsg,
+            display: true,
           });
-          if (donation.status === 200) {
-            setAlertMsg({
-              type: "SUCCESS",
-              message: donation.statusMsg,
-              display: true,
-            });
-          } else {
-            setAlertMsg({
-              type: "ERROR",
-              message: donation.statusMsg,
-              display: true,
-            });
-          }
         } else {
           setAlertMsg({
             type: "ERROR",
-            message: "Donor not found",
+            message: donation.statusMsg,
             display: true,
           });
         }
+        // } else {
+        //   setAlertMsg({
+        //     type: "ERROR",
+        //     message: "Donor not found",
+        //     display: true,
+        //   });
+        // }
       } else {
         // update donation
         const updateDonation = await donationHistoryService.updateDonation({
@@ -131,6 +136,13 @@ const DonationUnits = ({ donor, formChanged, isUpdateform }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div className={styles.goBackIcon}>
+        <CustomButton
+          buttonType={"ICON"}
+          iconsLeft={<BackArrowIcon size={15} color={"#696969"} />}
+          onClick={() => setSelectedDonor([])}
+        />
+      </div>
       <div className={modalStyle.alertBoxWrapper}>
         <AlertBox
           type={alertMsg.type}

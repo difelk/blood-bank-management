@@ -19,39 +19,39 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   const [donorHistoryData, setDonorHistoryData] = useState([]);
 
   // console.log("donorDataSet - ", donorDataSet);
-  useEffect(() => {
-    const getDonationHistory = async () => {
-      setLoading(true);
-      try {
-        if (donor) {
-          const donorData = await donationHistoryService.findDonationByNic(
-            donor.donorNic
-          );
-          console.log("donorData - ", donorData);
-          setDonorHistoryData(donorData)
-          // console.log("donorData.donorNic - ", donorData.donorNic);
-          const newDonorDataSet = donorData.map((item) => {
-            return {
-              // donorNic: item.donorNic,
-              // firstName: item.firstName,
-              // lastName: item.lastName,
-              // bloodType: item.bloodType,
-              donationDate: item.donationDate,
-              quantity: item.quantity,
-            };
-          });
-          // console.log("newDonorDataSet - ", newDonorDataSet);
-          setDonorDataSet(newDonorDataSet);
-        }
-      } catch (e) {
-        setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
-      } finally {
-        setLoading(false);
-      }
-    };
 
+  const getDonationHistory = async () => {
+    setLoading(true);
+    try {
+      if (donor) {
+        const donorData = await donationHistoryService.findDonationByNic(
+          donor.donorNic
+        );
+        setDonorHistoryData(donorData);
+        // console.log("donorData.donorNic - ", donorData.donorNic);
+        const newDonorDataSet = donorData.map((item) => {
+          return {
+            // donorNic: item.donorNic,
+            // firstName: item.firstName,
+            // lastName: item.lastName,
+            // bloodType: item.bloodType,
+            donationDate: item.donationDate,
+            quantity: item.quantity,
+          };
+        });
+        // console.log("newDonorDataSet - ", newDonorDataSet);
+        setDonorDataSet(newDonorDataSet);
+      }
+    } catch (e) {
+      setAlertMsg({ type: "ERROR", message: "ERROR: " + e, display: true });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     getDonationHistory();
-  }, [donor]);
+  }, [donor, selectedDonor]);
 
   // const data = [
   //   {
@@ -64,7 +64,9 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   // ];
 
   // console.log("donor - ", donor);
-  // console.log("selectedDonor - ", selectedDonor);
+  console.log("selectedDonor - ", selectedDonor);
+  console.log("donorHistoryData - ", donorHistoryData);
+
   return (
     <div className={styles.tableWrapper}>
       {!selectedDonor.length ? (
@@ -74,8 +76,17 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
           getSelected={(value) => setSelectedDonor([value])}
         />
       ) : (
-        <DonationUnits donor={{...selectedDonor[0], id: donorHistoryData[0].id, donorNic: donor.donorNic}} 
-        isUpdateform={true}/>
+        <DonationUnits
+          donor={{
+            ...selectedDonor[0],
+            id: donorHistoryData.find(
+              (item) => item.donationDate === selectedDonor[0].donationDate
+            ).id,
+            donorNic: donor.donorNic,
+          }}
+          isUpdateform={true}
+          setSelectedDonor={setSelectedDonor}
+        />
       )}
     </div>
   );
