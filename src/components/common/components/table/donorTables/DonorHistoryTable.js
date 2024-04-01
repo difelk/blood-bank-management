@@ -64,8 +64,6 @@ const DonorHistoryTable = ({ tableHeader, donor }) => {
   // ];
 
   // console.log("donor - ", donor);
-  console.log("selectedDonor - ", selectedDonor);
-  console.log("donorHistoryData - ", donorHistoryData);
 
   return (
     <div className={styles.tableWrapper}>
