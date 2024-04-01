@@ -24,6 +24,8 @@ const DonationUnits = ({
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setshowConfirmation] = useState(false);
 
+  console.log("donor - ", donor);
+
   const handleRemoveClick = async (value) => {
     if (value) {
       try {
@@ -81,6 +83,7 @@ const DonationUnits = ({
         const donation = await donationHistoryService.createDonation({
           donorNic: donor.donorNic,
           donationDate: values.donationDate,
+          // blood type
           quantity: values.quantity,
         });
         if (donation.status === 200) {
@@ -136,13 +139,17 @@ const DonationUnits = ({
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
-      <div className={styles.goBackIcon}>
-        <CustomButton
-          buttonType={"ICON"}
-          iconsLeft={<BackArrowIcon size={15} color={"#696969"} />}
-          onClick={() => setSelectedDonor([])}
-        />
-      </div>
+      {isUpdateform ? (
+        <div className={styles.goBackIcon}>
+          <CustomButton
+            buttonType={"ICON"}
+            iconsLeft={<BackArrowIcon size={15} color={"#696969"} />}
+            onClick={() => setSelectedDonor([])}
+          />
+        </div>
+      ) : (
+        ""
+      )}
       <div className={modalStyle.alertBoxWrapper}>
         <AlertBox
           type={alertMsg.type}

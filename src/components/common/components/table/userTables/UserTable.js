@@ -4,6 +4,8 @@ import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
 import UserForm from "./UserForm";
+import NextIcon from "../../../../../assets/icons/svgs/NextIcon";
+import PreviousIcon from "../../../../../assets/icons/svgs/PreviousIcon";
 
 const UserTable = ({
   tableHeader,
@@ -14,6 +16,12 @@ const UserTable = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
+  const [showDataSet, setShowDataSet] = useState([]);
+  const [paginationNumber, setPaginationNumber] = useState(1);
+  const [paginationStat, setPaginationStat] = useState({
+    startingPosition: 0,
+    endPosition: 5,
+  });
 
   const ScrollToTopButton = () => {
     window.scrollTo({
@@ -25,6 +33,46 @@ const UserTable = ({
   useEffect(() => {
     ScrollToTopButton();
   }, [isModalOpen]);
+
+  useEffect(() => {
+    setShowDataSet(dataset);
+    handleDataShow(0, 5);
+  }, []);
+
+  const handlePagination = (values) => {
+    if (values === 1) {
+      setPaginationStat((prevState) => ({
+        ...prevState,
+        startingPosition: prevState.startingPosition + 5,
+        endPosition: prevState.endPosition + 5,
+      }));
+    } else if (values === -1) {
+      setPaginationStat((prevState) => ({
+        ...prevState,
+        startingPosition: prevState.startingPosition - 5,
+        endPosition: prevState.endPosition - 5,
+      }));
+    }
+
+    setPaginationNumber((prev) => prev + values);
+  };
+
+  useEffect(() => {
+    handleDataShow(paginationStat.startingPosition, paginationStat.endPosition);
+  }, [paginationStat]);
+
+  const handleDataShow = (starting, end) => {
+    console.log("starting - ", starting);
+    console.log("end - ", end);
+    let newDataSet = [];
+    for (let i = starting; i < end; i++) {
+      if (dataset[i]) {
+        newDataSet.push(dataset[i]);
+      }
+    }
+
+    setShowDataSet(newDataSet);
+  };
 
   return (
     <div className={styles.tableWrapper}>
@@ -40,7 +88,7 @@ const UserTable = ({
         ))}
       </div>
       <div className={styles.tableBody}>
-        {dataset.map((item, index) => (
+        {showDataSet.map((item, index) => (
           <div className={styles.tableData} key={index}>
             <div
               className={styles.tableDataItem}
@@ -108,6 +156,36 @@ const UserTable = ({
       ) : (
         ""
       )}
+      <div className={styles.paginationWrapper}>
+        <button
+          className={styles.nextprevPagbtns}
+          onClick={() => handlePagination(-1)}
+          disabled={paginationNumber <= 1}
+        >
+          <PreviousIcon
+            size={25}
+            color={paginationNumber <= 1 ? "#BBB6B4" : "#2196F3"}
+          />
+        </button>
+        <div
+          // onClick={() => handlePagination()}
+          className={styles.paginationNumberDisplay}
+        >
+          {paginationNumber}
+        </div>
+        <button
+          className={styles.nextprevPagbtns}
+          onClick={() => handlePagination(1)}
+          disabled={dataset.length / 5 < paginationNumber}
+        >
+          <NextIcon
+            size={25}
+            color={
+              dataset.length / 5 < paginationNumber ? "#BBB6B4" : "#2196F3"
+            }
+          />
+        </button>
+      </div>
     </div>
   );
 };
