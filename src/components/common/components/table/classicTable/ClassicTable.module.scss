@@ -30,3 +30,42 @@
     padding: 12px;
     cursor: pointer;
 }
+
+
+.paginationWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 4px 0;
+
+    .paginationNumberDisplay {
+        padding: 8px;
+        margin: 2px;
+        border: 2px solid #1677ff;
+        border-radius: 8px;
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nextprevPagbtns {
+        background-color: transparent;
+        border: none;
+        padding: 8px;
+        margin: 2px;
+        // width: 18px;
+        // height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .nextprevPagbtns:hover {
+        background-color: #F0F0F0;
+    }
+}
