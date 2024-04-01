@@ -53,7 +53,12 @@ const DonorTable = ({
   useEffect(() => {
     setShowDataSet(dataset);
     handleDataShow(0, 5);
-  }, []);
+    setPaginationNumber(1);
+    setPaginationStat({
+      startingPosition: 0,
+      endPosition: 5,
+    });
+  }, [dataset]);
 
   const handlePagination = (values) => {
     if (values === 1) {
