@@ -16,6 +16,7 @@ import Dashboard from "./components/adminPanel/dashboard";
 import EventDetails from "./components/eventDetails/EventDetails";
 import LoginForm from "./components/login/Login";
 import { GlobalContext } from "./contexts/ContextsProvider";
+import NotFound from "./components/notFound/NotFound";
 
 function App() {
   const { loggedInUser, login, logout } = useContext(GlobalContext);
@@ -41,7 +42,8 @@ function App() {
             ) : (
               <Route path="/admin" element={<Navigate to="/" />} />
             )}
-            <Route />
+            <Route path="*" element={<NotFound />} />
+            {/* <Route /> */}
           </Routes>
           <Footer></Footer>
         </div>

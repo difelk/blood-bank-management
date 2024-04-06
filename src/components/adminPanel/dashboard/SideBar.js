@@ -14,6 +14,7 @@ import UserIcon from "../../../assets/icons/svgs/UserIcon";
 import LogoutIcon from "../../../assets/icons/svgs/LogoutIcon";
 import { useNavigate } from "react-router-dom";
 import Logout from "../../login/Logout";
+import { useHistory } from "react-router-dom";
 
 const SideBar = ({ setCurrentPage }) => {
   const [activeTab, setActiveTab] = useState("Dashboard");

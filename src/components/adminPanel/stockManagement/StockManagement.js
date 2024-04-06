@@ -13,6 +13,7 @@ import EmptyMessage from "../../../share/empty/Empty";
 import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
+import stockService from "../../../api/services/stockService";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "25%" },
@@ -143,12 +144,31 @@ const StockManagement = ({ selectedPage }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isRequestStockOpen, setIsRequestStockOpen] = useState(false);
   const [isLoading, setIsloading] = useState(true);
+  const [data, setData] = useState([]);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
 
   setTimeout(() => {
     setIsloading(false);
   }, [1000]);
-  const [filteredData, setFilteredData] = useState(summaryDetailsTableDataSet);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const getAllStockItemsData = async () => {
+    setIsloading(true);
+    try {
+      const respond = await stockService.getAllStockItems();
+
+      setFilteredData(respond);
+      setData(respond);
+    } catch (e) {
+      console.log("error - ", e);
+    } finally {
+      setIsloading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllStockItemsData();
+  }, []);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -202,7 +222,7 @@ const StockManagement = ({ selectedPage }) => {
     if (filteredDataSet && searchValue) {
       setFilteredData(filteredDataSet);
     } else {
-      setFilteredData(summaryDetailsTableDataSet);
+      setFilteredData(data);
     }
   };
 
@@ -235,7 +255,7 @@ const StockManagement = ({ selectedPage }) => {
   };
 
   const tableReset = () => {
-    setFilteredData(summaryDetailsTableDataSet);
+    setFilteredData(data);
   };
 
   useEffect(() => {
