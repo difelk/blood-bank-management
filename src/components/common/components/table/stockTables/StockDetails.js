@@ -13,6 +13,8 @@ import AddIcon2 from "../../../../../assets/icons/svgs/AddIcon2";
 import donorService from "../../../../../api/services/donorService";
 import DonorHistoryTable from "../donorTables/DonorHistoryTable";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
+import NextIcon from "../../../../../assets/icons/svgs/NextIcon";
+import PreviousIcon from "../../../../../assets/icons/svgs/PreviousIcon";
 
 const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +23,12 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [selectedDonor, setSelectedDonor] = useState({});
   const [stockDonors, setStockDonors] = useState([]);
   const [donors, setDonors] = useState([]);
+  const [showDataSet, setShowDataSet] = useState([]);
+  const [paginationNumber, setPaginationNumber] = useState(1);
+  const [paginationStat, setPaginationStat] = useState({
+    startingPosition: 0,
+    endPosition: 5,
+  });
 
   const tableHeaderForDonor = [
     { name: "Donor NIC", width: "20%" },
@@ -156,6 +164,51 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
     return type1 + type2 + type3 + type4 + type5 + type6 + type7 + type8;
   };
 
+  const handlePagination = (values) => {
+    if (values === 1) {
+      setPaginationStat((prevState) => ({
+        ...prevState,
+        startingPosition: prevState.startingPosition + 5,
+        endPosition: prevState.endPosition + 5,
+      }));
+    } else if (values === -1) {
+      setPaginationStat((prevState) => ({
+        ...prevState,
+        startingPosition: prevState.startingPosition - 5,
+        endPosition: prevState.endPosition - 5,
+      }));
+    }
+
+    setPaginationNumber((prev) => prev + values);
+  };
+
+  const handleDataShow = (starting, end) => {
+    console.log("starting - ", starting);
+    console.log("end - ", end);
+    let newDataSet = [];
+    for (let i = starting; i < end; i++) {
+      if (dataset[i]) {
+        newDataSet.push(dataset[i]);
+      }
+    }
+
+    setShowDataSet(newDataSet);
+  };
+
+  useEffect(() => {
+    handleDataShow(paginationStat.startingPosition, paginationStat.endPosition);
+  }, [paginationStat]);
+
+  useEffect(() => {
+    setShowDataSet(dataset);
+    handleDataShow(0, 5);
+    setPaginationNumber(1);
+    setPaginationStat({
+      startingPosition: 0,
+      endPosition: 5,
+    });
+  }, [dataset]);
+
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableHeader}>
@@ -170,7 +223,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
         ))}
       </div>
       <div className={styles.tableBody}>
-        {dataset.map((item, index) => (
+        {showDataSet.map((item, index) => (
           <div className={styles.tableData} key={index + item.stockDate}>
             <div
               className={styles.tableDataItem}
@@ -445,6 +498,36 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
       ) : (
         ""
       )}
+      <div className={styles.paginationWrapper}>
+        <button
+          className={styles.nextprevPagbtns}
+          onClick={() => handlePagination(-1)}
+          disabled={paginationNumber <= 1}
+        >
+          <PreviousIcon
+            size={25}
+            color={paginationNumber <= 1 ? "#BBB6B4" : "#2196F3"}
+          />
+        </button>
+        <div
+          // onClick={() => handlePagination()}
+          className={styles.paginationNumberDisplay}
+        >
+          {paginationNumber}
+        </div>
+        <button
+          className={styles.nextprevPagbtns}
+          onClick={() => handlePagination(1)}
+          disabled={dataset.length / 5 < paginationNumber}
+        >
+          <NextIcon
+            size={25}
+            color={
+              dataset.length / 5 < paginationNumber ? "#BBB6B4" : "#2196F3"
+            }
+          />
+        </button>
+      </div>
     </div>
   );
 };
