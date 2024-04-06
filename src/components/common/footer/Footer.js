@@ -5,6 +5,7 @@ import twitterIconImg from "../../images/twitter.png";
 import instaIconImg from "../../images/insta.png";
 import fbIconImg from "../../images/fb.png";
 import logo from "../../images/bloodLogo.png";
+import CustomInput from "../components/form/CustomInput";
 
 const Footer = () => {
   return (
@@ -32,8 +33,8 @@ const Footer = () => {
           </div>
         </div>
         <div className={Styles.linksList}>
-          <div>
-            <ul>
+          <div className={Styles.subscriptWrapper}>
+            {/* <ul>
               <li>
                 <a href="#">
                   {" "}
@@ -52,7 +53,9 @@ const Footer = () => {
                   <img src={fbIconImg} alt="facebook" />
                 </a>
               </li>
-            </ul>
+            </ul> */}
+            <input placeholder="Enter your email" />
+            <button>Submit</button>
           </div>
           <div></div>
         </div>

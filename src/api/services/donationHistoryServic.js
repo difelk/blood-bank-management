@@ -10,6 +10,10 @@ const donationHistoryService = {
     }
   },
 
+  getDonationHistoryByDate: async (date) => {
+    return apiUtils.get(`/donation-history/date/${date}`, SERVICETYPE.DONOR);
+  },
+
   createDonation: async (value) => {
     try {
       return apiUtils.post(`/donation-history`, value, SERVICETYPE.DONOR);

@@ -10,19 +10,25 @@ import DonorForm from "../donorTables/DonorForm";
 import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 import AddIcon from "../../../../../assets/icons/svgs/AddIcon";
 import AddIcon2 from "../../../../../assets/icons/svgs/AddIcon2";
+import donorService from "../../../../../api/services/donorService";
+import DonorHistoryTable from "../donorTables/DonorHistoryTable";
+import donationHistoryService from "../../../../../api/services/donationHistoryServic";
 
 const StockDetails = ({ tableHeader, dataset, actionType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [editModeType, setEditModeType] = useState("");
   const [selectedDonor, setSelectedDonor] = useState({});
+  const [stockDonors, setStockDonors] = useState([]);
+  const [donors, setDonors] = useState([]);
 
   const tableHeaderForDonor = [
     { name: "Donor NIC", width: "20%" },
     { name: "First Name", width: "20%" },
     { name: "Last Name", width: "20%" },
     { name: "Blood Type", width: "20%" },
-    { name: "Quantity", width: "20%" },
+    { name: "Qty", width: "20%" },
+
     // { name: "Action", width: "25%" },
   ];
   const datasetforDonor = [
@@ -53,6 +59,40 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
             <td>John Dsssssssssoe</td>
             <td>O+</td>
             <td>50%</td> */
+
+  const getStockDonors = async (stockDate) => {
+    console.log("stockDate - ", stockDate);
+
+    const donationHistoryData =
+      await donationHistoryService.getDonationHistoryByDate(stockDate);
+
+    if (donationHistoryData && donationHistoryData.length) {
+      let donorsOfTheStock = [];
+      let donorData = [];
+      let allDonors = [];
+      await Promise.all(
+        donationHistoryData.map(async (donor) => {
+          donorData = await donorService.getDonorByNic(donor.donorNic);
+          allDonors.push(donorData);
+          donorsOfTheStock.push({
+            nic: donorData.donorNic,
+            firstName: donorData.firstName,
+            lastName: donorData.lastName,
+            bloodType: donorData.bloodType,
+            qty: donationHistoryData.find(
+              (items) => items.donorNic === donorData.donorNic
+            ).quantity,
+          });
+        })
+      );
+      setDonors(allDonors);
+
+      setStockDonors(donorsOfTheStock);
+      console.log("donorsOfTheStock - ", donorsOfTheStock);
+    }
+
+    //pass nics to donor table and get donor details
+  };
 
   const getStatusColor = (value) => {
     if (value <= 20) {
@@ -90,6 +130,8 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
     }
   };
 
+  useEffect(() => {}, []);
+
   const ScrollToTopButton = () => {
     window.scrollTo({
       top: 0,
@@ -100,6 +142,19 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
   useEffect(() => {
     ScrollToTopButton();
   }, [isModalOpen]);
+
+  const getTotalQty = (
+    type1,
+    type2,
+    type3,
+    type4,
+    type5,
+    type6,
+    type7,
+    type8
+  ) => {
+    return type1 + type2 + type3 + type4 + type5 + type6 + type7 + type8;
+  };
 
   return (
     <div className={styles.tableWrapper}>
@@ -116,12 +171,12 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
       </div>
       <div className={styles.tableBody}>
         {dataset.map((item, index) => (
-          <div className={styles.tableData} key={index}>
+          <div className={styles.tableData} key={index + item.stockDate}>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[0].width }}
             >
-              <p>{item.date}</p>
+              <p>{item.stockDate}</p>
             </div>
             <div
               className={styles.tableDataItem}
@@ -133,23 +188,95 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
               className={styles.tableDataItem}
               style={{ width: tableHeader[2].width }}
             >
-              {Object.keys(item.stock).map((bloodGroup, subIndex) => (
-                <p
-                  className={[
-                    styles.groupdataItem,
-                    getStatusColor(item.stock[bloodGroup]),
-                  ].join(" ")}
-                  key={subIndex}
-                >
-                  {getBloodType(bloodGroup)} {item.stock[bloodGroup]}
-                </p>
-              ))}
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.aPositive),
+                ].join(" ")}
+                key={index + item.stockDate}
+              >
+                {getBloodType("APLUS")} {item.aPositive}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.aNegative),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("AMINUS")} {item.aNegative}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.bPositive),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("BPLUS")} {item.bPositive}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.bNegative),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("BMINUS")} {item.bNegative}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.oPositive),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("OPLUS")} {item.oPositive}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.oNegative),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("OMINUS")} {item.oNegative}
+              </p>
+              <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor(item.abPositive),
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("ABPLUS")} {item.abPositive}
+              </p>
+              {/* <p
+                className={[
+                  styles.groupdataItem,
+                  getStatusColor("ABMINUS")
+                ].join(" ")}
+                key={index}
+              >
+                {getBloodType("ABMINUS")} {item.stock[bloodGroup]}
+              </p> */}
             </div>
             <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
             >
-              <p>{item.qty}</p>
+              <p>
+                {getTotalQty(
+                  item.aPositive,
+                  item.aNegative,
+                  item.bPositive,
+                  item.bNegative,
+                  item.oPositive,
+                  item.oNegative,
+                  item.abPositive,
+                  0
+                )}
+              </p>
             </div>
             <div
               className={styles.tableDataItem}
@@ -161,6 +288,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                 onClick={() => {
                   setIsModalOpen(true);
                   setSelectedItem(item);
+                  getStockDonors(item.stockDate);
                   setEditModeType("");
                 }}
               />
@@ -178,7 +306,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     buttonText={"Edit Basic Data"}
                     buttonType={"EDIT_MODE"}
                     active={true}
-                    isDisabled={false}
+                    isDisabled={true}
                     optionalTextColor={"WHITE"}
                     iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
                     onClick={() => {
@@ -191,7 +319,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     buttonText={"Edit Donor Data"}
                     buttonType={"EDIT_MODE"}
                     active={true}
-                    isDisabled={false}
+                    isDisabled={true}
                     optionalTextColor={"WHITE"}
                     iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
                     onClick={() => {
@@ -204,7 +332,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                     buttonText={"Add Donor"}
                     buttonType={"EDIT_MODE"}
                     active={true}
-                    isDisabled={false}
+                    isDisabled={true}
                     optionalTextColor={"WHITE"}
                     iconsLeft={<AddIcon2 size={15} color={"#ffffff"} />}
                     onClick={() => {
@@ -216,11 +344,15 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                 <div className={styles.hospitalBasicData}>
                   <div className={styles.dflexRow}>
                     <p>Stock ID:</p>
-                    <p>{selectedItem.stockId ?? "10254784"}</p>
+                    <p>
+                      {selectedItem.category.substring(0, 3) +
+                        selectedItem.stockDate.replaceAll("-", "") ??
+                        "10254784"}
+                    </p>
                   </div>
                   <div className={styles.dflexRow}>
                     <p>Date:</p>
-                    <p>{selectedItem.date}</p>
+                    <p>{selectedItem.stockDate}</p>
                   </div>
                   <div className={styles.dflexRow}>
                     <p>Category:</p>
@@ -228,17 +360,28 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                   </div>
                   <div className={styles.dflexRow}>
                     <p>location:</p>
-                    <p>{selectedItem.location ?? "Hospital 01"}</p>
+                    <p>{selectedItem.location ?? "Blood Bank Center"}</p>
                   </div>
                   <div className={styles.dflexRow}>
                     <p>qty:</p>
-                    <p>{selectedItem.location ?? "80%"}</p>
+                    <p>
+                      {getTotalQty(
+                        selectedItem.aPositive,
+                        selectedItem.aNegative,
+                        selectedItem.bPositive,
+                        selectedItem.bNegative,
+                        selectedItem.oPositive,
+                        selectedItem.oNegative,
+                        selectedItem.abPositive,
+                        0
+                      ) + "ml" ?? "0"}
+                    </p>
                   </div>
                 </div>
                 <div className={styles.centerText}>Donors List</div>
                 <ClassicTable
                   tableHeader={tableHeaderForDonor}
-                  dataset={datasetforDonor}
+                  dataset={stockDonors}
                   getSelected={(value) => {
                     setSelectedDonor(value);
                     setEditModeType("DONOR");
@@ -291,7 +434,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                         />
                       </div>
                     ) : (
-                      <DonorForm donor={selectedDonor} />
+                      <DonorForm donor={donors} />
                     )}
                   </>
                 )}

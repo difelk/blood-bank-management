@@ -16,13 +16,14 @@ const Header = ({ isLoggedIn, isAdmin }) => {
   const [isAdminPanel, setisAdminPanel] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   useEffect(() => {
-    const path = location.pathname;
-    if (path.includes("admin")) {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes("admin")) {
       setisAdminPanel(true);
     } else {
       setisAdminPanel(false);
     }
-  }, []);
+    console.log("location.pathname - ", location.pathname);
+  }, [window.location.href]);
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
