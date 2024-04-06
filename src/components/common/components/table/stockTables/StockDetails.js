@@ -304,15 +304,15 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
               >
                 {getBloodType("ABPLUS")} {item.abPositive}
               </p>
-              {/* <p
+              <p
                 className={[
                   styles.groupdataItem,
                   getStatusColor("ABMINUS")
                 ].join(" ")}
                 key={index}
               >
-                {getBloodType("ABMINUS")} {item.stock[bloodGroup]}
-              </p> */}
+                {getBloodType("ABMINUS")} {item.abNegative}
+              </p>
             </div>
             <div
               className={styles.tableDataItem}
@@ -327,7 +327,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                   item.oPositive,
                   item.oNegative,
                   item.abPositive,
-                  0
+                  item.abNegative
                 )}
               </p>
             </div>
@@ -426,7 +426,7 @@ const StockDetails = ({ tableHeader, dataset, actionType }) => {
                         selectedItem.oPositive,
                         selectedItem.oNegative,
                         selectedItem.abPositive,
-                        0
+                        selectedItem.abNegative
                       ) + "ml" ?? "0"}
                     </p>
                   </div>

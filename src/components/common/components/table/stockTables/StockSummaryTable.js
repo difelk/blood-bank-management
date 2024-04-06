@@ -53,7 +53,7 @@ const StockSummaryTable = ({ tableHeader, dataset, actionType }) => {
             >
               <p>{item.total}</p>
             </div>
-            <div
+            {/* <div
               className={styles.tableDataItem}
               style={{ width: tableHeader[3].width }}
             >
@@ -65,7 +65,7 @@ const StockSummaryTable = ({ tableHeader, dataset, actionType }) => {
                   setSelectedItem(item);
                 }}
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

@@ -16,10 +16,10 @@ import Filter from "../../common/components/Filters/Filter/Filter";
 import stockService from "../../../api/services/stockService";
 
 const summaryTableHeader = [
-  { name: "Blood Group", width: "25%" },
-  { name: "Last Updated", width: "25%" },
-  { name: "Total", width: "25%" },
-  { name: "Actions", width: "25%" },
+  { name: "Blood Group", width: "33%" },
+  { name: "Last Updated", width: "33%" },
+  { name: "Total", width: "33%" },
+  // { name: "Actions", width: "25%" },
 ];
 
 const filterOptions = [
@@ -147,6 +147,17 @@ const StockManagement = ({ selectedPage }) => {
   const [data, setData] = useState([]);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
 
+  const [stockSummary, setStockSummary] = useState([
+    { bloodGroup: "A+", lastUpdated: "", total: 0 },
+    { bloodGroup: "A-", lastUpdated: "", total: 0 },
+    { bloodGroup: "B+", lastUpdated: "", total: 0 },
+    { bloodGroup: "B-", lastUpdated: "", total: 0 },
+    { bloodGroup: "AB+", lastUpdated: "", total: 0 },
+    { bloodGroup: "AB-", lastUpdated: "", total: 0 },
+    { bloodGroup: "O+", lastUpdated: "", total: 0 },
+    { bloodGroup: "O-", lastUpdated: "", total: 0 },
+  ]);
+
   setTimeout(() => {
     setIsloading(false);
   }, [1000]);
@@ -156,9 +167,9 @@ const StockManagement = ({ selectedPage }) => {
     setIsloading(true);
     try {
       const respond = await stockService.getAllStockItems();
-
       setFilteredData(respond);
       setData(respond);
+      handleStockSummary();
     } catch (e) {
       console.log("error - ", e);
     } finally {
@@ -166,19 +177,63 @@ const StockManagement = ({ selectedPage }) => {
     }
   };
 
+  const handleStockSummary = () => {
+    let aPlus = 0;
+    let aMinus = 0;
+    let bPlus = 0;
+    let bMinus = 0;
+    let abPlus = 0;
+    let abMinus = 0;
+    let oPlus = 0;
+    let oMinus = 0;
+
+    filteredData.forEach((item) => {
+        aPlus += item.aPositive;
+        aMinus += item.aNegative;
+        bMinus += item.bNegative;
+        bPlus += item.bPositive;
+        abMinus += item.abNegative;
+        abPlus += item.abPositive;
+        oMinus += item.oNegative;
+        oPlus += item.oPositive;
+        // console.log("item.aPositive: ", item.aPositive);
+        // console.log("aPlus ", aPlus);
+    });
+
+    const updatedStockSummary = [
+        { bloodGroup: "A+", lastUpdated: "2024-04-06", total: aPlus },
+        { bloodGroup: "A-", lastUpdated: "2024-04-06", total: aMinus },
+        { bloodGroup: "B+", lastUpdated: "2024-04-06", total: bPlus },
+        { bloodGroup: "B-", lastUpdated: "2024-04-06", total: bMinus },
+        { bloodGroup: "AB+", lastUpdated: "2024-04-06", total: abPlus },
+        { bloodGroup: "AB-", lastUpdated: "2024-04-06", total: abMinus },
+        { bloodGroup: "O+", lastUpdated: "2024-04-06", total: oPlus },
+        { bloodGroup: "O-", lastUpdated: "2024-04-06", total: oMinus },
+    ];
+
+    setStockSummary(updatedStockSummary);
+};
+
+useEffect(() => {
+  handleStockSummary();
+}, [filteredData]);
+
   useEffect(() => {
     getAllStockItemsData();
   }, []);
 
+
+console.log("StockSummary: ", stockSummary);
+
   const loadComponent = () => {
     switch (selectedTab.key) {
       case 1:
-        if (!summaryTableDataSet.length) {
+        if (!stockSummary.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <StockSummaryTable
-              dataset={summaryTableDataSet}
+              dataset={stockSummary}
               tableHeader={summaryTableHeader}
               actionType={"VIEW"}
             />
@@ -197,12 +252,12 @@ const StockManagement = ({ selectedPage }) => {
           );
         }
       default:
-        if (!summaryTableDataSet.length) {
+        if (!stockSummary.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
             <StockSummaryTable
-              dataset={summaryTableDataSet}
+              dataset={stockSummary}
               tableHeader={summaryTableHeader}
               actionType={"VIEW"}
             />
