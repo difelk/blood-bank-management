@@ -59,66 +59,68 @@ const ClassicTable = ({ tableHeader, dataset, actions, getSelected, form }) => {
   return (
     <>
       {dataset.length ? (
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              {tableHeader.map((head, index) => (
-                <th style={{ width: head.width }} key={index}>
-                  {head.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {showDataSet.map((donor, index) => (
-              <tr key={index}>
-                {Object.keys(donor).map((key) => (
-                  <td key={key}>
-                    <button
-                      className={styles.noStylesBtn}
-                      onClick={() => getSelected(donor)}
-                    >
-                      {donor[key]}
-                    </button>
-                  </td>
+        <>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                {tableHeader.map((head, index) => (
+                  <th style={{ width: head.width }} key={index}>
+                    {head.name}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {showDataSet.map((donor, index) => (
+                <tr key={index}>
+                  {Object.keys(donor).map((key) => (
+                    <td key={key}>
+                      <button
+                        className={styles.noStylesBtn}
+                        onClick={() => getSelected(donor)}
+                      >
+                        {donor[key]}
+                      </button>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className={styles.paginationWrapper}>
+            <button
+              className={styles.nextprevPagbtns}
+              onClick={() => handlePagination(-1)}
+              disabled={paginationNumber <= 1}
+            >
+              <PreviousIcon
+                size={25}
+                color={paginationNumber <= 1 ? "#BBB6B4" : "#2196F3"}
+              />
+            </button>
+            <div
+              // onClick={() => handlePagination()}
+              className={styles.paginationNumberDisplay}
+            >
+              {paginationNumber}
+            </div>
+            <button
+              className={styles.nextprevPagbtns}
+              onClick={() => handlePagination(1)}
+              disabled={dataset.length / 5 < paginationNumber}
+            >
+              <NextIcon
+                size={25}
+                color={
+                  dataset.length / 5 < paginationNumber ? "#BBB6B4" : "#2196F3"
+                }
+              />
+            </button>
+          </div>
+        </>
       ) : (
         <EmptyMessage />
       )}
-      <div className={styles.paginationWrapper}>
-        <button
-          className={styles.nextprevPagbtns}
-          onClick={() => handlePagination(-1)}
-          disabled={paginationNumber <= 1}
-        >
-          <PreviousIcon
-            size={25}
-            color={paginationNumber <= 1 ? "#BBB6B4" : "#2196F3"}
-          />
-        </button>
-        <div
-          // onClick={() => handlePagination()}
-          className={styles.paginationNumberDisplay}
-        >
-          {paginationNumber}
-        </div>
-        <button
-          className={styles.nextprevPagbtns}
-          onClick={() => handlePagination(1)}
-          disabled={dataset.length / 5 < paginationNumber}
-        >
-          <NextIcon
-            size={25}
-            color={
-              dataset.length / 5 < paginationNumber ? "#BBB6B4" : "#2196F3"
-            }
-          />
-        </button>
-      </div>
     </>
   );
 };
