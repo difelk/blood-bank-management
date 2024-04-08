@@ -46,7 +46,7 @@ const userActivityTableDataSet = [];
 
 const tabs = [
   { key: 1, value: "User Details" },
-  { key: 2, value: "User Activities" },
+  // { key: 2, value: "User Activities" },
 ];
 
 export const defaultOptions = {
