@@ -188,42 +188,41 @@ const StockManagement = ({ selectedPage }) => {
     let oMinus = 0;
 
     filteredData.forEach((item) => {
-        aPlus += item.aPositive;
-        aMinus += item.aNegative;
-        bMinus += item.bNegative;
-        bPlus += item.bPositive;
-        abMinus += item.abNegative;
-        abPlus += item.abPositive;
-        oMinus += item.oNegative;
-        oPlus += item.oPositive;
-        // console.log("item.aPositive: ", item.aPositive);
-        // console.log("aPlus ", aPlus);
+      aPlus += item.aPositive;
+      aMinus += item.aNegative;
+      bMinus += item.bNegative;
+      bPlus += item.bPositive;
+      abMinus += item.abNegative;
+      abPlus += item.abPositive;
+      oMinus += item.oNegative;
+      oPlus += item.oPositive;
+      // console.log("item.aPositive: ", item.aPositive);
+      // console.log("aPlus ", aPlus);
     });
 
     const updatedStockSummary = [
-        { bloodGroup: "A+", lastUpdated: "2024-04-06", total: aPlus },
-        { bloodGroup: "A-", lastUpdated: "2024-04-06", total: aMinus },
-        { bloodGroup: "B+", lastUpdated: "2024-04-06", total: bPlus },
-        { bloodGroup: "B-", lastUpdated: "2024-04-06", total: bMinus },
-        { bloodGroup: "AB+", lastUpdated: "2024-04-06", total: abPlus },
-        { bloodGroup: "AB-", lastUpdated: "2024-04-06", total: abMinus },
-        { bloodGroup: "O+", lastUpdated: "2024-04-06", total: oPlus },
-        { bloodGroup: "O-", lastUpdated: "2024-04-06", total: oMinus },
+      { bloodGroup: "A+", lastUpdated: "2024-04-07", total: aPlus },
+      { bloodGroup: "A-", lastUpdated: "2024-04-07", total: aMinus },
+      { bloodGroup: "B+", lastUpdated: "2024-04-07", total: bPlus },
+      { bloodGroup: "B-", lastUpdated: "2024-04-07", total: bMinus },
+      { bloodGroup: "AB+", lastUpdated: "2024-04-07", total: abPlus },
+      { bloodGroup: "AB-", lastUpdated: "2024-04-07", total: abMinus },
+      { bloodGroup: "O+", lastUpdated: "2024-04-07", total: oPlus },
+      { bloodGroup: "O-", lastUpdated: "2024-04-07", total: oMinus },
     ];
 
     setStockSummary(updatedStockSummary);
-};
+  };
 
-useEffect(() => {
-  handleStockSummary();
-}, [filteredData]);
+  useEffect(() => {
+    handleStockSummary();
+  }, [filteredData]);
 
   useEffect(() => {
     getAllStockItemsData();
   }, []);
 
-
-console.log("StockSummary: ", stockSummary);
+  console.log("StockSummary: ", stockSummary);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
