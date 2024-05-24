@@ -8,6 +8,8 @@ const ContextProvider = ({ children }) => {
     JSON.parse(sessionStorage.getItem("loggedInUser")) || null
   );
   const [token, setToken] = useState(sessionStorage.getItem("token") || null);
+  const [CurrentStepOfstockSendRecive, setCurrentStepOfstockSendRecive] =
+    useState({ step: 0, formType: "" });
 
   useEffect(() => {
     sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
@@ -31,8 +33,27 @@ const ContextProvider = ({ children }) => {
     sessionStorage.removeItem("token");
   };
 
+  const setTheStockShareStep = (currentStep, currentForm) => {
+    console.log("setTheStockShareStep: ", currentStep);
+    setCurrentStepOfstockSendRecive({ currentStep, currentForm });
+  };
+  const getTheStockShareStep = () => {
+    return CurrentStepOfstockSendRecive;
+  };
+
+  console.log("CurrentStepOfstockSendRecive - ", CurrentStepOfstockSendRecive);
+
   return (
-    <GlobalContext.Provider value={{ loggedInUser, token, login, logout }}>
+    <GlobalContext.Provider
+      value={{
+        loggedInUser,
+        token,
+        login,
+        logout,
+        setTheStockShareStep,
+        getTheStockShareStep,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ExchangeAndReceive.module.scss";
 import styles2 from "../../../../../share/formComponents/userRegistrationForm/UserRegistrationForm.module.scss";
 import formStyles from "../../form/CustomForm.module.scss";
@@ -13,17 +13,22 @@ import NoteIcon from "../../../../../assets/icons/svgs/NoteIcon";
 import AttachmentIcon from "../../../../../assets/icons/svgs/AttachmentIcon";
 import NoteModal from "../../modal/noteModal/NoteModal";
 import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import { GlobalContext } from "../../../../../contexts/ContextsProvider";
 const ReceiveForm = ({
   data,
   isSetToUpdate,
   enableFormEdit,
   addRequest,
   step,
+  isUpdateForm,
 }) => {
   const [currentFormState, setCurrentFormState] = useState(1);
   const [showNote, setShowNote] = useState(false);
   const [showAttachments, setShowAttachments] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const { setTheStockShareStep, getTheStockShareStep } =
+    useContext(GlobalContext);
+
   const initialValues = {
     nic: "",
     first_name: "",
@@ -90,11 +95,11 @@ const ReceiveForm = ({
     console.log("values - ", values);
   };
 
-  useEffect(() => {
-    if (isSetToUpdate) {
-      step(1.3);
-    }
-  }, [isSetToUpdate]);
+  // useEffect(() => {
+  //   if (isSetToUpdate) {
+  //     step(1.3);
+  //   }
+  // }, [isSetToUpdate]);
 
   return (
     <>
@@ -127,24 +132,28 @@ const ReceiveForm = ({
               <li>Blood Group B- : 100Ml</li>
             </ul>
           </div>
-          {!enableFormEdit && !addRequest ? (
-            <div className={styles.updateBtnWrapper}>
-              <CustomButton
-                buttonText={"Update"}
-                buttonType={"submit"}
-                active={true}
-                isDisabled={false}
-                optionalTextColor={"WHITE"}
-                // iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
-                onClick={() => {
-                  isSetToUpdate(true);
-                  setIsUpdate(true);
-                }}
-              />
-            </div>
-          ) : (
-            ""
-          )}
+          {console.log(isUpdateForm)}
+          {
+            /*!enableFormEdit && !addRequest*/ isUpdateForm ? (
+              <div className={styles.updateBtnWrapper}>
+                <CustomButton
+                  buttonText={"Update"}
+                  buttonType={"submit"}
+                  active={true}
+                  isDisabled={false}
+                  optionalTextColor={"WHITE"}
+                  // iconsLeft={<EditIcon size={15} color={"#ffffff"} />}
+                  onClick={() => {
+                    setTheStockShareStep(1.4, "UPDATE");
+                    isSetToUpdate(true);
+                    setIsUpdate(true);
+                  }}
+                />
+              </div>
+            ) : (
+              ""
+            )
+          }
         </div>
       ) : (
         <div className={formStyles.basicDataFormWrapper}>
@@ -946,7 +955,7 @@ const ReceiveForm = ({
                               />
                             </div>
                           </div>
-                          {isUpdate && (
+                          {isUpdateForm && (
                             <div className={styles.controller}>
                               <CustomButton
                                 buttonType={"DELETE"}
@@ -1148,7 +1157,7 @@ const ReceiveForm = ({
                           onClick={() => {
                             setCurrentFormState(1);
                             // step(1.2);
-                            step(1.3);
+                            // step(1.3);
                           }}
                         />
                         <div className={styles.mrgBtw4} />
@@ -1172,6 +1181,7 @@ const ReceiveForm = ({
                         active={true}
                         onClick={() => {
                           setCurrentFormState(2);
+                          setTheStockShareStep(1.4, "UPDATE");
                           // step(1);
                         }}
                       />

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ExchangeAndReceive.module.scss";
 import ClassicTable from "../../table/classicTable/ClassicTable";
 import ReceiveForm from "./ReceiveForm";
+import { GlobalContext } from "../../../../../contexts/ContextsProvider";
 
 const tableHeader = [
   { name: "Hospital/Organization", width: "25%" },
@@ -59,9 +60,12 @@ const dataSet = [
 const ReceiveTable = ({ step }) => {
   const [selectedStock, setSelectedStock] = useState();
   const [showForm, setShowForm] = useState(false);
+  const { setTheStockShareStep, getTheStockShareStep } =
+    useContext(GlobalContext);
 
   useEffect(() => {
     if (selectedStock) {
+      setTheStockShareStep(1.3, "UPDATE");
       step(1.2);
     } else {
       step(1);
@@ -85,6 +89,11 @@ const ReceiveTable = ({ step }) => {
           step={step}
           isSetToUpdate={getFormUpdateStatus}
           enableFormEdit={showForm}
+          isUpdateForm={
+            (getTheStockShareStep().currentStep === 1.3 ||
+              getTheStockShareStep().currentStep === 1.4) &&
+            getTheStockShareStep().currentForm === "UPDATE"
+          }
         />
       )}
     </div>

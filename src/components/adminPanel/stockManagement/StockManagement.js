@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import sectionStyles from "../dashboard/Dashboard.module.scss";
 import styles from "./StockManagement.module.scss";
 import CustomButton from "../../common/components/customButton";
@@ -15,6 +15,7 @@ import SearchTableData from "../../common/components/Filters/Search/SearchTableD
 import Filter from "../../common/components/Filters/Filter/Filter";
 import stockService from "../../../api/services/stockService";
 import ReceiveForm from "../../common/components/other/ExchangeAndReceive/ReceiveForm";
+import { GlobalContext } from "../../../contexts/ContextsProvider";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "33%" },
@@ -149,6 +150,8 @@ const StockManagement = ({ selectedPage }) => {
   const [isSearchHasValue, setSearchHasValue] = useState(false);
   const [stockExchangeReciveStep, setStockExchangeReciveStep] = useState(0);
   const [isAddRequestModalOpen, setIsAddRequestModalOpen] = useState(false);
+  const { setTheStockShareStep, getTheStockShareStep } =
+    useContext(GlobalContext);
 
   const [stockSummary, setStockSummary] = useState([
     { bloodGroup: "A+", lastUpdated: "", total: 0 },
@@ -227,7 +230,15 @@ const StockManagement = ({ selectedPage }) => {
 
   useEffect(() => {
     if (!isAddRequestModalOpen) {
-      setStockExchangeReciveStep(1);
+      if (
+        getTheStockShareStep().currentStep === 1.3 ||
+        getTheStockShareStep().currentStep === 1.4
+      ) {
+        setTheStockShareStep(1, "");
+      } else {
+        setTheStockShareStep(1, "");
+        setStockExchangeReciveStep(1);
+      }
     }
   }, [isAddRequestModalOpen]);
 
@@ -420,7 +431,6 @@ const StockManagement = ({ selectedPage }) => {
               : styles.exhangeAReciWrapFocuse
           }
         >
-          {console.log("stockExchangeReciveStep - ", stockExchangeReciveStep)}
           <CustomModal
             open={setIsRequestStockOpen}
             title={getEchangeReceiveModalTitle()}
@@ -443,12 +453,26 @@ const StockManagement = ({ selectedPage }) => {
       ) : (
         ""
       )}
-      {console.log("stockExchangeReciveStep - ", stockExchangeReciveStep)}
-      {stockExchangeReciveStep === 1.3 && isAddRequestModalOpen ? (
-        <CustomModal open={setIsAddRequestModalOpen} title={"Request Stock"}>
+      {(stockExchangeReciveStep === 1.3 && isAddRequestModalOpen) ||
+      (getTheStockShareStep().currentStep === 1.4 &&
+        getTheStockShareStep().currentForm === "UPDATE") ? (
+        <CustomModal
+          open={setIsAddRequestModalOpen}
+          title={
+            getTheStockShareStep().currentStep === 1.4 &&
+            getTheStockShareStep().currentForm === "UPDATE"
+              ? "Update Stock"
+              : "Request Stock"
+          }
+        >
           <ReceiveForm
             addRequest={true}
             step={handleExhangeReceiveStepChange}
+            isUpdateForm={
+              (getTheStockShareStep().currentStep === 1.3 ||
+                getTheStockShareStep().currentStep === 1.4) &&
+              getTheStockShareStep().currentForm === "UPDATE"
+            }
           />
         </CustomModal>
       ) : (

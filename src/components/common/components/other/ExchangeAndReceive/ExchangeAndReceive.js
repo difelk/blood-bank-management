@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ExchangeAndReceive.module.scss";
 // import ReceivedIcon from "../../../../../assets/img/Received.png";
 // import SendIcon from "../../../../../assets/img/Send.png";
@@ -11,11 +11,24 @@ import StockReceive from "../../../../adminPanel/stockManagement/stockReceive/St
 import CustomButton from "../../customButton";
 import BackArrowIcon from "../../../../../assets/icons/svgs/BackArrowIcon";
 import StockSend from "../../../../adminPanel/stockManagement/stockSend/StockSend";
+import {
+  ContextProvider,
+  GlobalContext,
+} from "../../../../../contexts/ContextsProvider";
 const ExchangeAndReceive = ({ step, stepName, addNewRequest }) => {
   const [exchangeReceiveType, setExchangeReceiveType] = useState("");
+  const { setTheStockShareStep, getTheStockShareStep } =
+    useContext(GlobalContext);
 
   useEffect(() => {
-    console.log("stepName - ", stepName);
+    if (exchangeReceiveType === "RECEIVED") {
+      console.log("in rec");
+      setTheStockShareStep(1, "");
+    }
+    if (exchangeReceiveType === "SEND") {
+      console.log("in send");
+      setTheStockShareStep(2, "");
+    }
     if (stepName === 1.2) {
       setExchangeReceiveType("RECEIVED");
     } else if (exchangeReceiveType === "RECEIVED") {

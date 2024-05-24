@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles2 from "./HospitalStockDetails.module.scss";
 import styles from "../../../../../styles/form.module.scss";
 
 import CustomButton from "../../customButton";
 import CustomInput from "../../form/CustomInput";
 import { Form, Formik } from "formik";
+import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import FolderFillIcon from "../../../../../assets/icons/svgs/FolderFillIcon";
 
 const HospitalStockBasicDataForm = () => {
+  const [showAttachments, setShowAttachments] = useState(false);
   const initialValues = {
     first_name: "",
     last_name: "",
@@ -80,6 +83,26 @@ const HospitalStockBasicDataForm = () => {
 
   return (
     <div className={styles2.basicDataFormWrapper}>
+      <div>
+        {showAttachments && (
+          <AttachmentModal
+            modalVisibility={showAttachments}
+            setModalVisibility={setShowAttachments}
+            getNoteValue={(value) => console.log("note value - ", value)}
+          />
+        )}
+        <div className={styles.docUpLoad}>
+          <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
+            optionalBackgroundColor={"#E7DDE6"}
+            hideShadows={true}
+            iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+            isDisabled={false}
+            active={true}
+            onClick={() => setShowAttachments(true)}
+          />
+        </div>
+      </div>
       <Formik
         initialValues={initialValues}
         validate={validation}
