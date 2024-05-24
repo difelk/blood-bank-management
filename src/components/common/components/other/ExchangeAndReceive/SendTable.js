@@ -6,7 +6,7 @@ import ReceiveForm from "./ReceiveForm";
 const tableHeader = [
   { name: "Hospital/Organization", width: "25%" },
   { name: "Requested Date", width: "25%" },
-  { name: "Receive Date", width: "25%" },
+  { name: "Sended Date", width: "25%" },
   { name: "Qty", width: "25%" },
   { name: "Confirmation", width: "25%" },
 ];
@@ -56,15 +56,15 @@ const dataSet = [
   },
 ];
 
-const ReceiveTable = ({ step }) => {
+const SendTable = ({ step }) => {
   const [selectedStock, setSelectedStock] = useState();
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     if (selectedStock) {
-      step(1.2);
+      step(2.2);
     } else {
-      step(1);
+      step(2);
     }
   }, [selectedStock]);
 
@@ -91,4 +91,4 @@ const ReceiveTable = ({ step }) => {
   );
 };
 
-export default ReceiveTable;
+export default SendTable;

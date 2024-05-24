@@ -398,14 +398,14 @@ const HospitalManagement = ({ selectedPage, isAllowedFullAccess }) => {
             }}
             optionalBackgroundColor={"#5585CC"}
           />
-          <CustomButton
+          {/* <CustomButton
             buttonType={"CIRCLE_ACTIONS"}
             iconsLeft={<ExchangeIcon size={18} color={"#03a9f4"} />}
             optionalBackgroundColor={"#03a9f4"}
             onClick={() => {
               setModalType("REQUEST");
             }}
-          />
+          /> */}
         </div>
         <TabController
           tabs={tabs}

@@ -14,6 +14,7 @@ import TableLoader from "../../../share/loaders/contentLoader/ContentLoader";
 import SearchTableData from "../../common/components/Filters/Search/SearchTableData";
 import Filter from "../../common/components/Filters/Filter/Filter";
 import stockService from "../../../api/services/stockService";
+import ReceiveForm from "../../common/components/other/ExchangeAndReceive/ReceiveForm";
 
 const summaryTableHeader = [
   { name: "Blood Group", width: "33%" },
@@ -146,6 +147,8 @@ const StockManagement = ({ selectedPage }) => {
   const [isLoading, setIsloading] = useState(true);
   const [data, setData] = useState([]);
   const [isSearchHasValue, setSearchHasValue] = useState(false);
+  const [stockExchangeReciveStep, setStockExchangeReciveStep] = useState(0);
+  const [isAddRequestModalOpen, setIsAddRequestModalOpen] = useState(false);
 
   const [stockSummary, setStockSummary] = useState([
     { bloodGroup: "A+", lastUpdated: "", total: 0 },
@@ -187,7 +190,7 @@ const StockManagement = ({ selectedPage }) => {
     let oPlus = 0;
     let oMinus = 0;
 
-    filteredData.forEach((item) => {
+    filteredData?.forEach((item) => {
       aPlus += item.aPositive;
       aMinus += item.aNegative;
       bMinus += item.bNegative;
@@ -222,7 +225,11 @@ const StockManagement = ({ selectedPage }) => {
     getAllStockItemsData();
   }, []);
 
-  console.log("StockSummary: ", stockSummary);
+  useEffect(() => {
+    if (!isAddRequestModalOpen) {
+      setStockExchangeReciveStep(1);
+    }
+  }, [isAddRequestModalOpen]);
 
   const loadComponent = () => {
     switch (selectedTab.key) {
@@ -239,7 +246,7 @@ const StockManagement = ({ selectedPage }) => {
           );
         }
       case 2:
-        if (!filteredData.length) {
+        if (!filteredData?.length) {
           return <EmptyMessage isSearchedValue={isSearchHasValue} />;
         } else {
           return (
@@ -318,6 +325,28 @@ const StockManagement = ({ selectedPage }) => {
     tableReset();
   }, [selectedTab]);
 
+  const handleExhangeReceiveStepChange = (stepNo) => {
+    setStockExchangeReciveStep(stepNo);
+    getEchangeReceiveModalTitle();
+  };
+
+  const getEchangeReceiveModalTitle = () => {
+    switch (stockExchangeReciveStep) {
+      case 0:
+        return "Stock Exchanges";
+      case 1:
+        return "Stock Receive";
+      case 1.2:
+        return "Stock Item View";
+      case 2:
+        return "Stock Send";
+      case 2.2:
+        return "Stock Send Item View";
+      default:
+        return "Stock Exchanges";
+    }
+  };
+
   return (
     <div className={sectionStyles.sectionStyles}>
       <div className={sectionStyles.dashboardTitle}>
@@ -384,10 +413,43 @@ const StockManagement = ({ selectedPage }) => {
       </div>
 
       {isRequestStockOpen ? (
-        <CustomModal open={setIsRequestStockOpen} title={`Stock Exchanges`}>
-          <div className={styles.hospitalData}>
-            <ExchangeAndReceive />
-          </div>
+        <div
+          className={
+            isAddRequestModalOpen
+              ? styles.exhangeAReciWrap
+              : styles.exhangeAReciWrapFocuse
+          }
+        >
+          {console.log("stockExchangeReciveStep - ", stockExchangeReciveStep)}
+          <CustomModal
+            open={setIsRequestStockOpen}
+            title={getEchangeReceiveModalTitle()}
+            width={
+              stockExchangeReciveStep === 1 || stockExchangeReciveStep === 2
+                ? 1000
+                : 400
+            }
+            // height={stockExchangeReciveStep === 1.3 ? 600 : ""}
+          >
+            <div className={styles.hospitalData}>
+              <ExchangeAndReceive
+                step={handleExhangeReceiveStepChange}
+                stepName={stockExchangeReciveStep}
+                addNewRequest={setIsAddRequestModalOpen}
+              />
+            </div>
+          </CustomModal>
+        </div>
+      ) : (
+        ""
+      )}
+      {console.log("stockExchangeReciveStep - ", stockExchangeReciveStep)}
+      {stockExchangeReciveStep === 1.3 && isAddRequestModalOpen ? (
+        <CustomModal open={setIsAddRequestModalOpen} title={"Request Stock"}>
+          <ReceiveForm
+            addRequest={true}
+            step={handleExhangeReceiveStepChange}
+          />
         </CustomModal>
       ) : (
         ""

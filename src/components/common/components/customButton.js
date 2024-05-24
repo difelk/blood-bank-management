@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./custome.module.scss";
+import careBear from "../../../assets/icons/img/care bear.png";
 // import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 const CustomButton = ({
   buttonType,
@@ -52,6 +53,12 @@ const CustomButton = ({
         return Styles.logoutBtn;
       case "CANCEL":
         return Styles.cancelBtn;
+      case "PREV":
+        return Styles.prevBtn;
+      case "CARE_BEAR":
+        return Styles.carebear;
+      case "LEFT_ICON_CENTER_TEXT":
+        return Styles.lfIconTxt;
       default:
         return Styles.primaryBtn;
     }
@@ -98,6 +105,8 @@ const CustomButton = ({
         >
           {buttonText ?? ""}
         </div>
+      ) : buttonType === "CARE_BEAR" ? (
+        <img src={careBear} alt="careBearBot" />
       ) : (
         ""
       )}

@@ -83,8 +83,6 @@ const DonorTable = ({
   }, [paginationStat]);
 
   const handleDataShow = (starting, end) => {
-    console.log("starting - ", starting);
-    console.log("end - ", end);
     let newDataSet = [];
     for (let i = starting; i < end; i++) {
       if (dataset[i]) {
