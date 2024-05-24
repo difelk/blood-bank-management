@@ -13,14 +13,12 @@ import NoteIcon from "../../../../../assets/icons/svgs/NoteIcon";
 import AttachmentIcon from "../../../../../assets/icons/svgs/AttachmentIcon";
 import NoteModal from "../../modal/noteModal/NoteModal";
 import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
-import CloseIcon from "../../../../../assets/icons/svgs/Close";
 const ReceiveForm = ({
   data,
   isSetToUpdate,
   enableFormEdit,
   addRequest,
   step,
-  addNewRequest,
 }) => {
   const [currentFormState, setCurrentFormState] = useState(1);
   const [showNote, setShowNote] = useState(false);

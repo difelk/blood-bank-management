@@ -18,14 +18,14 @@ const StockSend = ({ step, stepName }) => {
     <div className={styles.wrapperComp}>
       {stepName === 1 || stepName === 2 ? (
         <div className={styles.modalAddBtnModal}>
-          <CustomButton
+          {/* <CustomButton
             buttonType={"CIRCLE_ACTIONS"}
             iconsLeft={<AddIcon size={12} color={"#FE5987"} />}
             onClick={() => {
               setModalType("ADD");
             }}
             optionalBackgroundColor={"#5585CC"}
-          />
+          /> */}
         </div>
       ) : (
         ""

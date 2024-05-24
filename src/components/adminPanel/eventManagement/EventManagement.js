@@ -230,7 +230,7 @@ const EventManagement = ({ selectedPage, isAllowedFullAccess }) => {
 
       {modalType ? (
         modalType === "ADD" ? (
-          <CustomModal open={setModalType} title={`Add Event`} height={"500px"}>
+          <CustomModal open={setModalType} title={`Add Event`}>
             <div className={styles.hospitalData}></div>
             <EventRegistrationForm
               event={selectedEvent}

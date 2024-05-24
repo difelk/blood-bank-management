@@ -8,6 +8,8 @@ import { Form, Formik } from "formik";
 import CustomDropdown from "../../form/CustomDropdown";
 import CustomDatePicker from "../../form/CustomDatePicker";
 import DeletePopUp from "../../modal/popups/DeletePopUp";
+import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import FolderFillIcon from "../../../../../assets/icons/svgs/FolderFillIcon";
 
 const status = [
   { key: 1, value: "In progress" },
@@ -18,6 +20,7 @@ const status = [
 
 const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
   const [showConfirmation, setshowConfirmation] = useState(false);
+  const [showAttachments, setShowAttachments] = useState(false);
   const handleRemoveClick = (value) => {
     setshowConfirmation(false);
   };
@@ -101,6 +104,26 @@ const EventForm = ({ event, isAllowedFullAccess, isCreateEvent }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div>
+        {showAttachments && (
+          <AttachmentModal
+            modalVisibility={showAttachments}
+            setModalVisibility={setShowAttachments}
+            getNoteValue={(value) => console.log("note value - ", value)}
+          />
+        )}
+        <div className={styles.docUpLoad}>
+          <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
+            optionalBackgroundColor={"#E7DDE6"}
+            hideShadows={true}
+            iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+            isDisabled={false}
+            active={true}
+            onClick={() => setShowAttachments(true)}
+          />
+        </div>
+      </div>
       <Formik
         initialValues={initialValues}
         validate={validation}

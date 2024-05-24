@@ -107,6 +107,7 @@
 .hospitalData {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     .tableWrapper {
         display: flex;
@@ -264,4 +265,8 @@
     button {
         margin: 0 8px;
     }
+}
+
+.docUpLoad {
+    padding: 8px 0;
 }

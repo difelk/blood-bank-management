@@ -12,6 +12,8 @@ import AuthService from "../../../api/services/authService";
 import AlertBox from "../../Alerts/AlertBox";
 import UserService from "../../../api/services/userService";
 import ContentLoader from "react-content-loader";
+import FolderFillIcon from "../../../assets/icons/svgs/FolderFillIcon";
+import AttachmentModal from "../../../components/common/components/modal/attachmentModal/AttachmentModal";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -52,6 +54,7 @@ const UserRegistrationForm = ({
   const [isUsernameAlreadyExisting, setIsUsernameAlreadyExisting] =
     useState(false);
   const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
+  const [showAttachments, setShowAttachments] = useState(false);
   const initialValues = {
     nic: "",
     firstName: "",
@@ -262,6 +265,26 @@ const UserRegistrationForm = ({
       ) : (
         <>
           <div className={modalStyle.alertBoxWrapper}>
+            <div>
+              {showAttachments && (
+                <AttachmentModal
+                  modalVisibility={showAttachments}
+                  setModalVisibility={setShowAttachments}
+                  getNoteValue={(value) => console.log("note value - ", value)}
+                />
+              )}
+              <div className={styles.docUpLoad}>
+                <CustomButton
+                  buttonType={"CIRCLE_ACTIONS"}
+                  optionalBackgroundColor={"#E7DDE6"}
+                  hideShadows={true}
+                  iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+                  isDisabled={false}
+                  active={true}
+                  onClick={() => setShowAttachments(true)}
+                />
+              </div>
+            </div>
             <AlertBox
               type={alertMsg.type}
               message={alertMsg.message}

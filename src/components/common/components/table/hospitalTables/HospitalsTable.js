@@ -3,10 +3,13 @@ import styles from "./HospitalsTable.module.scss";
 import CustomButton from "../../customButton";
 import ViewMoreIcon from "../../../../../assets/icons/svgs/ViewMore";
 import CustomModal from "../../modal/CustomModal";
+import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import FolderFillIcon from "../../../../../assets/icons/svgs/FolderFillIcon";
 
 const HospitalsTable = ({ tableHeader, dataset, actions }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState({});
+  const [showAttachments, setShowAttachments] = useState(false);
 
   const ScrollToTopButton = () => {
     window.scrollTo({
@@ -127,6 +130,15 @@ const HospitalsTable = ({ tableHeader, dataset, actions }) => {
 
       {isModalOpen ? (
         <CustomModal open={setIsModalOpen} title={"Hospital Details"}>
+          <div>
+            {showAttachments && (
+              <AttachmentModal
+                modalVisibility={showAttachments}
+                setModalVisibility={setShowAttachments}
+                getNoteValue={(value) => console.log("note value - ", value)}
+              />
+            )}
+          </div>
           <div className={styles.hospitalData}>
             <div className={styles.hospitalBasicData}>
               <div className={styles.dflexRow}>
@@ -151,6 +163,17 @@ const HospitalsTable = ({ tableHeader, dataset, actions }) => {
                   </div>
                 )
               )}
+            </div>
+            <div className={styles.docUpLoad}>
+              <CustomButton
+                buttonType={"CIRCLE_ACTIONS"}
+                optionalBackgroundColor={"#E7DDE6"}
+                hideShadows={true}
+                iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+                isDisabled={false}
+                active={true}
+                onClick={() => setShowAttachments(true)}
+              />
             </div>
           </div>
         </CustomModal>

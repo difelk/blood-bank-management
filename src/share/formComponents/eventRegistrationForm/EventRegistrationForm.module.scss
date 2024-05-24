@@ -4,9 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
+    // position: absolute;
+    // right: 20px;
+    // bottom: 10px;
 
 }
 
@@ -40,11 +40,11 @@
 
     }
 
-    .input30{
+    .input30 {
         width: 31%;
     }
 
-    .input100{
+    .input100 {
         width: 100%;
     }
 
@@ -53,9 +53,11 @@
 .mgn12 {
     // margin: 12px 0;
 }
-.dateDiv{
+
+.dateDiv {
     width: 85.5%;
 }
-.clearMargin{
+
+.clearMargin {
     margin: 0px;
 }

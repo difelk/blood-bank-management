@@ -380,7 +380,7 @@ const StockManagement = ({ selectedPage }) => {
             commonStyles.justify_flex_start,
           ].join(" ")}
         >
-          {selectedTab.key == 2 ? (
+          {selectedTab.key === 2 ? (
             <>
               <div>
                 {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./custome.module.scss";
 import careBear from "../../../assets/icons/img/care bear.png";
-// import ArrowDownIcon from "../../../assets/icons/svgs/ArrowIcon";
 const CustomButton = ({
   buttonType,
   buttonText,
@@ -12,13 +11,8 @@ const CustomButton = ({
   onClick,
   optionalTextColor,
   optionalBackgroundColor,
+  hideShadows,
 }) => {
-  // const [selectedValue, setSelectedValue] = useState(defultTxt ?? "");
-
-  // const handleChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  //   return getDropdownValue(selectedValue);
-  // };
   const getBtnStyle = () => {
     switch (buttonType) {
       case "primary":
@@ -86,7 +80,10 @@ const CustomButton = ({
       onClick={(event) => onClick(event)}
       disabled={isDisabled}
       type={buttonType === "submit" ? "submit" : "button"}
-      style={{ backgroundColor: optionalBackgroundColor ?? "" }}
+      style={{
+        backgroundColor: optionalBackgroundColor ?? "",
+        boxShadow: hideShadows ? "none" : "",
+      }}
     >
       {iconsLeft ? <div className={Styles.btnIconLeft}>{iconsLeft}</div> : ""}
       {buttonText ? (

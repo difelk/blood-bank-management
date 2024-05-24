@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ExchangeAndReceive.module.scss";
 import ClassicTable from "../../table/classicTable/ClassicTable";
 import ReceiveForm from "./ReceiveForm";
+import SendForm from "./SendForm";
 
 const tableHeader = [
   { name: "Hospital/Organization", width: "25%" },
@@ -80,7 +81,7 @@ const SendTable = ({ step }) => {
           getSelected={(value) => setSelectedStock(value)}
         />
       ) : (
-        <ReceiveForm
+        <SendForm
           data={selectedStock}
           step={step}
           isSetToUpdate={getFormUpdateStatus}

@@ -13,6 +13,8 @@ import style from "../../../../../share/formComponents/userRegistrationForm/User
 import AlertBox from "../../../../../share/Alerts/AlertBox";
 import modalStyle from "../../../components/modal/CustomModal.module.scss";
 import donationHistoryService from "../../../../../api/services/donationHistoryServic";
+import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import FolderFillIcon from "../../../../../assets/icons/svgs/FolderFillIcon";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -41,6 +43,7 @@ const DonorForm = ({
   const [loading, setLoading] = useState(false);
   const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
   const [isDonated, setIsDonated] = useState(false);
+  const [showAttachments, setShowAttachments] = useState(false);
 
   const handleRemoveClick = (value) => {
     setshowConfirmation(false);
@@ -256,6 +259,26 @@ const DonorForm = ({
           message={alertMsg.message}
           display={alertMsg.display}
         />
+      </div>
+      <div>
+        {showAttachments && (
+          <AttachmentModal
+            modalVisibility={showAttachments}
+            setModalVisibility={setShowAttachments}
+            getNoteValue={(value) => console.log("note value - ", value)}
+          />
+        )}
+        <div className={styles.docUpLoad}>
+          <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
+            optionalBackgroundColor={"#E7DDE6"}
+            hideShadows={true}
+            iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+            isDisabled={false}
+            active={true}
+            onClick={() => setShowAttachments(true)}
+          />
+        </div>
       </div>
       <Formik
         initialValues={initialValues}

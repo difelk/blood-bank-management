@@ -18,6 +18,8 @@ import CustomModal from "../../modal/CustomModal";
 import PasswordReset from "../../form/passwordReset/PasswordReset";
 import MyLoader from "../../loaders/MyLoader";
 import ContentLoader from "react-content-loader";
+import AttachmentModal from "../../modal/attachmentModal/AttachmentModal";
+import FolderFillIcon from "../../../../../assets/icons/svgs/FolderFillIcon";
 
 const bloodTypes = [
   { key: "A+", value: "A +" },
@@ -53,6 +55,7 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
     useState(false);
   const [isNICAlreadyExisting, setIsNICAlreadyExisting] = useState(false);
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+  const [showAttachments, setShowAttachments] = useState(false);
 
   const initialValues = {
     username: user.username ?? "",
@@ -234,6 +237,26 @@ const UserForm = ({ user, isAllowedFullAccess, isCreateUser, formChanged }) => {
 
   return (
     <div className={formStyles.basicDataFormWrapper}>
+      <div>
+        {showAttachments && (
+          <AttachmentModal
+            modalVisibility={showAttachments}
+            setModalVisibility={setShowAttachments}
+            getNoteValue={(value) => console.log("note value - ", value)}
+          />
+        )}
+        <div className={styles.docUpLoad}>
+          <CustomButton
+            buttonType={"CIRCLE_ACTIONS"}
+            optionalBackgroundColor={"#E7DDE6"}
+            hideShadows={true}
+            iconsLeft={<FolderFillIcon size={30} color={"#0058F5"} />}
+            isDisabled={false}
+            active={true}
+            onClick={() => setShowAttachments(true)}
+          />
+        </div>
+      </div>
       {loading ? (
         <ContentLoader viewBox="0 0 500 550">
           <rect x="0" y="40" rx="4" ry="4" width="240" height="60" />

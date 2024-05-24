@@ -178,7 +178,7 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
         >
           <div className={styles.hospitalData}>
             {!editModeType ? (
-              <>
+              <div>
                 <div className={styles.controllerBtns}>
                   <CustomButton
                     buttonText={"Edit Basic Data"}
@@ -249,7 +249,7 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                     setEditModeType("DONOR");
                   }}
                 />
-              </>
+              </div>
             ) : (
               <div className={styles.subForm}>
                 <div className={styles.subFormBtns}>
@@ -265,9 +265,9 @@ const HospitalStockDetails = ({ tableHeader, dataset, actionType }) => {
                 </div>
 
                 {editModeType === "BASIC" ? (
-                  <>
+                  <div className={styles.basicDatFormWrap}>
                     <HospitalStockBasicDataForm />
-                  </>
+                  </div>
                 ) : editModeType === "ADD" ? (
                   <DonorForm
                     donor={[]}
